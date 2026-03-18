@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Toy Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body id="fourbody">
+
+<div class="box4">
+<p class="text4a"><span id="g">G</span>roupcart</p>
+<button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+<button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+</div>
+
+<div class="back-container">
+<button class="back-btn" onclick="window.location.href='toy.html'">
+← Back to Toys
+</button>
+</div>
+
+
+<div class="detail-container">
+
+<div class="image-section">
+<img id="mainImage" class="main-image">
+<div class="thumbnail-container" id="thumbs"></div>
+</div>
+
+
+<div class="info-section">
+
+<h1 id="name"></h1>
+
+<div class="rating">
+<i class="fa fa-star"></i>
+<i class="fa fa-star"></i>
+<i class="fa fa-star"></i>
+<i class="fa fa-star"></i>
+<i class="fa fa-star-half-alt"></i>
+<span>(4.5)</span>
+</div>
+
+<p class="price">
+<span id="oldPrice" class="old-price"></span>
+₹ <span id="newPrice"></span>
+<span class="discount-badge">10% OFF</span>
+</p>
+
+<p><strong>Material:</strong> <span id="material"></span></p>
+<p><strong>Color:</strong> <span id="color"></span></p>
+<p><strong>Brand:</strong> <span id="brand"></span></p>
+<p><strong>Stock:</strong> <span id="stock"></span></p>
+
+<p id="description" class="desc"></p>
+
+<button class="cartbtn" id="cartBtn">Add to Cart</button>
+<button class="groupbuy" id="groupBtn">GroupBuy</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const product = params.get("product");
+
+const data = {
+
+train:{
+id:205,
+name:"Remote Train",
+price:899,
+images:["train1.jpg","train2.jpg","train3.jpg","train4.jpg"],
+desc:"Remote control electric toy train for kids.",
+material:"Plastic",
+color:"Red & Black",
+stock:30,
+brand:"Groupcart Toys"
+},
+
+water:{
+id:206,
+name:"Water Gun",
+price:499,
+images:["watergun1.jpg","watergun2.jpg","watergun3.jpg","watergun4.jpg"],
+desc:"Fun water gun toy for kids.",
+material:"Plastic",
+color:"Blue",
+stock:45,
+brand:"Groupcart Toys"
+},
+
+pine:{
+id:207,
+name:"Pine Sponge Toy",
+price:99,
+images:["pine1.jpg","pine2.jpg","pine3.jpg","pine4.jpg"],
+desc:"Soft sponge toy safe for children.",
+material:"Foam",
+color:"Yellow",
+stock:60,
+brand:"Groupcart Toys"
+},
+
+iron:{
+id:208,
+name:"Ironman Toy",
+price:199,
+images:["iron1.jpg","iron2.jpg","iron3.jpg","iron4.jpg"],
+desc:"Marvel Ironman action toy.",
+material:"Plastic",
+color:"Red & Gold",
+stock:20,
+brand:"Groupcart Toys"
+},
+
+teddy:{
+id:209,
+name:"Teddy",
+price:199,
+images:["teddy1.jpg","teddy2.jpg","teddy3.jpg","teddy4.jpg"],
+desc:"Marvel Ironman action toy.",
+material:"Plastic",
+color:"Red & Gold",
+stock:20,
+brand:"Groupcart Toys"
+}
+
+};
+
+const item = data[product];
+
+const discountPrice = Math.round(item.price * 0.9);
+
+document.getElementById("mainImage").src=item.images[0];
+document.getElementById("name").innerText=item.name;
+document.getElementById("oldPrice").innerText="₹ "+item.price;
+document.getElementById("newPrice").innerText=discountPrice;
+document.getElementById("description").innerText=item.desc;
+
+document.getElementById("material").innerText=item.material;
+document.getElementById("color").innerText=item.color;
+document.getElementById("brand").innerText=item.brand;
+document.getElementById("stock").innerText=item.stock;
+
+item.images.forEach(img=>{
+let image=document.createElement("img");
+image.src=img;
+image.onclick=()=>{document.getElementById("mainImage").src=img;}
+document.getElementById("thumbs").appendChild(image);
+});
+
+document.getElementById("cartBtn").onclick=function(){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let existing = cart.find(i => i.productId === item.id);
+
+if(existing) existing.quantity++;
+else cart.push({productId:item.id,name:item.name,price:discountPrice,quantity:1});
+
+localStorage.setItem("cart",JSON.stringify(cart));
+alert("Added to cart!");
+
+};
+
+</script>
+
+</body>
+</html>

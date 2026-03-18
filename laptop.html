@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laptops</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+</head>
+
+<body id="fourbody">
+
+<div class="box4">
+<p class="text4a"><span id="g">G</span>roupcart</p>
+<button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+<button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+</div>
+
+<div class="box4d">
+<a class="link1" href="products.html">Women's wear</a>
+<a class="link2" href="toy.html">Toys</a>
+<a class="link3" href="shoes.html">Shoes</a>
+<a class="link4" href="laptop.html">Laptops</a>
+</div>
+
+<div class="products-container">
+
+<!-- DELL LAPTOP -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-200"></div>
+
+<a href="laptop-detail.html?product=laptop">
+<img src="laptop1.jpg" class="product-img">
+</a>
+
+<p class="product-name">DELL Laptop</p>
+
+<p id="price-200">₹59999</p>
+
+<button class="cartbtn" onclick="addToCart(200,'DELL Laptop',59999)">
+Add to Cart
+</button>
+
+<button class="groupbuy" onclick="goToGroupBuyByData('DELL Laptop',59999)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- SAMSUNG MOBILE -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-216"></div>
+
+<a href="laptop-detail.html?product=samsung">
+<img src="el1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Samsung A30s</p>
+
+<p id="price-216">₹1999</p>
+
+<button class="cartbtn" onclick="addToCart(216,'Samsung A30s',1999)">
+Add to Cart
+</button>
+
+<button class="groupbuy" onclick="goToGroupBuyByData('Samsung A30s',1999)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- USHA FAN -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-217"></div>
+
+<a href="laptop-detail.html?product=fan">
+<img src="fan1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Usha Fan</p>
+
+<p id="price-217">₹1499</p>
+
+<button class="cartbtn" onclick="addToCart(217,'Usha Fan',1499)">
+Add to Cart
+</button>
+
+<button class="groupbuy" onclick="goToGroupBuyByData('Usha Fan',1499)">
+GroupBuy
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ADD TO CART */
+
+function addToCart(id,name,price){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let existing = cart.find(item => item.productId === Number(id));
+
+if(existing){
+existing.quantity += 1;
+}
+else{
+cart.push({
+productId:Number(id),
+name:name,
+price:Number(price),
+quantity:1
+});
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+alert(name + " added to cart");
+
+}
+
+
+/* GROUP BUY */
+
+function goToGroupBuyByData(productName,productPrice){
+
+fetch("http://localhost:3000/create-group",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({productName,productPrice})
+})
+.then(res=>res.json())
+.then(data=>{
+if(data.success){
+location.href=`group.html?groupId=${data.groupId}`;
+}
+else{
+alert("Group creation failed");
+}
+})
+.catch(()=>{
+alert("Server error");
+});
+
+}
+
+</script>
+
+</body>
+</html>
+```

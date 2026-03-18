@@ -1,0 +1,14 @@
+.box4e {
+ border-style: solid;
+ background-color: white;
+ border-color: black;
+ height: 400px;
+ width: 75%;
+ margin-top: 200px;
+ position: absolute;
+ border-color: white;
+ background-color: white;
+ margin-left: 20px;
+ font-size: 50px;
+ 
+}

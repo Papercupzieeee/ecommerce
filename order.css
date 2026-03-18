@@ -1,0 +1,162 @@
+
+/* ===== BODY ===== */
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background: linear-gradient(135deg,#cfd9df,#e2ebf0);
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    color:white;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ===== CENTER CONTAINER ===== */
+#ordersContainer{
+    max-width:1100px;
+    margin:40px auto;   /* center */
+    padding:20px;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    gap:25px;
+}
+
+/* Mobile responsive */
+@media(max-width:768px){
+    #ordersContainer{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ===== ORDER CARD ===== */
+.order-item{
+    background: linear-gradient(145deg,#ffffff,#f3f6fb);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    transition:all 0.4s ease;
+    animation: fadeUp 0.6s ease;
+}
+
+/* Hover animation */
+.order-item:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 12px 28px rgba(0,0,0,0.18);
+}
+
+/* Fade animation */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ===== IMAGE ===== */
+.order-item img{
+    width:100%;
+    height:220px;
+    object-fit:contain;
+    background:#f8f9ff;
+    border-radius:14px;
+    margin-bottom:12px;
+    transition:0.4s ease;
+}
+
+.order-item img:hover{
+    transform:scale(1.05);
+}
+
+/* ===== TEXT ===== */
+.order-item p{
+    margin:6px 0;
+    font-size:14px;
+    color:#333;
+}
+
+/* ===== DELETE BUTTON ===== */
+.delete-btn{
+    margin-top:12px;
+    padding:8px 14px;
+    background: linear-gradient(135deg,#ff6a00,#ee0979);
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.delete-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 6px 15px rgba(238,9,121,0.4);
+}
+
+.delete-btn:active{
+    transform:scale(0.95);
+}
+/* ===== DELETE BUTTON PREMIUM ===== */
+.delete-btn{
+    position:relative;
+    overflow:hidden;
+    margin-top:12px;
+    padding:9px 16px;
+    background: linear-gradient(135deg,#ff416c,#ff4b2b);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.delete-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 6px 18px rgba(255,75,43,0.4);
+}
+@keyframes explode{
+    0%{
+        transform:translate(-50%,-50%) scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:translate(
+            calc(-50% + (random * 80px)),
+            calc(-50% + (random * 80px))
+        );
+        opacity:0;
+    }
+}
+/* ===== CART BUTTON ===== */
+.topbar button{
+    background: linear-gradient(135deg,#ffffff,#e3f2fd);
+    color:#5e35b1;
+    border:none;
+    padding:9px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.4s ease;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.topbar button:hover{
+    background: linear-gradient(135deg,#5e35b1,#3949ab);
+    color:white;
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 8px 20px rgba(94,53,177,0.4);
+}
+
+.topbar button:active{
+    transform:scale(0.95);
+}

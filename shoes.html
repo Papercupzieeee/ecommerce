@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shoes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+</head>
+
+<body id="fourbody">
+
+<div class="box4">
+<p class="text4a"><span id="g">G</span>roupcart</p>
+<button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+<button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+</div>
+
+<div class="box4d">
+<a class="link1" href="products.html">Women's wear</a>
+<a class="link2" href="toy.html">Toys</a>
+<a class="link3" href="shoes.html">Shoes</a>
+<a class="link4" href="laptop.html">Laptops</a>
+</div>
+
+<div class="products-container">
+
+<!-- SHOE 1 -->
+<div class="product-card">
+<div class="discount-ribbon" id="offer-210"></div>
+
+<a href="shoe-detail.html?product=bshoe">
+<img src="bshoe1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Nike Running Shoes</p>
+<p id="price-210">₹2999</p>
+
+<button class="cartbtn"
+onclick="addToCart(210,'Nike Running Shoes',2999)">
+Add to Cart
+</button>
+
+<button class="groupbuy"
+onclick="goToGroupBuyByData('Nike Running Shoes',2999)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- SHOE 2 -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-211"></div>
+
+<a href="shoe-detail.html?product=princess">
+<img src="shoe1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Princess Shoes</p>
+<p id="price-211">₹799</p>
+
+<button class="cartbtn"
+onclick="addToCart(211,'Princess Shoes',799)">
+Add to Cart
+</button>
+
+<button class="groupbuy"
+onclick="goToGroupBuyByData('Princess Shoes',799)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- SHOE 3 -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-212"></div>
+
+<a href="shoe-detail.html?product=arito">
+<img src="arito1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Arito baby boy shoe</p>
+<p id="price-212">₹500</p>
+
+<button class="cartbtn"
+onclick="addToCart(212,'Arito baby boy shoe',500)">
+Add to Cart
+</button>
+
+<button class="groupbuy"
+onclick="goToGroupBuyByData('Arito baby boy shoe',500)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- SHOE 4 -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-213"></div>
+
+<a href="shoe-detail.html?product=drun">
+<img src="drun1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Drunky Shoes for Baby</p>
+<p id="price-213">₹300</p>
+
+<button class="cartbtn"
+onclick="addToCart(213,'Drunky Shoes',300)">
+Add to Cart
+</button>
+
+<button class="groupbuy"
+onclick="goToGroupBuyByData('Drunky Shoes',300)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- SHOE 5 -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-214"></div>
+
+<a href="shoe-detail.html?product=esito">
+<img src="esito1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Esito Baby Shoes</p>
+<p id="price-214">₹300</p>
+
+<button class="cartbtn"
+onclick="addToCart(214,'Esito slippers',300)">
+Add to Cart
+</button>
+
+<button class="groupbuy"
+onclick="goToGroupBuyByData('Esito slippers',300)">
+GroupBuy
+</button>
+
+</div>
+
+
+<!-- SHOE 6 -->
+<div class="product-card">
+
+<div class="discount-ribbon" id="offer-215"></div>
+
+<a href="shoe-detail.html?product=formal">
+<img src="formal1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Formal girls Shoes</p>
+<p id="price-215">₹900</p>
+
+<button class="cartbtn"
+onclick="addToCart(215,'Formal shoes',900)">
+Add to Cart
+</button>
+
+<button class="groupbuy"
+onclick="goToGroupBuyByData('Formal shoes',900)">
+GroupBuy
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+function addToCart(id,name,price){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let existing = cart.find(item => item.productId === Number(id));
+
+if(existing){
+existing.quantity += 1;
+}
+else{
+cart.push({
+productId:Number(id),
+name:name,
+price:Number(price),
+quantity:1
+});
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+alert(name + " added to cart");
+
+}
+
+
+function goToGroupBuyByData(productName,productPrice){
+
+fetch("http://localhost:3000/create-group",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+productName,
+productPrice
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.success){
+location.href = `group.html?groupId=${data.groupId}`;
+}
+else{
+alert("Group creation failed");
+}
+
+})
+
+.catch(err=>{
+console.error(err);
+alert("Server error");
+})
+
+}
+
+</script>
+
+</body>
+</html>

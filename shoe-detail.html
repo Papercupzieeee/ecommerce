@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shoe Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body id="fourbody">
+
+<div class="box4">
+<p class="text4a"><span id="g">G</span>roupcart</p>
+<button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+<button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+</div>
+
+<div class="back-container">
+<button class="back-btn"
+onclick="window.location.href='shoes.html'">
+← Back to Shoes
+</button>
+</div>
+
+<div class="detail-container">
+
+<div class="image-section">
+
+<img id="mainImage" class="main-image">
+
+<div class="thumbnail-container" id="thumbs"></div>
+
+</div>
+
+
+<div class="info-section">
+
+<h1 id="name"></h1>
+
+<div class="rating">
+<i class="fa fa-star"></i>
+<i class="fa fa-star"></i>
+<i class="fa fa-star"></i>
+<i class="fa fa-star"></i>
+<i class="fa fa-star-half-alt"></i>
+<span>(4.5)</span>
+</div>
+
+<p class="price">
+<span id="oldPrice" class="old-price"></span>
+₹ <span id="newPrice"></span>
+<span class="discount-badge">10% OFF</span>
+</p>
+
+<p><strong>Material:</strong> <span id="material"></span></p>
+<p><strong>Color:</strong> <span id="color"></span></p>
+<p><strong>Size:</strong> <span id="size"></span></p>
+<p><strong>Brand:</strong> <span id="brand"></span></p>
+<p><strong>Stock:</strong> <span id="stock"></span></p>
+
+<p id="description" class="desc"></p>
+
+<button class="cartbtn" id="cartBtn">Add to Cart</button>
+<button class="groupbuy" id="groupBtn">GroupBuy</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const product = params.get("product");
+
+const data = {
+
+bshoe:{
+id:210,
+name:"Nike Running Shoes",
+price:2999,
+images:["bshoe1.jpg","bshoe2.jpg","bshoe3.jpg","bshoe4.jpg"],
+desc:"Premium Nike running shoes for sports and daily wear.",
+material:"Mesh + Rubber",
+color:"Black / White",
+size:"7,8,9,10",
+stock:20,
+brand:"Nike"
+},
+
+princess:{
+id:211,
+name:"Princess Shoes",
+price:799,
+images:["shoe1.jpg","shoe2.jpg","shoe3.jpg","shoe4.jpg"],
+desc:"Comfortable casual shoes for daily wear.",
+material:"Synthetic",
+color:"Pink",
+size:"6,7,8",
+stock:15,
+brand:"Princess"
+},
+
+arito: {
+    id:212,
+    name:"Arito baby boy shoe",
+    price:500,
+    images:["arito1.jpg","arito2.jpg","arito3.jpg","arito4.jpg"],
+    desc:"Comfortable shoe for baby Boy",
+    material:"Synthetic",
+    color:"Red and Blue",
+    size:"5",
+    stock:20,
+    brand:"Babyshoe"
+},
+
+drun:{
+    id:213,
+    name:"Arito baby boy shoe",
+    price:500,
+    images:["drun1.jpg","drun2.jpg","drun3.jpg","drun4.jpg"],
+    desc:"Comfortable shoe for baby Boy",
+    material:"Synthetic",
+    color:"Red and Blue",
+    size:"5",
+    stock:20,
+    brand:"Babyshoe"
+},
+esito:{
+    id:214,
+    name:"Esito slippers",
+    price:300,
+    images:["esito1.jpg","esito2.jpg","esito3.jpg","esito4.jpg"],
+    desc:"Comfortable shoe for baby Girl",
+    material:"Synthetic",
+    color:"Pink",
+    size:"5",
+    stock:20,
+    brand:"Esito"
+},
+
+formal: {
+    id:215,
+    name:"Formal shoes",
+    price:300,
+    images:["formal1.jpg","formal2.jpg","formal3.jpg","formal4.jpg"],
+    desc:"Comfortable shoe for Girls",
+    material:"Black rio",
+    color:"black",
+    size:"8",
+    stock:29,
+    brand:"Riosen"
+}
+
+};
+
+const item = data[product];
+
+if(!item){
+document.body.innerHTML="<h2 style='text-align:center;margin-top:50px;'>Product Not Found</h2>";
+}
+
+
+const discountPrice = Math.round(item.price * 0.9);
+
+
+document.getElementById("mainImage").src = item.images[0];
+
+document.getElementById("name").innerText = item.name;
+
+document.getElementById("oldPrice").innerText = "₹ "+item.price;
+
+document.getElementById("newPrice").innerText = discountPrice;
+
+document.getElementById("description").innerText = item.desc;
+
+document.getElementById("material").innerText = item.material;
+
+document.getElementById("color").innerText = item.color;
+
+document.getElementById("size").innerText = item.size;
+
+document.getElementById("brand").innerText = item.brand;
+
+document.getElementById("stock").innerText = item.stock;
+
+
+
+item.images.forEach(img=>{
+
+let image=document.createElement("img");
+
+image.src=img;
+
+image.onclick=()=>{
+
+document.getElementById("mainImage").src=img;
+
+};
+
+document.getElementById("thumbs").appendChild(image);
+
+});
+
+
+
+document.getElementById("cartBtn").onclick=function(){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let existing = cart.find(i=>i.productId===item.id);
+
+if(existing) existing.quantity++;
+
+else cart.push({
+
+productId:item.id,
+name:item.name,
+price:discountPrice,
+quantity:1
+
+});
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+alert("Added to cart!");
+
+};
+
+
+
+document.getElementById("groupBtn").onclick=function(){
+
+fetch("http://localhost:3000/create-group",{
+
+method:"POST",
+
+headers:{ "Content-Type":"application/json" },
+
+body:JSON.stringify({
+
+productName:item.name,
+productPrice:discountPrice
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.success)
+location.href=`group.html?groupId=${data.groupId}`;
+
+else alert("Group creation failed");
+
+})
+
+.catch(()=>alert("Server error"));
+
+};
+
+</script>
+
+</body>
+</html>

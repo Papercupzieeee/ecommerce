@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Toys</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+</head>
+
+<body id="fourbody">
+
+<div class="box4">
+    <p class="text4a"><span id="g">G</span>roupcart</p>
+    <button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+    <button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+</div>
+
+<div class="box4d">
+    <a class="link1" href="products.html">Women's wear</a>
+    <a class="link2" href="toy.html">Toys</a>
+    <a class="link3" href="shoes.html">Shoes</a>
+    <a class="link4" href="laptop.html">Laptops</a>
+</div>
+
+<div class="products-container">
+
+<!-- TRAIN -->
+<div class="product-card">
+<div class="discount-ribbon" id="offer-205"></div>
+
+<a href="toy-detail.html?product=train">
+<img src="train1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Remote Train</p>
+
+<p id="price-205">₹899</p>
+
+<button class="cartbtn" onclick="addToCart(205,'Remote Train',899)">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData('Remote Train',899)">GroupBuy</button>
+</div>
+
+
+<!-- WATER GUN -->
+<div class="product-card">
+<div class="discount-ribbon" id="offer-206"></div>
+
+<a href="toy-detail.html?product=water">
+<img src="watergun1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Water Gun</p>
+
+<p id="price-206">₹499</p>
+
+<button class="cartbtn" onclick="addToCart(206,'Water Gun',499)">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData('Water Gun',499)">GroupBuy</button>
+</div>
+
+
+<!-- PINE SPONGE -->
+<div class="product-card">
+<div class="discount-ribbon" id="offer-207"></div>
+
+<a href="toy-detail.html?product=pine">
+<img src="pine1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Pine Sponge</p>
+
+<p id="price-207">₹99</p>
+
+<button class="cartbtn" onclick="addToCart(207,'Pine Sponge',99)">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData('Pine Sponge',99)">GroupBuy</button>
+</div>
+
+
+<!-- IRONMAN -->
+<div class="product-card">
+<div class="discount-ribbon" id="offer-208"></div>
+
+<a href="toy-detail.html?product=iron">
+<img src="iron1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Ironman Toy</p>
+
+<p id="price-208">₹199</p>
+
+<button class="cartbtn" onclick="addToCart(208,'Ironman Toy',199)">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData('Ironman Toy',199)">GroupBuy</button>
+</div>
+
+<div class="product-card">
+<div class="discount-ribbon" id="offer-209"></div>
+
+<a href="toy-detail.html?product=teddy">
+<img src="teddy1.jpg" class="product-img">
+</a>
+
+<p class="product-name">Teddy</p>
+
+<p id="price-209">₹199</p>
+
+<button class="cartbtn" onclick="addToCart(209,'Teddy',199)">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData('Teddy',199)">GroupBuy</button>
+</div>
+
+</div>
+
+
+<script>
+
+/* ADD TO CART */
+
+function addToCart(id,name,price){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let existing = cart.find(item => item.productId === Number(id));
+
+if(existing){
+existing.quantity += 1;
+}
+else{
+cart.push({
+productId:Number(id),
+name:name,
+price:Number(price),
+quantity:1
+});
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+alert(name + " added to cart");
+
+}
+
+
+/* GROUP BUY */
+
+function goToGroupBuyByData(productName,productPrice){
+
+fetch("http://localhost:3000/create-group",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({productName,productPrice})
+})
+.then(res=>res.json())
+.then(data=>{
+if(data.success){
+location.href=`group.html?groupId=${data.groupId}`;
+}
+else{
+alert("Group creation failed");
+}
+})
+.catch(()=>{
+alert("Server error");
+});
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,489 @@
+/* BODY */
+
+#fourbody{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(to right,#f8f9fa,#e3f2fd);
+}
+
+
+/* HEADER */
+
+.box4{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#1e88e5;
+    padding:15px 40px;
+    color:white;
+    animation:headerDrop 0.7s ease;
+}
+
+@keyframes headerDrop{
+from{
+transform:translateY(-60px);
+opacity:0;
+}
+to{
+transform:translateY(0);
+opacity:1;
+}
+}
+
+
+.text4a{
+font-size:28px;
+font-weight:bold;
+margin:0;
+}
+
+#g{
+color:yellow;
+font-size:32px;
+}
+
+
+/* HEADER BUTTONS */
+
+/* HEADER BUTTONS */
+
+/* COMMON BUTTON STYLE */
+
+#logoutbtn,
+.cart-btn{
+position:relative;
+padding:10px 22px;
+border:none;
+border-radius:30px;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+color:white;
+overflow:hidden;
+transition:all 0.35s ease;
+margin-left:10px;
+}
+
+
+/* SHINE EFFECT */
+
+#logoutbtn::before,
+.cart-btn::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,0.6),
+transparent
+);
+transition:0.6s;
+}
+
+#logoutbtn:hover::before,
+.cart-btn:hover::before{
+left:100%;
+}
+
+
+/* CART BUTTON */
+
+.cart-btn{
+background:linear-gradient(135deg,#00c853,#009624);
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+
+.cart-btn:hover{
+transform:translateY(-4px) scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}
+
+
+/* LOGOUT BUTTON */
+
+#logoutbtn{
+background:linear-gradient(135deg,#ff5252,#c62828);
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+
+#logoutbtn:hover{
+transform:translateY(-4px) scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* CART BUTTON */
+
+.cart-btn{
+background:linear-gradient(135deg,#43a047,#2e7d32);
+color:white;
+margin-left:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+.cart-btn:hover{
+transform:translateY(-2px) scale(1.05);
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+background:linear-gradient(135deg,#2e7d32,#1b5e20);
+}
+
+
+/* CATEGORY LINKS */
+
+.box4d{
+text-align:center;
+margin:20px 0;
+}
+
+.box4d a{
+text-decoration:none;
+margin:0 15px;
+font-weight:bold;
+color:#1e88e5;
+transition:0.3s;
+}
+
+.box4d a:hover{
+color:#0d47a1;
+text-decoration:underline;
+}
+
+
+/* PRODUCTS GRID */
+
+.products-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:25px;
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+
+/* PRODUCT CARD */
+
+.product-card{
+background:white;
+padding:18px;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+text-align:center;
+transition:all 0.35s ease;
+position:relative;
+overflow:hidden;
+
+animation:cardFade 0.8s ease forwards;
+opacity:0;
+}
+
+
+@keyframes cardFade{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+
+.product-card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+
+/* PRODUCT IMAGE */
+
+.product-img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:10px;
+transition:transform 0.4s ease;
+}
+
+.product-card:hover .product-img{
+transform:scale(1.08);
+}
+
+
+/* PRODUCT NAME */
+
+.product-name{
+font-size:17px;
+font-weight:bold;
+margin-top:10px;
+}
+
+
+/* PRICE */
+
+.product-price{
+font-weight:bold;
+color:#1e88e5;
+}
+
+
+/* BUTTONS */
+
+.cartbtn{
+background:linear-gradient(135deg,#ff9800,#fb8c00);
+color:white;
+border:none;
+padding:10px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s ease;
+}
+
+.groupbuy{
+background:linear-gradient(135deg,#8e24aa,#6a1b9a);
+color:white;
+border:none;
+padding:10px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s ease;
+}
+
+.groupbuy:hover{
+transform:scale(1.05);
+box-shadow:0 6px 15px rgba(0,0,0,0.25);
+}
+
+.cartbtn:hover{
+transform:scale(1.05);
+box-shadow:0 6px 15px rgba(0,0,0,0.25);
+}
+
+.cartbtn:hover{
+background:#ef6c00;
+transform:scale(1.05);
+}
+
+.groupbuy{
+background:#6a1b9a;
+color:white;
+}
+
+.groupbuy:hover{
+background:#4a148c;
+transform:scale(1.05);
+}
+
+
+/* DISCOUNT RIBBON */
+
+.discount-ribbon{
+position:absolute;
+top:12px;
+left:-35px;
+background:#e53935;
+color:white;
+padding:6px 45px;
+transform:rotate(-45deg);
+font-size:12px;
+font-weight:bold;
+display:none;
+
+animation:ribbonPop 0.6s ease;
+}
+
+@keyframes ribbonPop{
+from{
+transform:rotate(-45deg) scale(0);
+}
+to{
+transform:rotate(-45deg) scale(1);
+}
+}
+
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:768px){
+
+.box4{
+flex-direction:column;
+text-align:center;
+gap:10px;
+}
+
+.box4d{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+.product-img{
+height:auto;
+}
+
+}
+
+
+/* GLOBAL BUTTON FIX */
+
+button{
+width:100%;
+padding:10px;
+margin-top:5px;
+}
+
+/* IMAGE SECTION LAYOUT */
+.detail-container{
+    display:flex;
+    gap:40px;
+    padding:30px;
+    max-width:1100px;
+    margin:auto;
+}
+
+/* LEFT SIDE */
+.image-section{
+    width:50%;
+}
+
+/* MAIN IMAGE (PERUSA IRUKUM) */
+.main-image{
+    width:100%;
+    height:400px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* THUMBNAILS CONTAINER */
+.thumbnail-container{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+/* 🔥 IMPORTANT FIX - SMALL IMAGES */
+.thumbnail-container img{
+    width:70px;      /* 👈 small size */
+    height:70px;
+    object-fit:cover;
+    border-radius:6px;
+    cursor:pointer;
+    opacity:0.7;
+    transition:0.3s;
+}
+
+/* HOVER EFFECT */
+.thumbnail-container img:hover{
+    opacity:1;
+    transform:scale(1.1);
+}
+
+/* ACTIVE IMAGE HIGHLIGHT */
+.thumbnail-container img.active{
+    border:2px solid #1e88e5;
+    opacity:1;
+}
+.discount-badge{
+    position:relative;
+    background:#ff9800;
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+    overflow:hidden;
+}
+
+/* SHINE LINE */
+.discount-badge::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.7),
+        transparent
+    );
+    animation:shine 2s infinite;
+}
+
+@keyframes shine{
+    0%{left:-100%;}
+    100%{left:100%;}
+}
+/* OLD PRICE */
+.old-price{
+    text-decoration:line-through;
+    color:grey;
+    font-size:13px;
+    margin-right:6px;
+}
+
+/* NEW PRICE (🔥 HIGHLIGHT) */
+.new-price{
+    font-weight:bold;
+    font-size:18px;
+    color:#e53935;
+}
+
+/* DISCOUNT RIBBON */
+.discount-ribbon{
+    position:absolute;
+    top:10px;
+    left:-5px;
+    background:#ff5252;
+    color:white;
+    padding:5px 12px;
+    font-size:12px;
+    font-weight:bold;
+    transform:rotate(-20deg);
+    display:none;
+    border-radius:4px;
+    animation:pop 0.5s ease;
+}
+
+/* SMALL POP ANIMATION */
+@keyframes pop{
+    from{
+        transform:scale(0) rotate(-20deg);
+        opacity:0;
+    }
+    to{
+        transform:scale(1) rotate(-20deg);
+        opacity:1;
+    }
+}
+
+/* PRODUCT CARD FIX */
+.product-card{
+    position:relative;
+}
+
+.back-btn{
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.back-btn:hover{
+    transform: translateY(-2px);
+    opacity: 0.9;
+}

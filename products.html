@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Women's Wear</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+</head>
+
+<body id="fourbody">
+
+<div class="box4">
+    <p class="text4a"><span id="g">G</span>roupcart</p>
+    <button id="logoutbtn" onclick="location.href='login.html'">🚪 Logout</button>
+
+<button class="cart-btn" onclick="location.href='checkout.html'">
+🛒 Cart
+</button>
+</div>
+
+<div class="box4d">
+    <a class="link1" href="products.html">Women's wear</a>
+    <a class="link2" href="toy.html">Toys</a>
+    <a class="link3" href="shoes.html">Shoes</a>
+    <a class="link4" href="laptop.html">Laptops</a>
+</div>
+
+<div class="products-container">
+
+    <!-- HALF SAREE -->
+    <div class="product-card">
+        <div class="discount-ribbon" id="offer-201"></div>
+
+        <a href="product-detail.html?product=half">
+            <img src="half1.jpg" class="product-img">
+        </a>
+
+        <p class="product-name">Half Saree</p>
+
+        <p id="price-201">₹1999</p>
+
+        <button class="cartbtn" onclick="addToCart(201,'Half Saree',1999)">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData('Half Saree',1999)">GroupBuy</button>
+    </div>
+
+    <!-- KURTI -->
+    <div class="product-card">
+        <div class="discount-ribbon" id="offer-202"></div>
+
+        <a href="product-detail.html?product=ko">
+            <img src="ko1.jpg" class="product-img">
+        </a>
+
+        <p class="product-name">Maxi</p>
+
+        <p id="price-202">₹1499</p>
+
+        <button class="cartbtn" onclick="addToCart(202,'Kurti Set',1499)">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData('Kurti Set',1499)">GroupBuy</button>
+    </div>
+
+    <!-- BABY DRESS -->
+    <div class="product-card">
+        <div class="discount-ribbon" id="offer-203"></div>
+
+        <a href="product-detail.html?product=baby">
+            <img src="baby1.jpg" class="product-img">
+        </a>
+
+        <p class="product-name">Baby Dress</p>
+
+        <p id="price-203">₹999</p>
+
+        <button class="cartbtn" onclick="addToCart(203,'Baby Dress',999)">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData('Baby Dress',999)">GroupBuy</button>
+    </div>
+
+    <!-- LEHENGA -->
+    <div class="product-card">
+        <div class="discount-ribbon" id="offer-204"></div>
+
+        <a href="product-detail.html?product=leh">
+            <img src="leh1.jpg" class="product-img">
+        </a>
+
+        <p class="product-name">Lehenga</p>
+
+        <p id="price-204">₹2999</p>
+
+        <button class="cartbtn" onclick="addToCart(204,'Lehenga',2999)">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData('Lehenga',2999)">GroupBuy</button>
+    </div> 
+     
+    <!-- CHUDI SET -->
+
+    
+
+    
+
+    
+ 
+
+</div>
+
+
+
+<script>
+
+/* ---------------- ADD TO CART ---------------- */
+
+function addToCart(id, name, price){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existing = cart.find(item => item.productId === Number(id));
+
+    if(existing){
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            productId: Number(id),
+            name: name,
+            price: Number(price),
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(name + " added to cart");
+}
+
+
+/* ---------------- GROUP BUY ---------------- */
+
+function goToGroupBuyByData(productName, productPrice){
+
+    fetch("http://localhost:3000/create-group", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productName, productPrice })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.success){
+            location.href = `group.html?groupId=${data.groupId}`;
+        } else {
+            alert("Group creation failed");
+        }
+
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error");
+    });
+}
+
+
+/* ---------------- DISTRICT OFFER LOGIC ---------------- */
+
+// IMPORTANT: signup time la district save pannirukanum
+// localStorage.setItem("district", userDistrict)
+
+let userDistrict = localStorage.getItem("district");
+
+/* Sample district offers (match with backend) */
+let offers = {
+    "Chennai": { type: "percentage", value: 10 },
+    "Coimbatore": { type: "percentage", value: 15 },
+    "Madurai": { type: "cash", value: 200 }
+};
+
+let districtOffer = offers[userDistrict];
+
+if(districtOffer){
+
+    [201,202,203,204].forEach(id => {
+
+        let priceElement = document.getElementById("price-" + id);
+        let ribbon = document.getElementById("offer-" + id);
+
+        let originalPrice = Number(priceElement.innerText.replace("₹",""));
+        let finalPrice = originalPrice;
+
+        if(districtOffer.type === "percentage"){
+            finalPrice = originalPrice - (originalPrice * districtOffer.value / 100);
+            ribbon.innerText = districtOffer.value + "% OFF";
+        }
+
+        if(districtOffer.type === "cash"){
+            finalPrice = originalPrice - districtOffer.value;
+            ribbon.innerText = "₹" + districtOffer.value + " OFF";
+        }
+
+        priceElement.innerText = "₹" + Math.round(finalPrice);
+
+        ribbon.style.display = "block";
+
+    });
+
+}
+
+
+</script>
+
+</body>
+</html>

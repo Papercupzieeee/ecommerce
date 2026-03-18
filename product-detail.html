@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="products.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body id="fourbody">
+
+<!-- HEADER -->
+<div class="box4">
+    <p class="text4a"><span id="g">G</span>roupcart</p>
+    <button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+    <button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+</div>
+
+<!-- BACK BUTTON -->
+<div class="back-container">
+    <button class="back-btn" onclick="window.location.href='products.html'">
+        ← Back to Products
+    </button>
+</div>
+
+<!-- FULL WIDTH PRODUCT SECTION -->
+<div class="detail-container">
+
+    <!-- LEFT SIDE IMAGES -->
+    <div class="image-section">
+        <img id="mainImage" class="main-image">
+        <div class="thumbnail-container" id="thumbs"></div>
+    </div>
+
+    <!-- RIGHT SIDE DETAILS -->
+    <div class="info-section">
+        <h1 id="name"></h1>
+
+        <!-- RATING -->
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-alt"></i>
+            <span>(4.5)</span>
+        </div>
+
+        <!-- PRICE WITH 10% DISCOUNT -->
+        <p class="price">
+            <span id="oldPrice" class="old-price"></span>
+            ₹ <span id="newPrice"></span>
+            <span class="discount-badge">10% OFF</span>
+        </p>
+        <p><strong>Material:</strong> <span id="material"></span></p>
+<p><strong>Color:</strong> <span id="color"></span></p>
+<p><strong>Size:</strong> <span id="size"></span></p>
+<p><strong>Brand:</strong> <span id="brand"></span></p>
+<p><strong>Stock:</strong> <span id="stock"></span></p>
+
+
+        <p id="description" class="desc"></p>
+
+        <button class="cartbtn" id="cartBtn">Add to Cart</button>
+        <button class="groupbuy" id="groupBtn">GroupBuy</button>
+    </div>
+
+</div>
+
+<!-- IMAGE ZOOM MODAL -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="zoomedImage">
+</div>
+
+
+<script>
+
+// GET PRODUCT
+const params = new URLSearchParams(window.location.search);
+const product = params.get("product");
+
+
+
+
+    const data = {
+    half: {
+        id: 201,
+        name: "Half Saree",
+        price: 1999,
+        images: ["half1.jpg","half2.jpg","half3.jpg","half4.jpg"],
+        desc: "Silk Half Saree - Made in India",
+
+        // 👇 EXTRA DETAILS
+        material: "Pure Silk",
+        color: "Maroon & Gold",
+        size: "Free Size",
+        stock: 12,
+        rating: 4.5,
+        reviews: 128,
+        brand: "Groupcart Fashion"
+    },
+
+    ko: { id:202, name:"Maxi", price:1499,
+        images:["ko1.jpg","ko2.jpg","ko3.jpg","ko4.jpg"],
+        desc:"Premium Cotton Maxi",
+        material: "Pure cotton",
+        color: "Pink",
+        size: "Free Size",
+        stock: 12,
+        rating: 4.5,
+        reviews: 128,
+        brand: "Groupcart Fashion"
+    },
+        
+
+    baby: { id:203, name:"Baby Dress", price:999,
+        images:["baby1.jpg","baby2.jpg","baby3.jpg","baby4.jpg"],
+        desc:"Soft Comfortable Baby Wear",
+        material: "Pure cotton",
+        color: "Multicolors",
+        size: "Free Size",
+        stock: 12,
+        rating: 4.5,
+        reviews: 128,
+        brand: "Groupcart Fashion"
+    },
+
+    leh: { id:204, name:"Lehenga", price:2999,
+        images:["leh1.jpg","leh2.jpg","leh3.jpg","leh4.jpg"],
+        desc:"Designer Wedding Lehenga",
+        material: "Pure Silk",
+        color: "Onion Pink",
+        size: "Free Size",
+        stock: 12,
+        rating: 4.5,
+        reviews: 128,
+        brand: "Groupcart Fashion"
+    },
+    chudi: { id:205, name:"Chudi Set", price:799,
+        images:["chudi1.jpg","chudi2.jpg","chudi3.jpg","chudi4.jpg"],
+        desc:"Colorful Chudi Set",
+        material: "Pure cotton",
+        color: "Navy blue",
+        size: "Free Size",
+        stock: 120,
+        rating: 4.7,
+        reviews: 1209,
+        brand: "Groupcart Fashion"
+    },
+    korean: { id:206, name:"Skirt", price:990,
+        images:["korean1.jpg","korean2.jpg","korean3.jpg","korean4.jpg"],
+        desc:"Trendy Korean Style Dress",
+        material: "Pure cotton",
+        color: "Black and white",
+        size: "Free Size",
+        stock: 12,
+        rating: 4.5,
+        reviews: 128,
+        brand: "Groupcart Fashion"
+     }
+};
+
+const item = data[product];
+
+if(!item){
+    document.body.innerHTML="<h2 style='text-align:center;margin-top:50px;'>Product Not Found</h2>";
+    throw new Error("Invalid product");
+}
+
+// CALCULATE 10% DISCOUNT
+const discountPrice = Math.round(item.price * 0.9);
+
+// LOAD DATA
+document.getElementById("mainImage").src = item.images[0];
+document.getElementById("name").innerText = item.name;
+document.getElementById("oldPrice").innerHTML = "₹ " + item.price;
+document.getElementById("newPrice").innerText = discountPrice;
+document.getElementById("description").innerText = item.desc;
+
+document.getElementById("material").innerText = item.material;
+document.getElementById("color").innerText = item.color;
+document.getElementById("size").innerText = item.size;
+document.getElementById("brand").innerText = item.brand;
+document.getElementById("stock").innerText = item.stock;
+
+// THUMBNAILS
+item.images.forEach(img=>{
+    let image = document.createElement("img");
+    image.src = img;
+    image.onclick = ()=>{
+        document.getElementById("mainImage").src = img;
+    };
+    document.getElementById("thumbs").appendChild(image);
+});
+
+// IMAGE FULL SCREEN ZOOM
+const modal = document.getElementById("imageModal");
+const zoomedImg = document.getElementById("zoomedImage");
+const closeBtn = document.querySelector(".close");
+
+document.getElementById("mainImage").onclick = function(){
+    modal.style.display="block";
+    zoomedImg.src=this.src;
+};
+
+closeBtn.onclick = ()=> modal.style.display="none";
+modal.onclick = ()=> modal.style.display="none";
+
+// ADD TO CART
+document.getElementById("cartBtn").onclick = function(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let existing = cart.find(i => i.productId === item.id);
+
+    if(existing) existing.quantity++;
+    else cart.push({ productId:item.id, name:item.name, price:discountPrice, quantity:1 });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+};
+
+// GROUP BUY
+document.getElementById("groupBtn").onclick = function(){
+    fetch("http://localhost:3000/create-group",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ productName:item.name, productPrice:discountPrice })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        if(data.success)
+            location.href=`group.html?groupId=${data.groupId}`;
+        else alert("Group creation failed");
+    })
+    .catch(()=>alert("Server error"));
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="order.css">
+</head>
+<body>
+
+<div class="topbar">
+    <h2>Your Orders</h2>
+    <button onclick="location.href='checkout.html'">Go to Cart</button>
+</div>
+
+<div id="ordersContainer"></div>
+
+<script>
+const userId = localStorage.getItem("userId");
+const orderContainer = document.getElementById("orderContainer");
+
+// Fetch orders
+function fetchOrders() {
+    fetch(`http://localhost:3000/api/my-orders/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+
+            ordersContainer.innerHTML = "";
+
+            data.orders.forEach(order => {
+                const orderDiv = document.createElement("div");
+                orderDiv.classList.add("order-item");
+
+                orderDiv.innerHTML = `
+                    <img src="${order.image_url}" width="100" />
+                    <p>${order.product_name}</p>
+                    <p>Quantity: ${order.quantity}</p>
+                    <p>Total: ₹${order.total_price}</p>
+                    <p>Status: ${order.status}</p>
+                    <button class="delete-btn" onclick="createParticles(event); deleteOrder(${order.id})">
+    Delete
+</button>
+                    <hr>
+                `;
+                ordersContainer.appendChild(orderDiv);
+            });
+        });
+}
+
+// Delete order
+function deleteOrder(orderId) {
+    if (!confirm("Are you sure you want to delete this order?")) return;
+
+    fetch(`http://localhost:3000/api/delete-order/${orderId}`, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("Order deleted!");
+            fetchOrders(); // Refresh the list
+        } else {
+            alert(data.message || "Failed to delete order");
+        }
+    });
+}
+
+function createParticles(event){
+    const button = event.target;
+
+    for(let i=0;i<12;i++){
+        const particle = document.createElement("span");
+        particle.style.position="absolute";
+        particle.style.width="6px";
+        particle.style.height="6px";
+        particle.style.background="white";
+        particle.style.borderRadius="50%";
+        particle.style.left="50%";
+        particle.style.top="50%";
+        particle.style.pointerEvents="none";
+        particle.style.animation="explode 0.6s ease-out forwards";
+
+        button.appendChild(particle);
+
+        setTimeout(()=>particle.remove(),600);
+    }
+}
+
+// Initial fetch
+fetchOrders();
+</script>
+
+</body>
+</html>
