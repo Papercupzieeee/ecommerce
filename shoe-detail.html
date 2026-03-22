@@ -105,54 +105,55 @@ brand:"Princess"
 },
 
 arito: {
-    id:212,
-    name:"Arito baby boy shoe",
-    price:500,
-    images:["arito1.jpg","arito2.jpg","arito3.jpg","arito4.jpg"],
-    desc:"Comfortable shoe for baby Boy",
-    material:"Synthetic",
-    color:"Red and Blue",
-    size:"5",
-    stock:20,
-    brand:"Babyshoe"
+id:212,
+name:"Arito baby boy shoe",
+price:500,
+images:["arito1.jpg","arito2.jpg","arito3.jpg","arito4.jpg"],
+desc:"Comfortable shoe for baby Boy",
+material:"Synthetic",
+color:"Red and Blue",
+size:"5",
+stock:20,
+brand:"Babyshoe"
 },
 
 drun:{
-    id:213,
-    name:"Arito baby boy shoe",
-    price:500,
-    images:["drun1.jpg","drun2.jpg","drun3.jpg","drun4.jpg"],
-    desc:"Comfortable shoe for baby Boy",
-    material:"Synthetic",
-    color:"Red and Blue",
-    size:"5",
-    stock:20,
-    brand:"Babyshoe"
+id:213,
+name:"Arito baby boy shoe",
+price:500,
+images:["drun1.jpg","drun2.jpg","drun3.jpg","drun4.jpg"],
+desc:"Comfortable shoe for baby Boy",
+material:"Synthetic",
+color:"Red and Blue",
+size:"5",
+stock:20,
+brand:"Babyshoe"
 },
+
 esito:{
-    id:214,
-    name:"Esito slippers",
-    price:300,
-    images:["esito1.jpg","esito2.jpg","esito3.jpg","esito4.jpg"],
-    desc:"Comfortable shoe for baby Girl",
-    material:"Synthetic",
-    color:"Pink",
-    size:"5",
-    stock:20,
-    brand:"Esito"
+id:214,
+name:"Esito slippers",
+price:300,
+images:["esito1.jpg","esito2.jpg","esito3.jpg","esito4.jpg"],
+desc:"Comfortable shoe for baby Girl",
+material:"Synthetic",
+color:"Pink",
+size:"5",
+stock:20,
+brand:"Esito"
 },
 
 formal: {
-    id:215,
-    name:"Formal shoes",
-    price:300,
-    images:["formal1.jpg","formal2.jpg","formal3.jpg","formal4.jpg"],
-    desc:"Comfortable shoe for Girls",
-    material:"Black rio",
-    color:"black",
-    size:"8",
-    stock:29,
-    brand:"Riosen"
+id:215,
+name:"Formal shoes",
+price:300,
+images:["formal1.jpg","formal2.jpg","formal3.jpg","formal4.jpg"],
+desc:"Comfortable shoe for Girls",
+material:"Black rio",
+color:"black",
+size:"8",
+stock:29,
+brand:"Riosen"
 }
 
 };
@@ -161,51 +162,84 @@ const item = data[product];
 
 if(!item){
 document.body.innerHTML="<h2 style='text-align:center;margin-top:50px;'>Product Not Found</h2>";
+throw new Error("Invalid product");
 }
 
+//////////////////////////
+// ✅ DISTRICT OFFER LOGIC
+//////////////////////////
 
-const discountPrice = Math.round(item.price * 0.9);
+let userDistrict = localStorage.getItem("district");
 
-
-document.getElementById("mainImage").src = item.images[0];
-
-document.getElementById("name").innerText = item.name;
-
-document.getElementById("oldPrice").innerText = "₹ "+item.price;
-
-document.getElementById("newPrice").innerText = discountPrice;
-
-document.getElementById("description").innerText = item.desc;
-
-document.getElementById("material").innerText = item.material;
-
-document.getElementById("color").innerText = item.color;
-
-document.getElementById("size").innerText = item.size;
-
-document.getElementById("brand").innerText = item.brand;
-
-document.getElementById("stock").innerText = item.stock;
-
-
-
-item.images.forEach(img=>{
-
-let image=document.createElement("img");
-
-image.src=img;
-
-image.onclick=()=>{
-
-document.getElementById("mainImage").src=img;
-
+let offers = {
+    "Chennai": { type: "percentage", value: 10 },
+    "Coimbatore": { type: "percentage", value: 30 }, 
+    "Madurai": { type: "cash", value: 100 } 
 };
 
-document.getElementById("thumbs").appendChild(image);
+let districtOffer = offers[userDistrict];
 
+let originalPrice = item.price;
+let finalPrice = originalPrice;
+let discountText = "";
+
+if(districtOffer){
+
+    if(districtOffer.type === "percentage"){
+        finalPrice = originalPrice - (originalPrice * districtOffer.value / 100);
+        discountText = districtOffer.value + "% OFF";
+    }
+
+    if(districtOffer.type === "cash"){
+        finalPrice = originalPrice - districtOffer.value;
+        discountText = "₹" + districtOffer.value + " OFF";
+    }
+}
+
+finalPrice = Math.round(finalPrice);
+
+//////////////////////////
+// LOAD UI
+//////////////////////////
+
+document.getElementById("mainImage").src = item.images[0];
+document.getElementById("name").innerText = item.name;
+
+// PRICE
+document.getElementById("oldPrice").innerText = "₹ " + originalPrice;
+document.getElementById("newPrice").innerText = finalPrice;
+
+// DISCOUNT BADGE
+if(districtOffer){
+    document.querySelector(".discount-badge").innerText = discountText;
+}
+
+document.getElementById("description").innerText = item.desc;
+document.getElementById("material").innerText = item.material;
+document.getElementById("color").innerText = item.color;
+document.getElementById("size").innerText = item.size;
+document.getElementById("brand").innerText = item.brand;
+document.getElementById("stock").innerText = item.stock;
+
+//////////////////////////
+// THUMBNAILS
+//////////////////////////
+
+item.images.forEach(img=>{
+    let image=document.createElement("img");
+
+    image.src=img;
+
+    image.onclick=()=>{
+        document.getElementById("mainImage").src=img;
+    };
+
+    document.getElementById("thumbs").appendChild(image);
 });
 
-
+//////////////////////////
+// ADD TO CART
+//////////////////////////
 
 document.getElementById("cartBtn").onclick=function(){
 
@@ -216,12 +250,10 @@ let existing = cart.find(i=>i.productId===item.id);
 if(existing) existing.quantity++;
 
 else cart.push({
-
-productId:item.id,
-name:item.name,
-price:discountPrice,
-quantity:1
-
+    productId:item.id,
+    name:item.name,
+    price:finalPrice,
+    quantity:1
 });
 
 localStorage.setItem("cart",JSON.stringify(cart));
@@ -230,7 +262,9 @@ alert("Added to cart!");
 
 };
 
-
+//////////////////////////
+// GROUP BUY
+//////////////////////////
 
 document.getElementById("groupBtn").onclick=function(){
 
@@ -243,7 +277,7 @@ headers:{ "Content-Type":"application/json" },
 body:JSON.stringify({
 
 productName:item.name,
-productPrice:discountPrice
+productPrice:finalPrice
 
 })
 
@@ -265,6 +299,5 @@ else alert("Group creation failed");
 };
 
 </script>
-
 </body>
 </html>

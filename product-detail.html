@@ -80,18 +80,13 @@
 const params = new URLSearchParams(window.location.search);
 const product = params.get("product");
 
-
-
-
-    const data = {
+const data = {
     half: {
         id: 201,
         name: "Half Saree",
         price: 1999,
         images: ["half1.jpg","half2.jpg","half3.jpg","half4.jpg"],
         desc: "Silk Half Saree - Made in India",
-
-        // 👇 EXTRA DETAILS
         material: "Pure Silk",
         color: "Maroon & Gold",
         size: "Free Size",
@@ -101,7 +96,10 @@ const product = params.get("product");
         brand: "Groupcart Fashion"
     },
 
-    ko: { id:202, name:"Maxi", price:1499,
+    ko: {
+        id:202,
+        name:"Maxi",
+        price:1499,
         images:["ko1.jpg","ko2.jpg","ko3.jpg","ko4.jpg"],
         desc:"Premium Cotton Maxi",
         material: "Pure cotton",
@@ -112,9 +110,11 @@ const product = params.get("product");
         reviews: 128,
         brand: "Groupcart Fashion"
     },
-        
 
-    baby: { id:203, name:"Baby Dress", price:999,
+    baby: {
+        id:203,
+        name:"Baby Dress",
+        price:999,
         images:["baby1.jpg","baby2.jpg","baby3.jpg","baby4.jpg"],
         desc:"Soft Comfortable Baby Wear",
         material: "Pure cotton",
@@ -126,7 +126,10 @@ const product = params.get("product");
         brand: "Groupcart Fashion"
     },
 
-    leh: { id:204, name:"Lehenga", price:2999,
+    leh: {
+        id:204,
+        name:"Lehenga",
+        price:2999,
         images:["leh1.jpg","leh2.jpg","leh3.jpg","leh4.jpg"],
         desc:"Designer Wedding Lehenga",
         material: "Pure Silk",
@@ -136,29 +139,7 @@ const product = params.get("product");
         rating: 4.5,
         reviews: 128,
         brand: "Groupcart Fashion"
-    },
-    chudi: { id:205, name:"Chudi Set", price:799,
-        images:["chudi1.jpg","chudi2.jpg","chudi3.jpg","chudi4.jpg"],
-        desc:"Colorful Chudi Set",
-        material: "Pure cotton",
-        color: "Navy blue",
-        size: "Free Size",
-        stock: 120,
-        rating: 4.7,
-        reviews: 1209,
-        brand: "Groupcart Fashion"
-    },
-    korean: { id:206, name:"Skirt", price:990,
-        images:["korean1.jpg","korean2.jpg","korean3.jpg","korean4.jpg"],
-        desc:"Trendy Korean Style Dress",
-        material: "Pure cotton",
-        color: "Black and white",
-        size: "Free Size",
-        stock: 12,
-        rating: 4.5,
-        reviews: 128,
-        brand: "Groupcart Fashion"
-     }
+    }
 };
 
 const item = data[product];
@@ -168,14 +149,52 @@ if(!item){
     throw new Error("Invalid product");
 }
 
-// CALCULATE 10% DISCOUNT
-const discountPrice = Math.round(item.price * 0.9);
+// ---------------- DISTRICT OFFER LOGIC ----------------
 
-// LOAD DATA
+let userDistrict = localStorage.getItem("district");
+
+let offers = {
+    "Chennai": { type: "percentage", value: 10 },
+    "Coimbatore": { type: "percentage", value: 30 }, 
+    "Madurai": { type: "cash", value: 100 } 
+};
+
+let districtOffer = offers[userDistrict];
+
+let originalPrice = item.price;
+let finalPrice = originalPrice;
+let discountText = "";
+
+if(districtOffer){
+
+    if(districtOffer.type === "percentage"){
+        finalPrice = originalPrice - (originalPrice * districtOffer.value / 100);
+        discountText = districtOffer.value + "% OFF";
+    }
+
+    if(districtOffer.type === "cash"){
+        finalPrice = originalPrice - districtOffer.value;
+        discountText = "₹" + districtOffer.value + " OFF";
+    }
+}
+
+// ROUND FINAL PRICE
+finalPrice = Math.round(finalPrice);
+
+// ---------------- LOAD DATA ----------------
+
 document.getElementById("mainImage").src = item.images[0];
 document.getElementById("name").innerText = item.name;
-document.getElementById("oldPrice").innerHTML = "₹ " + item.price;
-document.getElementById("newPrice").innerText = discountPrice;
+
+// PRICE DISPLAY
+document.getElementById("oldPrice").innerHTML = "₹ " + originalPrice;
+document.getElementById("newPrice").innerText = finalPrice;
+
+// SHOW DISCOUNT BADGE ONLY IF OFFER EXISTS
+if(districtOffer){
+    document.querySelector(".discount-badge").innerText = discountText;
+}
+
 document.getElementById("description").innerText = item.desc;
 
 document.getElementById("material").innerText = item.material;
@@ -194,7 +213,7 @@ item.images.forEach(img=>{
     document.getElementById("thumbs").appendChild(image);
 });
 
-// IMAGE FULL SCREEN ZOOM
+// IMAGE ZOOM
 const modal = document.getElementById("imageModal");
 const zoomedImg = document.getElementById("zoomedImage");
 const closeBtn = document.querySelector(".close");
@@ -209,11 +228,17 @@ modal.onclick = ()=> modal.style.display="none";
 
 // ADD TO CART
 document.getElementById("cartBtn").onclick = function(){
+
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let existing = cart.find(i => i.productId === item.id);
 
     if(existing) existing.quantity++;
-    else cart.push({ productId:item.id, name:item.name, price:discountPrice, quantity:1 });
+    else cart.push({
+        productId:item.id,
+        name:item.name,
+        price:finalPrice,
+        quantity:1
+    });
 
     localStorage.setItem("cart", JSON.stringify(cart));
     alert("Added to cart!");
@@ -224,7 +249,7 @@ document.getElementById("groupBtn").onclick = function(){
     fetch("http://localhost:3000/create-group",{
         method:"POST",
         headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({ productName:item.name, productPrice:discountPrice })
+        body:JSON.stringify({ productName:item.name, productPrice:finalPrice })
     })
     .then(res=>res.json())
     .then(data=>{
@@ -236,6 +261,5 @@ document.getElementById("groupBtn").onclick = function(){
 };
 
 </script>
-
 </body>
 </html>

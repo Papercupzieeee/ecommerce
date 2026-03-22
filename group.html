@@ -9,19 +9,27 @@
 
 <body>
 
-<canvas id="confetti"></canvas>
+<div class="top-bar">
+    <div class="logo">GroupCart</div>
+    <button class="back-btn" onclick="goBack()">⬅ Go Back</button>
+    <button class="login-btn" onclick="goToLogin()">Login</button>
+</div>
 
 <div class="container" id="card">
-    
 
 <h2>Group Buy</h2>
 <h3 id="productName"></h3>
+<defs>
+  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3b82f6"/>
+    <stop offset="100%" stop-color="#22c55e"/>
+  </linearGradient>
+</defs>
 
 <div class="circle-timer">
     <svg>
         <circle class="bg-circle" cx="75" cy="75" r="70"></circle>
-        <circle class="progress-circle" id="progress"
-        cx="75" cy="75" r="70"></circle>
+        <circle class="progress-circle" id="progress" cx="75" cy="75" r="70"></circle>
     </svg>
     <div id="timerText">02:00:00</div>
 </div>
@@ -38,214 +46,268 @@
 
 </div>
 </div>
+
 <div class="rules-box">
   <h4>📜 Rules to Get Discount</h4>
   <ul>
-    <li>✔ Only one account per device allowed to join. </li>
+    <li>✔ Only one account per device allowed to join.</li>
     <li>✔ Same name cannot join twice.</li>
     <li>✔ Group must reach 3 members.</li>
     <li>✔ All members must join within 2 hours.</li>
     <li>✔ If 3 members not completed in 2 hours, group will be cancelled.</li>
     <li>✔ Discount will be applied only if all members purchase the product.</li>
-    <li>✔ You can join , including you 3 members totally. </li>
+    <li>✔ You can join, including you total 3 members.</li>
   </ul>
 </div>
 
 <script>
-
-let groupId = new URLSearchParams(window.location.search).get("groupId");
-if(!groupId){
-alert("Invalid Link");
-window.location.href="products.html";
+    function goBack(){
+    // Try browser back first
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        // fallback
+        window.location.href = "products.html";
+    }
 }
 
-let groupCreatedTime=null;
-let timerInterval=null;
+let groupId = new URLSearchParams(window.location.search).get("groupId");
 
-const productNameEl=document.getElementById("productName");
-const priceEl=document.getElementById("originalPrice");
-const discountEl=document.getElementById("discount");
-const membersEl=document.getElementById("members");
-const timerText=document.getElementById("timerText");
-const joinBtn=document.getElementById("joinBtn");
-const checkoutBtn=document.getElementById("checkoutBtn");
+if(!groupId){
+    window.location.href="products.html";
+}
+let groupCreatedTime = null;
+let endTime = null;
+let timerInterval = null;
+let productId = null;
 
-loadGroup();
+/* ELEMENTS */
+const productNameEl = document.getElementById("productName");
+const priceEl = document.getElementById("originalPrice");
+const discountEl = document.getElementById("discount");
+const membersEl = document.getElementById("members");
+const timerText = document.getElementById("timerText");
+const joinBtn = document.getElementById("joinBtn");
+const checkoutBtn = document.getElementById("checkoutBtn");
 
-/* LOAD GROUP */
+/* =========================
+   LOAD GROUP (ONLY ONCE)
+========================= */
 async function loadGroup(){
 
-const res=await fetch(`http://localhost:3000/group-status/${groupId}`);
-const data=await res.json();
+const res = await fetch(`http://localhost:3000/group-status/${groupId}`);
+const data = await res.json();
 
 if(!data.success) return;
 
-const group=data.group;
-const members=group.members||[];
+const group = data.group;
+const members = group.members || [];
 
-productNameEl.innerText=group.product_name;
+productId = group.product_id;
 
-const originalPrice=Number(group.product_price);
-const discountAmount=Math.round(originalPrice*0.30);
-const finalPrice=originalPrice-discountAmount;
+productNameEl.innerText = group.product_name;
 
-priceEl.innerText="Original Price: ₹"+originalPrice;
-membersEl.innerText=`Members joined: ${members.length}/3`;
+const originalPrice = Number(group.product_price);
+const discountAmount = Math.round(originalPrice * 0.30);
+const finalPrice = originalPrice - discountAmount;
 
-groupCreatedTime=new Date(group.created_at).getTime();
+priceEl.innerText = "Original Price: ₹" + originalPrice;
+membersEl.innerText = `Members joined: ${members.length}/3`;
+
+// ⭐ SAVE GROUP USER-WISE
+const userId = localStorage.getItem("userId");
+localStorage.setItem("group_" + userId, groupId);
+
+groupCreatedTime = new Date(group.created_at).getTime();
+endTime = groupCreatedTime + (2 * 60 * 60 * 1000);
 
 startTimer();
-
-if(members.length>=3){
-
-document.getElementById("card").classList.add("success");
-startConfetti();
-
-discountEl.innerText=`Pay: ₹${finalPrice}`;
-checkoutBtn.style.display="block";
-joinBtn.style.display="none";
-
-}else{
-
-discountEl.innerText="Join 3 members to unlock 30% discount";
-checkoutBtn.style.display="none";
-joinBtn.style.display="block";
-
-}
 }
 
-/* JOIN GROUP */
-joinBtn.addEventListener("click",async()=>{
+loadGroup();
 
-const memberName=prompt("Enter your name:");
+/* =========================
+   JOIN GROUP
+========================= */
+joinBtn.addEventListener("click", async () => {
+
+const memberName = prompt("Enter your name:");
 if(!memberName) return;
 
-let deviceId=localStorage.getItem("deviceId");
+let deviceId = localStorage.getItem("deviceId");
+
 if(!deviceId){
-deviceId="device-"+Date.now();
-localStorage.setItem("deviceId",deviceId);
+    deviceId = "device-" + Date.now();
+    localStorage.setItem("deviceId", deviceId);
 }
 
-const res=await fetch("http://localhost:3000/join-group",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({groupId,memberName,deviceId})
+const userId = localStorage.getItem("userId");
+
+const res = await fetch("http://localhost:3000/join-group", {
+method: "POST",
+headers: {"Content-Type":"application/json"},
+body: JSON.stringify({ groupId, memberName, deviceId, userId })
 });
 
-const data=await res.json();
+const data = await res.json();
+
 if(data.success){
-loadGroup();
+    loadGroup();
+} else {
+    alert(data.message);
 }
 
 });
 
-/* TIMER */
+/* =========================
+   CHECKOUT (FIXED)
+========================= */
+async function checkout(){
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+    alert("Login first");
+    return;
+}
+
+if(!productId){
+    alert("Product error");
+    return;
+}
+
+const finalPrice = Number(discountEl.innerText.replace("Pay: ₹",""));
+
+const cartItems = [{
+    productId: productId,
+    quantity: 1,
+    price: finalPrice
+}];
+
+const res = await fetch("http://localhost:3000/api/place-order", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+        userId,
+        cartItems,
+        isGroupBuy: true
+    })
+});
+
+const data = await res.json();
+
+if(data.success){
+    alert("🎉 Group Order placed!");
+    window.location.href="orders.html";
+}else{
+    alert("Order failed");
+}
+
+}
+
+/* =========================
+   TIMER
+========================= */
 function startTimer(){
 
 if(timerInterval) clearInterval(timerInterval);
 
-const endTime=groupCreatedTime+(2*60*60*1000);
+timerInterval = setInterval(() => {
 
-timerInterval=setInterval(()=>{
+const diff = endTime - Date.now();
 
-const diff=endTime-Date.now();
-
-if(diff<=0){
-timerText.innerText="00:00:00";
-clearInterval(timerInterval);
-return;
+if(diff <= 0){
+    timerText.innerText = "00:00:00";
+    clearInterval(timerInterval);
+    return;
 }
 
-const hrs=Math.floor(diff/(1000*60*60));
-const mins=Math.floor((diff%(1000*60*60))/(1000*60));
-const secs=Math.floor((diff%(1000*60))/1000);
+const hrs = Math.floor(diff / (1000 * 60 * 60));
+const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-timerText.innerText=
-String(hrs).padStart(2,'0')+":"+
-String(mins).padStart(2,'0')+":"+
+timerText.innerText =
+String(hrs).padStart(2,'0') + ":" +
+String(mins).padStart(2,'0') + ":" +
 String(secs).padStart(2,'0');
 
-updateCircle(diff,endTime);
+updateCircle(diff);
 
-},1000);
+}, 1000);
+
 }
 
-/* CIRCULAR TIMER */
-function updateCircle(diff,endTime){
-
-const total=endTime-groupCreatedTime;
-const progress=document.getElementById("progress");
-const percent=diff/total;
-const offset=440-(440*percent);
-progress.style.strokeDashoffset=offset;
+function updateCircle(diff){
+const total = 2 * 60 * 60 * 1000;
+const percent = diff / total;
+const offset = 440 - (440 * percent);
+document.getElementById("progress").style.strokeDashoffset = offset;
 }
-
-/* CONFETTI */
-const canvas=document.getElementById("confetti");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
 
 function startConfetti(){
 
-let particles=[];
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
 
-for(let i=0;i<150;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*4+2
-});
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+const colors = ["#ff0","#0ff","#f0f","#0f0","#ff5722","#00f5ff"];
+
+for(let i=0;i<300;i++){
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height - canvas.height,
+        r: Math.random()*6+3,
+        d: Math.random()*5,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        tilt: Math.random()*10-5
+    });
 }
 
 function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="#fff";
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y+=2;
-if(p.y>canvas.height) p.y=0;
-});
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.r, p.r*2);
 
-requestAnimationFrame(draw);
+        p.y += p.d;
+        p.x += Math.sin(p.tilt);
+
+        if(p.y > canvas.height){
+            p.y = -10;
+            p.x = Math.random()*canvas.width;
+        }
+    });
+
+    requestAnimationFrame(draw);
 }
 
 draw();
 }
 
+/* WHATSAPP */
 document.getElementById("inviteBtn").addEventListener("click", function(){
 
-const productName = document.getElementById("productName").innerText;
+const message =
+`🎉 Join Group Buy!\n\n` +
+`🛍 ${productNameEl.innerText}\n` +
+`👉 ${window.location.href}`;
 
-// உங்கள் current page link
-const groupLink = window.location.href;
+window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank");
 
-const message = 
-`🎉 Invitation to Join Group Buy!\n\n` +
-`🛍 Product: ${productName}\n` +
-`💰 Get 30% Discount!\n` +
-`⏳ Limited Time Offer\n\n` +
-`👉 Join here:\n${groupLink}`;
-
-const encodedMessage = encodeURIComponent(message);
-
-// WhatsApp open
-const whatsappURL = `https://wa.me/?text=${encodedMessage}`;
-
-window.open(whatsappURL, "_blank");
 
 });
 
-/* CHECKOUT */
-function checkout(){
-alert("Order placed successfully!");
-window.location.href="products.html";
+function goToLogin(){
+    window.location.href = "login.html";
 }
 
-</script>
 
+</script>
 </body>
 </html>

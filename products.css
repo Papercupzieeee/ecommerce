@@ -61,7 +61,9 @@ cursor:pointer;
 color:white;
 overflow:hidden;
 transition:all 0.35s ease;
-margin-left:10px;
+margin-left: 10px;
+
+
 }
 
 
@@ -486,4 +488,36 @@ margin-top:5px;
 .back-btn:hover{
     transform: translateY(-2px);
     opacity: 0.9;
+}
+
+.original-price{
+    text-decoration: line-through;
+    color: gray;
+    margin-right: 8px;
+}
+
+.final-price{
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
+}
+#myGroupBtn{
+position:fixed;
+margin-top: 150px;
+width: 20%;
+right:30px;
+padding:12px 18px;
+border:none;
+border-radius:25px;
+background:linear-gradient(135deg,#22c55e,#4ade80);
+color:white;
+font-weight:600;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+transition:0.3s;
+z-index:100;
+}
+
+#myGroupBtn:hover{
+transform:translateY(-3px);
 }

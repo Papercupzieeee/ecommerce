@@ -11,10 +11,15 @@
 
 <div class="box4">
     <p class="text4a"><span id="g">G</span>roupcart</p>
-    <button id="logoutbtn" onclick="location.href='login.html'">🚪 Logout</button>
+    
+    <button id="logoutbtn"onclick="logout()">Logout</button>
 
 <button class="cart-btn" onclick="location.href='checkout.html'">
 🛒 Cart
+</button>
+
+<button id="myGroupBtn" onclick="openMyGroup()">
+👥 My Group
 </button>
 </div>
 
@@ -37,10 +42,13 @@
 
         <p class="product-name">Half Saree</p>
 
-        <p id="price-201">₹1999</p>
+        <p id="price-201">
+    <span class="original-price">₹1999</span>
+    <span class="final-price"></span>
+</p>
 
-        <button class="cartbtn" onclick="addToCart(201,'Half Saree',1999)">Add to Cart</button>
-        <button class="groupbuy" onclick="goToGroupBuyByData('Half Saree',1999)">GroupBuy</button>
+        <button class="cartbtn" onclick="addToCart(201,'Half Saree')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(201,'Half Saree',1999)">GroupBuy</button>
     </div>
 
     <!-- KURTI -->
@@ -53,10 +61,19 @@
 
         <p class="product-name">Maxi</p>
 
-        <p id="price-202">₹1499</p>
 
-        <button class="cartbtn" onclick="addToCart(202,'Kurti Set',1499)">Add to Cart</button>
-        <button class="groupbuy" onclick="goToGroupBuyByData('Kurti Set',1499)">GroupBuy</button>
+<!-- 202 -->
+<p id="price-202">
+    <span class="original-price">₹1499</span>
+    <span class="final-price"></span>
+</p>
+
+
+
+
+
+        <button class="cartbtn" onclick="addToCart(202,'Kurti Set')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(202,'Kurti Set',1499)">GroupBuy</button>
     </div>
 
     <!-- BABY DRESS -->
@@ -69,10 +86,14 @@
 
         <p class="product-name">Baby Dress</p>
 
-        <p id="price-203">₹999</p>
+        <!-- 203 -->
+<p id="price-203">
+    <span class="original-price">₹999</span>
+    <span class="final-price"></span>
+</p>
 
-        <button class="cartbtn" onclick="addToCart(203,'Baby Dress',999)">Add to Cart</button>
-        <button class="groupbuy" onclick="goToGroupBuyByData('Baby Dress',999)">GroupBuy</button>
+        <button class="cartbtn" onclick="addToCart(203,'Baby Dress')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(203,'Baby Dress',999)">GroupBuy</button>
     </div>
 
     <!-- LEHENGA -->
@@ -85,30 +106,75 @@
 
         <p class="product-name">Lehenga</p>
 
-        <p id="price-204">₹2999</p>
+        <!-- 204 -->
+<p id="price-204">
+    <span class="original-price">₹2999</span>
+    <span class="final-price"></span>
+</p>
 
-        <button class="cartbtn" onclick="addToCart(204,'Lehenga',2999)">Add to Cart</button>
-        <button class="groupbuy" onclick="goToGroupBuyByData('Lehenga',2999)">GroupBuy</button>
+        <button class="cartbtn" onclick="addToCart(204,'Lehenga')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(204,'Lehenga',2999)">GroupBuy</button>
     </div> 
      
-    <!-- CHUDI SET -->
-
     
-
-    
-
-    
- 
-
 </div>
 
 
 
 <script>
+    function logout(){
+    const userId = localStorage.getItem("userId");
 
+    // remove only current user group
+    localStorage.removeItem("group_" + userId);
+
+    // remove user session
+    localStorage.removeItem("userId");
+
+    window.location.href = "login.html";
+}
+
+    function goToGroupBuyByData(productId, productName, productPrice) {
+
+    const userId = localStorage.getItem("userId");
+
+    fetch("http://localhost:3000/create-group", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            productId,
+            productName,
+            productPrice
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.success){
+
+            // ✅ STORE USER-WISE
+            localStorage.setItem("group_" + userId, data.groupId);
+
+            window.location.href = `group.html?groupId=${data.groupId}`;
+        }
+
+    });
+}
 /* ---------------- ADD TO CART ---------------- */
 
-function addToCart(id, name, price){
+function addToCart(id, name){
+
+    let priceElement = document.getElementById("price-" + id);
+
+    let originalSpan = priceElement.querySelector(".original-price");
+    let finalSpan = priceElement.querySelector(".final-price");
+
+    let originalPrice = Number(originalSpan.innerText.replace("₹",""));
+    let finalPrice = Number(finalSpan.innerText.replace("₹",""));
+
+    let discount = originalPrice - finalPrice;
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -120,7 +186,9 @@ function addToCart(id, name, price){
         cart.push({
             productId: Number(id),
             name: name,
-            price: Number(price),
+            price: finalPrice,
+            originalPrice: originalPrice,
+            discount: discount,
             quantity: 1
         });
     }
@@ -129,58 +197,30 @@ function addToCart(id, name, price){
     alert(name + " added to cart");
 }
 
-
-/* ---------------- GROUP BUY ---------------- */
-
-function goToGroupBuyByData(productName, productPrice){
-
-    fetch("http://localhost:3000/create-group", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productName, productPrice })
-    })
-    .then(res => res.json())
-    .then(data => {
-
-        if(data.success){
-            location.href = `group.html?groupId=${data.groupId}`;
-        } else {
-            alert("Group creation failed");
-        }
-
-    })
-    .catch(err => {
-        console.error(err);
-        alert("Server error");
-    });
-}
-
-
 /* ---------------- DISTRICT OFFER LOGIC ---------------- */
-
-// IMPORTANT: signup time la district save pannirukanum
-// localStorage.setItem("district", userDistrict)
 
 let userDistrict = localStorage.getItem("district");
 
-/* Sample district offers (match with backend) */
 let offers = {
     "Chennai": { type: "percentage", value: 10 },
-    "Coimbatore": { type: "percentage", value: 15 },
-    "Madurai": { type: "cash", value: 200 }
+    "Coimbatore": { type: "percentage", value: 30 }, 
+    "Madurai": { type: "cash", value: 100 } 
 };
 
 let districtOffer = offers[userDistrict];
 
-if(districtOffer){
+[201,202,203,204].forEach(id => {
 
-    [201,202,203,204].forEach(id => {
+    let priceElement = document.getElementById("price-" + id);
+    let ribbon = document.getElementById("offer-" + id);
 
-        let priceElement = document.getElementById("price-" + id);
-        let ribbon = document.getElementById("offer-" + id);
+    let originalSpan = priceElement.querySelector(".original-price");
+    let finalSpan = priceElement.querySelector(".final-price");
 
-        let originalPrice = Number(priceElement.innerText.replace("₹",""));
-        let finalPrice = originalPrice;
+    let originalPrice = Number(originalSpan.innerText.replace("₹",""));
+    let finalPrice = originalPrice;
+
+    if(districtOffer){
 
         if(districtOffer.type === "percentage"){
             finalPrice = originalPrice - (originalPrice * districtOffer.value / 100);
@@ -192,15 +232,39 @@ if(districtOffer){
             ribbon.innerText = "₹" + districtOffer.value + " OFF";
         }
 
-        priceElement.innerText = "₹" + Math.round(finalPrice);
-
         ribbon.style.display = "block";
+    }
 
-    });
+    // 🔥 ALWAYS set final price
+    finalSpan.innerText = "₹" + Math.round(finalPrice);
 
+});
+function openMyGroup(){
+
+const userId = localStorage.getItem("userId");
+const groupId = localStorage.getItem("group_" + userId);
+
+if(!groupId){
+    alert("No active group");
+    return;
 }
 
+window.location.href = `group.html?groupId=${groupId}`;
+}
+window.addEventListener("load", ()=>{
 
+const userId = localStorage.getItem("userId");
+const groupId = localStorage.getItem("group_" + userId);
+
+const btn = document.getElementById("myGroupBtn");
+
+if(groupId){
+    btn.style.display = "block";
+}else{
+    btn.style.display = "none";
+}
+
+});
 </script>
 
 </body>

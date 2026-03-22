@@ -11,8 +11,16 @@
 
 <div class="box4">
     <p class="text4a"><span id="g">G</span>roupcart</p>
-    <button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
-    <button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+
+    <button id="logoutbtn" onclick="logout()">Logout</button>
+
+    <button class="cart-btn" onclick="location.href='checkout.html'">
+        🛒 Cart
+    </button>
+
+    <button id="myGroupBtn" onclick="openMyGroup()">
+        👥 My Group
+    </button>
 </div>
 
 <div class="box4d">
@@ -34,12 +42,14 @@
 
 <p class="product-name">Remote Train</p>
 
-<p id="price-205">₹899</p>
+<p id="price-205">
+    <span class="original-price">₹899</span>
+    <span class="final-price"></span>
+</p>
 
-<button class="cartbtn" onclick="addToCart(205,'Remote Train',899)">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData('Remote Train',899)">GroupBuy</button>
+<button class="cartbtn" onclick="addToCart(205,'Remote Train')">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(205,'Remote Train',899)">GroupBuy</button>
 </div>
-
 
 <!-- WATER GUN -->
 <div class="product-card">
@@ -51,12 +61,14 @@
 
 <p class="product-name">Water Gun</p>
 
-<p id="price-206">₹499</p>
+<p id="price-206">
+    <span class="original-price">₹499</span>
+    <span class="final-price"></span>
+</p>
 
-<button class="cartbtn" onclick="addToCart(206,'Water Gun',499)">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData('Water Gun',499)">GroupBuy</button>
+<button class="cartbtn" onclick="addToCart(206,'Water Gun')">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(206,'Water Gun',499)">GroupBuy</button>
 </div>
-
 
 <!-- PINE SPONGE -->
 <div class="product-card">
@@ -68,12 +80,14 @@
 
 <p class="product-name">Pine Sponge</p>
 
-<p id="price-207">₹99</p>
+<p id="price-207">
+    <span class="original-price">₹99</span>
+    <span class="final-price"></span>
+</p>
 
-<button class="cartbtn" onclick="addToCart(207,'Pine Sponge',99)">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData('Pine Sponge',99)">GroupBuy</button>
+<button class="cartbtn" onclick="addToCart(207,'Pine Sponge')">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(207,'Pine Sponge',99)">GroupBuy</button>
 </div>
-
 
 <!-- IRONMAN -->
 <div class="product-card">
@@ -85,12 +99,16 @@
 
 <p class="product-name">Ironman Toy</p>
 
-<p id="price-208">₹199</p>
+<p id="price-208">
+    <span class="original-price">₹199</span>
+    <span class="final-price"></span>
+</p>
 
-<button class="cartbtn" onclick="addToCart(208,'Ironman Toy',199)">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData('Ironman Toy',199)">GroupBuy</button>
+<button class="cartbtn" onclick="addToCart(208,'Ironman Toy')">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(208,'Ironman Toy',199)">GroupBuy</button>
 </div>
 
+<!-- TEDDY -->
 <div class="product-card">
 <div class="discount-ribbon" id="offer-209"></div>
 
@@ -100,66 +118,184 @@
 
 <p class="product-name">Teddy</p>
 
-<p id="price-209">₹199</p>
+<p id="price-209">
+    <span class="original-price">₹199</span>
+    <span class="final-price"></span>
+</p>
 
-<button class="cartbtn" onclick="addToCart(209,'Teddy',199)">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData('Teddy',199)">GroupBuy</button>
+<button class="cartbtn" onclick="addToCart(209,'Teddy')">Add to Cart</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(209,'Teddy',199)">GroupBuy</button>
 </div>
 
 </div>
-
 
 <script>
 
-/* ADD TO CART */
+/* ---------------- LOGOUT ---------------- */
 
-function addToCart(id,name,price){
+function logout(){
+    const userId = localStorage.getItem("userId");
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    localStorage.removeItem("group_" + userId);
+    localStorage.removeItem("userId");
 
-let existing = cart.find(item => item.productId === Number(id));
-
-if(existing){
-existing.quantity += 1;
+    window.location.href = "login.html";
 }
-else{
-cart.push({
-productId:Number(id),
-name:name,
-price:Number(price),
-quantity:1
+
+
+/* ---------------- GROUP BUY ---------------- */
+
+function goToGroupBuyByData(productId, productName){
+
+    const userId = localStorage.getItem("userId");
+
+    let priceElement = document.getElementById("price-" + productId);
+
+    let originalPrice = Number(
+        priceElement.querySelector(".original-price").innerText.replace("₹","")
+    );
+
+    let finalText = priceElement.querySelector(".final-price").innerText;
+
+    let finalPrice = finalText
+        ? Number(finalText.replace("₹",""))
+        : originalPrice;
+
+    fetch("http://localhost:3000/create-group", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            productId,
+            productName,
+            productPrice: finalPrice
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.success){
+
+            // ✅ store user-wise group
+            localStorage.setItem("group_" + userId, data.groupId);
+
+            window.location.href = `group.html?groupId=${data.groupId}`;
+        }
+    })
+    .catch(() => alert("Server error"));
+}
+
+
+/* ---------------- ADD TO CART ---------------- */
+
+function addToCart(id, name){
+
+    let priceElement = document.getElementById("price-" + id);
+
+    let originalSpan = priceElement.querySelector(".original-price");
+    let finalSpan = priceElement.querySelector(".final-price");
+
+    let originalPrice = Number(originalSpan.innerText.replace("₹",""));
+    let finalPrice = Number(finalSpan.innerText.replace("₹",""));
+
+    let discount = originalPrice - finalPrice;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existing = cart.find(item => item.productId === Number(id));
+
+    if(existing){
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            productId: Number(id),
+            name: name,
+            price: finalPrice,
+            originalPrice: originalPrice,
+            discount: discount,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(name + " added to cart");
+}
+
+
+/* ---------------- DISTRICT OFFER ---------------- */
+
+let userDistrict = localStorage.getItem("district");
+
+let offers = {
+    "Chennai": { type: "percentage", value: 10 },
+    "Coimbatore": { type: "percentage", value: 30 },
+    "Madurai": { type: "cash", value: 100 }
+};
+
+let districtOffer = offers[userDistrict];
+
+[205,206,207,208,209].forEach(id => {
+
+    let priceElement = document.getElementById("price-" + id);
+    let ribbon = document.getElementById("offer-" + id);
+
+    let originalSpan = priceElement.querySelector(".original-price");
+    let finalSpan = priceElement.querySelector(".final-price");
+
+    let originalPrice = Number(originalSpan.innerText.replace("₹",""));
+    let finalPrice = originalPrice;
+
+    if(districtOffer){
+
+        if(districtOffer.type === "percentage"){
+            finalPrice = originalPrice - (originalPrice * districtOffer.value / 100);
+            ribbon.innerText = districtOffer.value + "% OFF";
+        }
+
+        if(districtOffer.type === "cash"){
+            finalPrice = originalPrice - districtOffer.value;
+            ribbon.innerText = "₹" + districtOffer.value + " OFF";
+        }
+
+        ribbon.style.display = "block";
+    }
+
+    finalSpan.innerText = "₹" + Math.round(finalPrice);
+
 });
+
+
+/* ---------------- MY GROUP ---------------- */
+
+function openMyGroup(){
+
+    const userId = localStorage.getItem("userId");
+    const groupId = localStorage.getItem("group_" + userId);
+
+    if(!groupId){
+        alert("No active group");
+        return;
+    }
+
+    window.location.href = `group.html?groupId=${groupId}`;
 }
 
-localStorage.setItem("cart",JSON.stringify(cart));
-alert(name + " added to cart");
 
-}
+/* ---------------- SHOW/HIDE GROUP BUTTON ---------------- */
 
+window.addEventListener("load", ()=>{
 
-/* GROUP BUY */
+    const userId = localStorage.getItem("userId");
+    const groupId = localStorage.getItem("group_" + userId);
 
-function goToGroupBuyByData(productName,productPrice){
+    const btn = document.getElementById("myGroupBtn");
 
-fetch("http://localhost:3000/create-group",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({productName,productPrice})
-})
-.then(res=>res.json())
-.then(data=>{
-if(data.success){
-location.href=`group.html?groupId=${data.groupId}`;
-}
-else{
-alert("Group creation failed");
-}
-})
-.catch(()=>{
-alert("Server error");
+    if(groupId){
+        btn.style.display = "block";
+    } else {
+        btn.style.display = "none";
+    }
+
 });
-
-}
 
 </script>
 

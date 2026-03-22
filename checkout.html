@@ -4,24 +4,16 @@
     <title>Checkout</title>
     <link rel="stylesheet" href="checkout.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
 </head>
 
 <body>
-    
 
 <div class="header">
     <p class="logo"><span>G</span>roupcart</p>
     
     <div class="header-buttons">
-        <button onclick="location.href='login.html'">Logout</button>
+        <button onclick="logout()">Logout</button>
         <button onclick="location.href='products.html'">Go Back</button>
-    </div>
-    
-</div>
-<div class="trash-area">
-    <div class="trash-bin" id="trashBin">
-        🗑️
     </div>
 </div>
 
@@ -36,12 +28,10 @@
 
     <div class="actions">
 
-        <!-- Place All Orders -->
         <button class="place-all" onclick="placeAllOrders()">
             Place Order
         </button>
 
-        <!-- Place Selected Orders -->
         <button class="select-order" onclick="placeSelectedOrders()">
             Select Your Products to Order
         </button>
@@ -58,10 +48,19 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let cartDiv = document.getElementById("cartItems");
 
+/* =========================
+   RENDER CART
+========================= */
 function renderCart() {
 
     cartDiv.innerHTML = "";
     let total = 0;
+
+    if(cart.length === 0){
+        cartDiv.innerHTML = "<p>Your cart is empty 😢</p>";
+        document.getElementById("total").innerText = "";
+        return;
+    }
 
     cart.forEach((item, index) => {
 
@@ -70,8 +69,21 @@ function renderCart() {
 
                 <input type="checkbox" class="select-item" data-index="${index}">
 
-                <p><b>${item.name}</b></p>
-                <span>₹${item.price}</span>
+                <p><b>${item.name || "Product"}</b></p>
+
+                <p>
+                    <span style="text-decoration:line-through;color:gray;">
+                        ₹${item.originalPrice || item.price}
+                    </span>
+                    <span style="color:green;font-weight:bold;">
+                        ₹${item.price}
+                    </span>
+                </p>
+
+                ${item.discount > 0 ? `
+                    <p style="color:red;">You saved ₹${item.discount}</p>
+                    <p style="color:blue;">District Offer Applied 🎉</p>
+                ` : ""}
 
                 <div class="qty">
                     <button onclick="decreaseQty(${index})">-</button>
@@ -94,35 +106,43 @@ function renderCart() {
 
 renderCart();
 
-
-// Quantity Increase
+/* =========================
+   QUANTITY
+========================= */
 function increaseQty(index) {
     cart[index].quantity++;
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
+    saveCart();
 }
 
-// Quantity Decrease
 function decreaseQty(index) {
     if (cart[index].quantity > 1) {
         cart[index].quantity--;
-        localStorage.setItem("cart", JSON.stringify(cart));
-        renderCart();
+        saveCart();
     }
 }
 
-// Remove Item
+/* =========================
+   REMOVE ITEM
+========================= */
 function removeItem(index) {
     cart.splice(index, 1);
+    saveCart();
+}
+
+/* =========================
+   SAVE CART
+========================= */
+function saveCart(){
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
 }
 
-
-// Place ALL Orders
+/* =========================
+   PLACE ALL ORDERS
+========================= */
 function placeAllOrders() {
 
-    let userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
 
     if (!userId) {
         alert("Please login first!");
@@ -134,7 +154,7 @@ function placeAllOrders() {
         return;
     }
 
-    let cartItems = cart.map(item => ({
+    const cartItems = cart.map(item => ({
         productId: item.productId,
         price: item.price,
         quantity: item.quantity
@@ -143,7 +163,11 @@ function placeAllOrders() {
     fetch("http://localhost:3000/api/place-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, cartItems })
+        body: JSON.stringify({ 
+            userId, 
+            cartItems,
+            isGroupBuy: false
+        })
     })
     .then(res => res.json())
     .then(data => {
@@ -151,52 +175,55 @@ function placeAllOrders() {
         if (data.success) {
             alert("🎉 Order Placed Successfully!");
             localStorage.removeItem("cart");
-            location.reload();
+            renderCart();
         } else {
-            alert(data.message);
+            alert(data.message || "Order failed");
         }
 
     })
     .catch(() => alert("Server Error"));
 }
 
-
-// Place SELECTED Orders
+/* =========================
+   PLACE SELECTED ORDERS
+========================= */
 function placeSelectedOrders() {
 
-    let userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
 
     if (!userId) {
         alert("Please login first!");
         return;
     }
 
-    let selected = document.querySelectorAll(".select-item:checked");
+    const selected = document.querySelectorAll(".select-item:checked");
 
     if (selected.length === 0) {
         alert("Please select products!");
         return;
     }
 
-    let cartItems = [];
+    const cartItems = [];
 
     selected.forEach(cb => {
-
-        let index = cb.dataset.index;
-        let item = cart[index];
+        const index = cb.dataset.index;
+        const item = cart[index];
 
         cartItems.push({
             productId: item.productId,
             price: item.price,
             quantity: item.quantity
         });
-
     });
 
     fetch("http://localhost:3000/api/place-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, cartItems })
+        body: JSON.stringify({ 
+            userId, 
+            cartItems,
+            isGroupBuy: false   // ✅ FIXED
+        })
     })
     .then(res => res.json())
     .then(data => {
@@ -208,18 +235,23 @@ function placeSelectedOrders() {
                 ![...selected].some(cb => cb.dataset.index == i)
             );
 
-            localStorage.setItem("cart", JSON.stringify(cart));
-            renderCart();
+            saveCart();
 
         } else {
-            alert(data.message);
+            alert(data.message || "Order failed");
         }
 
     })
     .catch(() => alert("Server Error"));
 }
 
-
+/* =========================
+   LOGOUT
+========================= */
+function logout(){
+    localStorage.clear();
+    location.href = "login.html";
+}
 
 </script>
 

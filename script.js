@@ -11,6 +11,10 @@
 
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
+            const district = document.getElementById("district").value;
+
+
+            localStorage.setItem("district", district);
 
             try {
 
@@ -21,7 +25,7 @@
   body: JSON.stringify({
     email: email,
     password: password,
-    district: document.getElementById("district").value
+    district: district
   })
 })
 
@@ -75,12 +79,24 @@
 
                 const data = await res.json();
 
-                console.log("Login Response:", data); // Debug line
+                console.log("Login Response:", data); 
 
                 if (data.success) {
 
-                    // 🔥 VERY IMPORTANT LINE
+                    
                     localStorage.setItem("userId", data.userId);
+                    if (data.success) {
+
+                    localStorage.setItem("userId", data.userId);
+
+    
+                    localStorage.setItem("district", data.district);
+
+                    alert("Login successfully");
+                    loginForm.reset();
+
+                    window.location.href = "home.html";
+                }
 
                     alert("Login successfully");
                     loginForm.reset();
@@ -108,25 +124,26 @@ const words=[
 "DEALS"
 ];
 
-const container=document.querySelector(".form-container");
+const container = document.querySelector(".form-container");
 
-words.forEach((word,i)=>{
+if(container){   // 🔥 IMPORTANT CHECK
 
-let rope=document.createElement("div");
-rope.className="hanging-rope";
+    words.forEach((word,i)=>{
 
-let board=document.createElement("div");
-board.className="hanging-word";
-board.innerText=word;
+        let rope=document.createElement("div");
+        rope.className="hanging-rope";
 
-rope.appendChild(board);
+        let board=document.createElement("div");
+        board.className="hanging-word";
+        board.innerText=word;
 
-/* center spacing */
-rope.style.left=(20+(i*15))+"%";
+        rope.appendChild(board);
 
-/* different swing speed */
-rope.style.animation=`swing${(i%3)+1} ${3+i*0.5}s ease-in-out infinite alternate`;
+        rope.style.left=(20+(i*15))+"%";
+        rope.style.animation=`swing${(i%3)+1} ${3+i*0.5}s ease-in-out infinite alternate`;
 
-container.appendChild(rope);
+        container.appendChild(rope);
 
-});
+    });
+
+}

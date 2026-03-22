@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="order.css">
 </head>
 <body>
+    
 
 <div class="topbar">
     <h2>Your Orders</h2>
@@ -16,7 +17,7 @@
 
 <script>
 const userId = localStorage.getItem("userId");
-const orderContainer = document.getElementById("orderContainer");
+const ordersContainer = document.getElementById("ordersContainer");
 
 // Fetch orders
 function fetchOrders() {
@@ -32,8 +33,10 @@ function fetchOrders() {
                 orderDiv.classList.add("order-item");
 
                 orderDiv.innerHTML = `
-                    <img src="${order.image_url}" width="100" />
-                    <p>${order.product_name}</p>
+                    <img src="${order.image_url || 'default.png'}" width="100" />
+<p>${order.product_name || 'Product'}</p>
+
+${order.is_groupbuy ? `<p style="color:green;">Group Buy Discount Applied 🎉</p>` : ""}
                     <p>Quantity: ${order.quantity}</p>
                     <p>Total: ₹${order.total_price}</p>
                     <p>Status: ${order.status}</p>
@@ -88,6 +91,8 @@ function createParticles(event){
 
 // Initial fetch
 fetchOrders();
+
+
 </script>
 
 </body>
