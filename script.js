@@ -19,7 +19,7 @@
             try {
 
                 const res = await 
-                fetch("http://localhost:3000/signup", {
+                fetch("https://ecommerce-backend-yx51.onrender.com/signup", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -69,7 +69,7 @@
 
             try {
 
-                const res = await fetch("http://localhost:3000/login", {
+                const res = await fetch("https://ecommerce-backend-yx51.onrender.com/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
