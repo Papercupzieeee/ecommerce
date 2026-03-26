@@ -95,7 +95,7 @@ const checkoutBtn = document.getElementById("checkoutBtn");
 ========================= */
 async function loadGroup(){
 
-const res = await fetch(`http://localhost:3000/group-status/${groupId}`);
+const res = await fetch(`https://ecommerce-backend-yx51.onrender.com/api/group-status/${groupId}`);
 const data = await res.json();
 
 if(!data.success) return;

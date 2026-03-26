@@ -166,7 +166,7 @@ function goToGroupBuyByData(productId, productName, productPrice){
         ? Number(finalSpan.innerText.replace("₹",""))
         : productPrice;
 
-    fetch("http://localhost:3000/create-group", {
+    fetch("https://ecommerce-backend-yx51.onrender.com/api/create-group", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

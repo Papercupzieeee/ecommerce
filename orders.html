@@ -21,7 +21,7 @@ const ordersContainer = document.getElementById("ordersContainer");
 
 // Fetch orders
 function fetchOrders() {
-    fetch(`http://localhost:3000/api/my-orders/${userId}`)
+    fetch(`https://ecommerce-backend-yx51.onrender.com/api/my-orders/${userId}`)
         .then(res => res.json())
         .then(data => {
             if (!data.success) return;
@@ -54,7 +54,7 @@ ${order.is_groupbuy ? `<p style="color:green;">Group Buy Discount Applied 🎉</
 function deleteOrder(orderId) {
     if (!confirm("Are you sure you want to delete this order?")) return;
 
-    fetch(`http://localhost:3000/api/delete-order/${orderId}`, {
+    fetch(`https://ecommerce-backend-yx51.onrender.com/api/delete-order/${orderId}`, {
         method: "DELETE"
     })
     .then(res => res.json())

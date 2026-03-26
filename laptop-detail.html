@@ -209,7 +209,7 @@ alert("Added to cart!");
 
 document.getElementById("groupBtn").onclick=function(){
 
-fetch("http://localhost:3000/create-group",{
+fetch("https://ecommerce-backend-yx51.onrender.com/api/create-group",{
 method:"POST",
 headers:{ "Content-Type":"application/json" },
 body:JSON.stringify({
