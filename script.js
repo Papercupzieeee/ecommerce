@@ -83,29 +83,17 @@
 
                 if (data.success) {
 
-                    
-                    localStorage.setItem("userId", data.userId);
-                    if (data.success) {
+    localStorage.setItem("userId", data.userId);
+    localStorage.setItem("district", data.district);
 
-                    localStorage.setItem("userId", data.userId);
+    alert("Login successfully");
+    loginForm.reset();
 
-    
-                    localStorage.setItem("district", data.district);
+    window.location.href = "home.html";
 
-                    alert("Login successfully");
-                    loginForm.reset();
-
-                    window.location.href = "home.html";
-                }
-
-                    alert("Login successfully");
-                    loginForm.reset();
-
-                    window.location.href = "home.html";
-
-                } else {
-                    alert(data.message);
-                }
+} else {
+    alert(data.message);
+}
 
             } catch (err) {
                 console.error(err);
