@@ -140,7 +140,7 @@
 
     const userId = localStorage.getItem("userId");
 
-    fetch("https://ecommerce-backend-yx51.onrender.com/api/create-group", {
+    fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -148,20 +148,24 @@
         body: JSON.stringify({
             productId,
             productName,
-            productPrice
+            productPrice,
+            userId   // ✅ ADD THIS
         })
     })
     .then(res => res.json())
     .then(data => {
 
         if(data.success){
-
-            // ✅ STORE USER-WISE
             localStorage.setItem("group_" + userId, data.groupId);
-
             window.location.href = `group.html?groupId=${data.groupId}`;
+        } else {
+            alert(data.message);
         }
 
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error");
     });
 }
 /* ---------------- ADD TO CART ---------------- */
