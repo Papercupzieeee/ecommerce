@@ -14,7 +14,6 @@
     <button class="back-btn" onclick="goBack()">⬅ Go Back</button>
     <button class="login-btn" onclick="goToLogin()">Login</button>
 </div>
-<button id="checkoutBtn" onclick="checkout()" style="display:none;">Checkout</button>
 
 <div class="container" id="card">
 
@@ -143,13 +142,7 @@ if(members.length === 3){
         localStorage.setItem("groupActivated_" + groupId, "true");
     }
 }
-function showPopup(){
-    document.getElementById("successPopup").style.display = "flex";
-}
 
-function closePopup(){
-    document.getElementById("successPopup").style.display = "none";
-}
 
 // ⭐ SAVE GROUP USER-WISE
 const userId = localStorage.getItem("userId");
@@ -343,6 +336,13 @@ window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank");
 
 function goToLogin(){
     window.location.href = "login.html";
+}
+function showPopup(){
+    document.getElementById("successPopup").style.display = "flex";
+}
+
+function closePopup(){
+    document.getElementById("successPopup").style.display = "none";
 }
 
 
