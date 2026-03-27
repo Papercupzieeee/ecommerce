@@ -14,6 +14,7 @@
     <button class="back-btn" onclick="goBack()">⬅ Go Back</button>
     <button class="login-btn" onclick="goToLogin()">Login</button>
 </div>
+<button id="checkoutBtn" onclick="checkout()" style="display:none;">Checkout</button>
 
 <div class="container" id="card">
 
@@ -59,6 +60,19 @@
     <li>✔ You can join, including you total 3 members.</li>
   </ul>
 </div>
+
+<!-- POPUP -->
+<div id="successPopup" class="popup">
+  <div class="popup-content">
+    <h2>🎉 Congratulations!</h2>
+    <p>Your Group Buy is now Activated!</p>
+
+    <button onclick="checkout()">🛒 Checkout Now</button>
+    <button onclick="closePopup()">❌ Exit</button>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
 
 <script>
     function goBack(){
@@ -114,6 +128,28 @@ discountEl.innerText = "Pay: ₹" + finalPrice;
 
 priceEl.innerText = "Original Price: ₹" + originalPrice;
 membersEl.innerText = `Members joined: ${members.length}/3`;
+
+// 🎯 WHEN 3 MEMBERS JOIN
+if(members.length === 3){
+
+    // show checkout button
+    checkoutBtn.style.display = "block";
+
+    // show popup ONLY ONCE
+    if(!localStorage.getItem("groupActivated_" + groupId)){
+        showPopup();
+        startConfetti();
+
+        localStorage.setItem("groupActivated_" + groupId, "true");
+    }
+}
+function showPopup(){
+    document.getElementById("successPopup").style.display = "flex";
+}
+
+function closePopup(){
+    document.getElementById("successPopup").style.display = "none";
+}
 
 // ⭐ SAVE GROUP USER-WISE
 const userId = localStorage.getItem("userId");
