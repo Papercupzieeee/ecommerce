@@ -95,7 +95,7 @@ const checkoutBtn = document.getElementById("checkoutBtn");
 ========================= */
 async function loadGroup(){
 
-const res = await fetch(`https://ecommerce-backend-yx51.onrender.com/api/group-status/${groupId}`);
+const res = await fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${groupId}`)
 const data = await res.json();
 
 if(!data.success) return;
@@ -110,6 +110,7 @@ productNameEl.innerText = group.product_name;
 const originalPrice = Number(group.product_price);
 const discountAmount = Math.round(originalPrice * 0.30);
 const finalPrice = originalPrice - discountAmount;
+discountEl.innerText = "Pay: ₹" + finalPrice;
 
 priceEl.innerText = "Original Price: ₹" + originalPrice;
 membersEl.innerText = `Members joined: ${members.length}/3`;
@@ -143,7 +144,8 @@ if(!deviceId){
 
 const userId = localStorage.getItem("userId");
 
-const res = await fetch("http://localhost:3000/join-group", {
+const res = await 
+fetch("https://ecommerce-backend-yx51.onrender.com/api/join-group", {
 method: "POST",
 headers: {"Content-Type":"application/json"},
 body: JSON.stringify({ groupId, memberName, deviceId, userId })
@@ -184,7 +186,7 @@ const cartItems = [{
     price: finalPrice
 }];
 
-const res = await fetch("http://localhost:3000/api/place-order", {
+const res = await fetch("https://ecommerce-backend-yx51.onrender.com/api/place-order", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
