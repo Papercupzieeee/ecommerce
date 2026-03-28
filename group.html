@@ -128,34 +128,49 @@ if(groupId){
     loadAllGroups();
 }
 /* ---------------- JOIN GROUP ---------------- */
+/* ---------------- JOIN GROUP ---------------- */
 const joinBtn = document.getElementById("joinBtn");
-if(joinBtn){
-  joinBtn.addEventListener("click", async()=>{
-    const userId = localStorage.getItem("userId");
-    if(!userId){ alert("Login first!"); return; }
 
-    const memberName = prompt("Enter your name:");
-    if(!memberName) return;
+if (joinBtn) {
+  joinBtn.addEventListener("click", async () => {
+    let memberName = prompt("Enter your name:");
+    if (!memberName || !memberName.trim()) {
+      alert("Name is required!");
+      return;
+    }
+    memberName = memberName.trim();
 
-    const deviceId = localStorage.getItem("deviceId") || crypto.randomUUID();
-    localStorage.setItem("deviceId", deviceId);
+    // Get groupId from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const groupId = parseInt(urlParams.get("groupId"));
+    if (!groupId || isNaN(groupId)) {
+      alert("Invalid group selected. Please go back and select a group.");
+      return;
+    }
 
-    const groupId = new URLSearchParams(window.location.search).get("groupId");
-    if(!groupId){ alert("Invalid group"); return; }
-
-    try{
-      const res = await fetch("https://ecommerce-backend-yx51.onrender.com/join-group",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({groupId, memberName, deviceId, userId})
+    try {
+      const res = await fetch("https://ecommerce-backend-yx51.onrender.com/join-group", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          group_id: groupId,
+          memberName
+        })
       });
+
       const data = await res.json();
-      if(data.success){
+      if (data.success) {
         alert(`Joined! Members now: ${data.members}`);
-        document.getElementById("members").innerText="Members:"+data.members;
-        if(data.members>=3) joinBtn.disabled=true;
-      }else alert(data.message || "Failed to join");
-    }catch(err){ console.error(err); alert("Server error"); }
+        document.getElementById("members").innerText = "Members: " + data.members;
+        if (data.members >= 3) joinBtn.disabled = true;
+      } else {
+        alert(data.message || "Failed to join");
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert("Server error");
+    }
   });
 }
 </script>
