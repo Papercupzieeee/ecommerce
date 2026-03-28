@@ -157,16 +157,33 @@ function goToGroupBuyByData(productId, productName){
         return;
     }
 
-    // ✅ check already in group
     const existingGroup = localStorage.getItem("group_" + userId);
 
-    if(existingGroup){
-        if(confirm("You already have an active group. Go to it?")){
-            window.location.href = `group.html?groupId=${existingGroup}`;
-        }
-        return;
-    }
+if(existingGroup){
 
+    // 🔥 CHECK FROM SERVER
+    fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${existingGroup}`)
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.success && data.group.status === "pending"){
+            if(confirm("You already have an active group. Go to it?")){
+                window.location.href = `group.html?groupId=${existingGroup}`;
+            }
+        } else {
+            // ✅ group இல்லை / expired → remove & create new
+            localStorage.removeItem("group_" + userId);
+            createNewGroup(productId, productName, finalPrice);
+        }
+
+    })
+    .catch(() => alert("Server error"));
+
+    return;
+}
+
+// 👉 if no existing group
+createNewGroup(productId, productName, finalPrice);
     let priceElement = document.getElementById("price-" + productId);
 
     let originalPrice = Number(
@@ -179,13 +196,14 @@ function goToGroupBuyByData(productId, productName){
         ? Number(finalText.replace("₹",""))
         : originalPrice;
 
-    fetch("https://ecommerce-backend-yx51.onrender.com/api/create-group", {
+    fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             productId,
             productName,
-            productPrice: finalPrice
+            productPrice: finalPrice,
+            userId
         })
     })
     .then(res => res.json())
