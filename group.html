@@ -131,8 +131,13 @@ membersEl.innerText = `Members joined: ${members.length}/3`;
 // 🎯 WHEN 3 MEMBERS JOIN
 if(members.length === 3){
 
+    
+
     // show checkout button
     checkoutBtn.style.display = "block";
+    joinBtn.disabled = true;
+joinBtn.innerText = "Group Full";
+joinBtn.style.opacity = "0.6";
 
     // show popup ONLY ONCE
     if(!localStorage.getItem("groupActivated_" + groupId)){
@@ -228,7 +233,16 @@ const res = await fetch("https://ecommerce-backend-yx51.onrender.com/api/place-o
 const data = await res.json();
 
 if(data.success){
+
     alert("🎉 Group Order placed!");
+
+    // ✅ REMOVE ACTIVE GROUP AFTER SUCCESS
+    
+    localStorage.removeItem("group_" + userId);
+
+    // optional cleanup
+    localStorage.removeItem("groupActivated_" + groupId);
+
     window.location.href="orders.html";
 }else{
     alert("Order failed");
@@ -249,6 +263,12 @@ const diff = endTime - Date.now();
 
 if(diff <= 0){
     timerText.innerText = "00:00:00";
+
+    joinBtn.disabled = true;
+    joinBtn.innerText = "Expired";
+
+    checkoutBtn.style.display = "none";
+
     clearInterval(timerInterval);
     return;
 }
