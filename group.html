@@ -15,155 +15,96 @@
     <button onclick="goToLogin()">Login</button>
 </div>
 
-<!-- 🔥 MULTIPLE GROUPS -->
+<!-- MULTIPLE GROUPS -->
 <div class="container" id="listSection">
     <h2>🔥 Active Group Buys</h2>
     <div id="groupList" class="products-container"></div>
 </div>
 
-<!-- 🎯 SINGLE GROUP -->
+<!-- SINGLE GROUP -->
 <div class="container" id="singleSection" style="display:none;">
     <h2 id="productName"></h2>
-
     <div class="circle">
         <div id="timerText">00:00:00</div>
     </div>
-
     <p id="originalPrice"></p>
-    <p id="discount"></p>
     <p id="members"></p>
-
     <button id="joinBtn">Join Group</button>
 </div>
 
 <script>
-
 /* NAV */
-function goBack(){
-    window.history.back();
-}
-function goToLogin(){
-    window.location.href="login.html";
-}
+function goBack(){ window.history.back(); }
+function goToLogin(){ window.location.href="login.html"; }
 
-/* MODE */
+/* MAIN */
 const groupId = new URLSearchParams(window.location.search).get("groupId");
 
-/* ================= MULTIPLE GROUPS ================= */
-
+/* LOAD ALL GROUPS */
 async function loadAllGroups(){
-
-    const res = await fetch("https://ecommerce-backend-yx51.onrender.com/all-groups");
-    const data = await res.json();
-
-    if(!data.success) return;
-
-    const container = document.getElementById("groupList");
-    container.innerHTML = "";
-
-    data.groups.rows.forEach(group => {
-        if(group.status !== "pending") return;
-
-        const created = new Date(group.created_at).getTime();
-        const end = created + (2 * 60 * 60 * 1000);
-
-        const card = document.createElement("div");
-        card.className = "group-card";
-
-        card.innerHTML = `
-            <h3>${group.product_name}</h3>
-            <p>Original: ₹${group.product_price}</p>
-            <p>Offer: ₹${Math.round(group.product_price * 0.7)}</p>
-            <p id="timer-${group.id}">Loading...</p>
-            <button onclick="viewGroup(${group.id})">View</button>
-        `;
-
-        container.appendChild(card);
-
-        startMiniTimer(group.id, end);
-    });
+    try{
+        const res = await fetch("https://ecommerce-backend-yx51.onrender.com/all-groups");
+        const data = await res.json();
+        if(!data.success) return;
+        const container = document.getElementById("groupList");
+        container.innerHTML = "";
+        data.groups.forEach(group => {
+            if(group.status!=='pending') return;
+            const created = new Date(group.created_at).getTime();
+            const end = created + 2*60*60*1000;
+            const card = document.createElement("div");
+            card.className = "group-card";
+            card.innerHTML = `
+                <h3>${group.product_name}</h3>
+                <p>Original: ₹${group.product_price}</p>
+                <p>Offer: ₹${Math.round(group.product_price*0.7)}</p>
+                <p id="timer-${group.group_id}">Loading...</p>
+                <button onclick="viewGroup('${group.group_id}')">View</button>
+            `;
+            container.appendChild(card);
+            startMiniTimer(group.group_id, end);
+        });
+        if(container.innerHTML==="") container.innerHTML="<p>No active group buys 😢</p>";
+    }catch(err){ console.error(err); }
 }
 
-/* TIMER CARD */
+/* MINI TIMER */
 function startMiniTimer(id, endTime){
-
-    const interval = setInterval(() => {
-
+    const interval = setInterval(()=>{
         const diff = endTime - Date.now();
-
-        if(diff <= 0){
-            document.getElementById("timer-" + id).innerText = "Expired";
-            clearInterval(interval); // 🔥 important
-            return;
-        }
-
-        const mins = Math.floor(diff / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById("timer-" + id).innerText =
-            mins + "m " + secs + "s";
-
+        if(diff<=0){ document.getElementById("timer-"+id).innerText="Expired"; clearInterval(interval); return; }
+        const mins=Math.floor(diff/(1000*60)), secs=Math.floor((diff%(1000*60))/1000);
+        document.getElementById("timer-"+id).innerText=mins+"m "+secs+"s";
     },1000);
 }
 
-/* VIEW */
-function viewGroup(groupId){
-    window.location.href = `group.html?groupId=${groupId}`;
-}
+/* VIEW GROUP */
+function viewGroup(id){ window.location.href=`group.html?groupId=${id}`; }
 
-/* ================= SINGLE GROUP ================= */
-
+/* LOAD SINGLE GROUP */
 async function loadGroup(){
-
-    const res = await fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${groupId}`);
-    const data = await res.json();
-
-    if(!data.success) return;
-
-    const group = data.group;
-    const members = group.members || [];
-
-    document.getElementById("productName").innerText = group.product_name;
-
-    const original = Number(group.product_price);
-    const offer = Math.round(original * 0.7);
-
-    document.getElementById("originalPrice").innerText = "Original: ₹" + original;
-    document.getElementById("discount").innerText = "Offer: ₹" + offer;
-    document.getElementById("members").innerText = `Members: ${members.length}/3`;
-
-    const created = new Date(group.created_at).getTime();
-    const endTime = created + (2 * 60 * 60 * 1000);
-
-    startMainTimer(endTime);
+    try{
+        const res = await fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${groupId}`);
+        const data = await res.json();
+        if(!data.success){ alert(data.message||"Failed to load group"); return; }
+        const group = data.group;
+        document.getElementById("productName").innerText = group.product_name;
+        document.getElementById("originalPrice").innerText = "Original: ₹"+group.product_price;
+        document.getElementById("members").innerText = "Members: "+(group.members?group.members.length:0);
+        const created = new Date(group.created_at).getTime();
+        startMainTimer(created + 2*60*60*1000);
+    }catch(err){ console.error(err); }
 }
 
-/* TIMER MAIN */
+/* MAIN TIMER */
 function startMainTimer(endTime){
-
-    const interval = setInterval(() => {
-
+    const interval = setInterval(()=>{
         const diff = endTime - Date.now();
-
-        if(diff <= 0){
-            document.getElementById("timerText").innerText = "Expired";
-            clearInterval(interval); // 🔥 important
-            return;
-        }
-
-        const h = Math.floor(diff/(1000*60*60));
-        const m = Math.floor((diff%(1000*60*60))/(1000*60));
-        const s = Math.floor((diff%(1000*60))/1000);
-
-        document.getElementById("timerText").innerText =
-            String(h).padStart(2,'0') + ":" +
-            String(m).padStart(2,'0') + ":" +
-            String(s).padStart(2,'0');
-
-    }, 1000);
-}
-if(container.innerHTML === ""){
-    container.innerHTML = "<p>No active group buys 😢</p>";
+        if(diff<=0){ document.getElementById("timerText").innerText="Expired"; clearInterval(interval); return; }
+        const h=Math.floor(diff/(1000*60*60)), m=Math.floor((diff%(1000*60*60))/(1000*60)), s=Math.floor((diff%(1000*60))/1000);
+        document.getElementById("timerText").innerText=
+            String(h).padStart(2,'0')+":"+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
+    },1000);
 }
 
 /* INIT */
@@ -171,10 +112,9 @@ if(groupId){
     document.getElementById("listSection").style.display="none";
     document.getElementById("singleSection").style.display="block";
     loadGroup();
-}else{
+} else {
     loadAllGroups();
 }
-
 </script>
 
 </body>
