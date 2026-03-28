@@ -101,6 +101,9 @@ background:rgba(255,255,255,0.3);
 outline:none;
 transition:0.3s;
 }
+.sg {
+    margin-top: 10px;
+}
 
 .lg:focus,.sg:focus{
 border:1px solid royalblue;
