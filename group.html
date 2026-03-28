@@ -40,7 +40,10 @@ function goToLogin(){ window.location.href="login.html"; }
 
 /* MAIN */
 const groupId = new URLSearchParams(window.location.search).get("groupId");
-
+if (!groupId) {
+  alert("Invalid group. Please select a group first.");
+  return;
+}
 /* LOAD ALL GROUPS */
 async function loadAllGroups(){
     try{
@@ -150,6 +153,18 @@ if(joinBtn){
     }catch(err){ console.error(err); alert("Server error"); }
   });
 }
+fetch("https://ecommerce-backend-yx51.onrender.com/join-group", {
+  method: "POST",
+  headers: {"Content-Type":"application/json"},
+  body: JSON.stringify({
+    groupId: 1,
+    memberName: "TestUser3",
+    deviceId: "device789",
+    userId: 3
+  })
+})
+.then(r => r.json())
+.then(console.log);
 </script>
 
 </body>
