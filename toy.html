@@ -145,7 +145,7 @@ function logout(){
 }
 
 
-/* ---------------- GROUP BUY (UPGRADED) ---------------- */
+/* ---------------- GROUP BUY (FIXED) ---------------- */
 
 function goToGroupBuyByData(productId, productName){
 
@@ -157,7 +157,6 @@ function goToGroupBuyByData(productId, productName){
         return;
     }
 
-    // ✅ GET PRICE FIRST (IMPORTANT)
     let priceElement = document.getElementById("price-" + productId);
 
     let originalPrice = Number(
@@ -170,39 +169,38 @@ function goToGroupBuyByData(productId, productName){
         ? Number(finalText.replace("₹",""))
         : originalPrice;
 
-
     const existingGroup = localStorage.getItem("group_" + userId);
 
-    // 🔥 CHECK EXISTING GROUP FROM SERVER
+    // 🔥 FIXED LOGIC
     if(existingGroup){
 
         fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${existingGroup}`)
         .then(res => res.json())
         .then(data => {
 
-            if(data.success && data.group.status === "pending"){
-
-                if(confirm("You already have an active group. Go to it?")){
-                    window.location.href = `group.html?groupId=${existingGroup}`;
-                }
-
-            } else {
-                // ✅ expired அல்லது success → allow new group
+            // ❌ invalid / expired / success → clear & create new
+            if(!data.success || data.group.status !== "pending"){
                 localStorage.removeItem("group_" + userId);
                 createGroup();
+                return;
             }
 
+            // ✅ still active → directly go (NO popup)
+            window.location.href = `group.html?groupId=${existingGroup}`;
+
         })
-        .catch(() => alert("Server error"));
+        .catch(() => {
+            localStorage.removeItem("group_" + userId);
+            createGroup();
+        });
 
         return;
     }
 
-    // 👉 NO existing group
+    // 👉 no group
     createGroup();
 
 
-    // ✅ CREATE GROUP FUNCTION
     function createGroup(){
 
         fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {

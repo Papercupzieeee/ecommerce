@@ -112,55 +112,63 @@ const res = await
 fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${groupId}`);
 const data = await res.json();
 
-if(!data.success) return;
+if(!data.success){
+    const userId = localStorage.getItem("userId");
+    localStorage.removeItem("group_" + userId);
+    return;
+}
 
 const group = data.group;
 const members = group.members || [];
+
+// 🔥 IMPORTANT FIX
+const userId = localStorage.getItem("userId");
+
+// ❌ if not pending → clear storage
+if(group.status !== "pending"){
+    localStorage.removeItem("group_" + userId);
+}
 
 productId = group.product_id;
 
 productNameEl.innerText = group.product_name;
 
 const originalPrice = Number(group.product_price);
-const finalPrice = Math.round(originalPrice * 0.7); // 30% off
-discountEl.innerText = "Pay: ₹" + finalPrice;
+const finalPrice = Math.round(originalPrice * 0.7);
 
+discountEl.innerText = "Pay: ₹" + finalPrice;
 priceEl.innerText = "Original Price: ₹" + originalPrice;
 membersEl.innerText = `Members joined: ${members.length}/3`;
 
-// 🎯 WHEN 3 MEMBERS JOIN
+
+// 🎯 WHEN FULL
 if(members.length === 3){
 
-    
-
-    // show checkout button
     checkoutBtn.style.display = "block";
-    joinBtn.disabled = true;
-joinBtn.innerText = "Group Full";
-joinBtn.style.opacity = "0.6";
 
-    // show popup ONLY ONCE
+    joinBtn.disabled = true;
+    joinBtn.innerText = "Group Full";
+    joinBtn.style.opacity = "0.6";
+
     if(!localStorage.getItem("groupActivated_" + groupId)){
         showPopup();
         startConfetti();
-
         localStorage.setItem("groupActivated_" + groupId, "true");
     }
 }
 
 
-// ⭐ SAVE GROUP USER-WISE
-const userId = localStorage.getItem("userId");
-localStorage.setItem("group_" + userId, groupId);
+// ⭐ SAVE ONLY IF ACTIVE
+if(group.status === "pending"){
+    localStorage.setItem("group_" + userId, groupId);
+}
 
 groupCreatedTime = new Date(group.created_at).getTime();
 endTime = groupCreatedTime + (2 * 60 * 60 * 1000);
 
 startTimer();
-}
-
 loadGroup();
-
+}
 /* =========================
    JOIN GROUP
 ========================= */
@@ -266,8 +274,11 @@ if(diff <= 0){
 
     joinBtn.disabled = true;
     joinBtn.innerText = "Expired";
+    joinBtn.style.opacity = "0.6";
 
     checkoutBtn.style.display = "none";
+
+    membersEl.innerText += " (Expired)";
 
     clearInterval(timerInterval);
     return;
