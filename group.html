@@ -11,58 +11,46 @@
 
 <div class="top-bar">
     <div class="logo">GroupCart</div>
-    <button class="back-btn" onclick="goBack()">⬅ Go Back</button>
-    <button class="login-btn" onclick="goToLogin()">Login</button>
+    <button onclick="goBack()">⬅ Go Back</button>
+    <button onclick="goToLogin()">Login</button>
 </div>
 
-<div class="container">
+<!-- 🔥 MULTIPLE GROUPS -->
+<div class="container" id="listSection">
     <h2>🔥 Active Group Buys</h2>
     <div id="groupList" class="products-container"></div>
 </div>
 
-<h2>Group Buy</h2>
-<h3 id="productName"></h3>
+<!-- 🎯 SINGLE GROUP -->
+<div class="container" id="singleSection" style="display:none;">
+    <h2 id="productName"></h2>
 
-<div class="circle-timer">
-    <svg>
-        <circle class="bg-circle" cx="75" cy="75" r="70"></circle>
-        <circle class="progress-circle" id="progress" cx="75" cy="75" r="70"></circle>
-    </svg>
-    <div id="timerText">02:00:00</div>
-</div>
+    <div class="circle">
+        <div id="timerText">00:00:00</div>
+    </div>
 
-<div id="gr1">
-<p id="originalPrice"></p>
-<p id="discount"></p>
-<p id="members">Members joined: 0/3</p>
+    <p id="originalPrice"></p>
+    <p id="discount"></p>
+    <p id="members"></p>
 
-<button id="inviteBtn">Invite via WhatsApp</button>
-<button id="joinBtn">Join Group</button>
-<button id="checkoutBtn" onclick="checkout()">Checkout</button>
-</div>
+    <button id="joinBtn">Join Group</button>
 </div>
 
 <script>
 
-/* =========================
-   BASIC NAV
-========================= */
+/* NAV */
 function goBack(){
-    if (window.history.length > 1) window.history.back();
-    else window.location.href = "products.html";
+    window.history.back();
 }
 function goToLogin(){
-    window.location.href = "login.html";
+    window.location.href="login.html";
 }
 
-/* =========================
-   CHECK MODE
-========================= */
+/* MODE */
 const groupId = new URLSearchParams(window.location.search).get("groupId");
 
-/* =========================
-   MULTIPLE GROUPS VIEW
-========================= */
+/* ================= MULTIPLE GROUPS ================= */
+
 async function loadAllGroups(){
 
     const res = await fetch("https://ecommerce-backend-yx51.onrender.com/all-groups");
@@ -85,13 +73,10 @@ async function loadAllGroups(){
 
         card.innerHTML = `
             <h3>${group.product_name}</h3>
-
             <p>Original: ₹${group.product_price}</p>
             <p>Offer: ₹${Math.round(group.product_price * 0.7)}</p>
-
             <p id="timer-${group.id}">Loading...</p>
-
-            <button onclick="viewGroup(${group.id})">View</button>
+            <button onclick="viewGroup('${group.group_id}')">View</button>
         `;
 
         container.appendChild(card);
@@ -100,11 +85,8 @@ async function loadAllGroups(){
     });
 }
 
-/* =========================
-   MINI TIMER (CARD)
-========================= */
+/* TIMER CARD */
 function startMiniTimer(id, endTime){
-
     setInterval(() => {
 
         const diff = endTime - Date.now();
@@ -118,82 +100,69 @@ function startMiniTimer(id, endTime){
         const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
         document.getElementById("timer-" + id).innerText =
-            mins + "m " + secs + "s left";
+            mins + "m " + secs + "s";
 
-    }, 1000);
+    },1000);
 }
 
-/* =========================
-   VIEW BUTTON
-========================= */
-function viewGroup(id){
-    window.location.href = `group.html?groupId=${id}`;
+/* VIEW */
+function viewGroup(groupId){
+    window.location.href = `group.html?groupId=${groupId}`;
 }
 
-/* =========================
-   SINGLE GROUP (YOUR OLD LOGIC)
-========================= */
-
-let productId = null;
+/* ================= SINGLE GROUP ================= */
 
 async function loadGroup(){
 
-const res = await 
-fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${groupId}`);
-const data = await res.json();
+    const res = await fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${groupId}`);
+    const data = await res.json();
 
-if(!data.success) return;
+    if(!data.success) return;
 
-const group = data.group;
-const members = group.members || [];
+    const group = data.group;
+    const members = group.members || [];
 
-productId = group.product_id;
+    document.getElementById("productName").innerText = group.product_name;
 
-document.getElementById("productName").innerText = group.product_name;
+    const original = Number(group.product_price);
+    const offer = Math.round(original * 0.7);
 
-const originalPrice = Number(group.product_price);
-const finalPrice = Math.round(originalPrice * 0.7);
+    document.getElementById("originalPrice").innerText = "Original: ₹" + original;
+    document.getElementById("discount").innerText = "Offer: ₹" + offer;
+    document.getElementById("members").innerText = `Members: ${members.length}/3`;
 
-document.getElementById("discount").innerText = "Pay: ₹" + finalPrice;
-document.getElementById("originalPrice").innerText = "Original Price: ₹" + originalPrice;
-document.getElementById("members").innerText = `Members joined: ${members.length}/3`;
+    const created = new Date(group.created_at).getTime();
+    const endTime = created + (2 * 60 * 60 * 1000);
 
-const created = new Date(group.created_at).getTime();
-const endTime = created + (2 * 60 * 60 * 1000);
-
-startTimer(endTime);
+    startMainTimer(endTime);
 }
 
-/* =========================
-   TIMER (MAIN)
-========================= */
-function startTimer(endTime){
+/* TIMER MAIN */
+function startMainTimer(endTime){
 
-setInterval(() => {
+    setInterval(() => {
 
-const diff = endTime - Date.now();
+        const diff = endTime - Date.now();
 
-if(diff <= 0){
-    document.getElementById("timerText").innerText = "Expired";
-    return;
+        if(diff <= 0){
+            document.getElementById("timerText").innerText = "Expired";
+            return;
+        }
+
+        const h = Math.floor(diff/(1000*60*60));
+        const m = Math.floor((diff%(1000*60*60))/(1000*60));
+        const s = Math.floor((diff%(1000*60))/1000);
+
+        document.getElementById("timerText").innerText =
+            `${h}:${m}:${s}`;
+
+    },1000);
 }
 
-const hrs = Math.floor(diff / (1000 * 60 * 60));
-const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-document.getElementById("timerText").innerText =
-`${hrs}:${mins}:${secs}`;
-
-}, 1000);
-}
-
-/* =========================
-   INIT
-========================= */
+/* INIT */
 if(groupId){
-    document.getElementById("card").style.display = "block";
-    document.getElementById("groupList").style.display = "none";
+    document.getElementById("listSection").style.display="none";
+    document.getElementById("singleSection").style.display="block";
     loadGroup();
 }else{
     loadAllGroups();
