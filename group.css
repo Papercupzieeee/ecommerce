@@ -4,24 +4,25 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #1a1f71, #6a11cb, #2575fc);
   color: white;
-  overflow-x: hidden;
 }
 
 /* 🔝 TOP BAR */
 .top-bar {
   display: flex;
   justify-content: space-between;
-  padding: 15px 30px;
+  align-items: center;
+  padding: 15px 20px;
   background: rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
+  flex-wrap: wrap;
 }
 
 .logo {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
-  letter-spacing: 1px;
 }
 
+/* BUTTONS */
 .top-bar button {
   background: rgba(255,255,255,0.15);
   border: none;
@@ -39,7 +40,8 @@ body {
 /* 📦 CONTAINER */
 .container {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
+  padding: 0 15px;
 }
 
 /* 🧊 GLASS CARD */
@@ -47,44 +49,42 @@ body {
 .group-card {
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 25px;
+  border-radius: 18px;
+  padding: 20px;
   margin: 20px auto;
-  width: 320px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  animation: fadeIn 0.6s ease;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  animation: fadeIn 0.5s ease;
 }
 
-/* ⭕ TIMER CIRCLE */
-.circle {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
+/* ⏱️ TIMER BOX (PROFESSIONAL STYLE) */
+.timer-box {
   margin: 20px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: bold;
-
-  background: conic-gradient(#ff7eb3, #ff758c, #6a11cb, #2575fc, #ff7eb3);
-  animation: rotate 6s linear infinite;
-
-  position: relative;
+  width: 100%;
 }
 
-.circle::before {
-  content: "";
-  position: absolute;
-  width: 110px;
-  height: 110px;
-  background: #1a1f71;
-  border-radius: 50%;
-}
-
+/* TIMER TEXT */
 #timerText {
-  position: relative;
-  z-index: 1;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ff7eb3, #ff758c);
+  transition: width 1s linear;
 }
 
 /* 🛒 BUTTON */
@@ -97,11 +97,12 @@ button {
   cursor: pointer;
   transition: 0.3s;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 15px rgba(255, 118, 140, 0.7);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 118, 140, 0.6);
 }
 
 button:disabled {
@@ -125,66 +126,31 @@ button:disabled {
 
 /* ✨ POPUP BOX */
 .popup-box {
-  background: linear-gradient(135deg, #ffffff, #f3f3f3);
+  background: white;
   color: #333;
-  padding: 30px;
-  border-radius: 20px;
+  padding: 25px;
+  border-radius: 18px;
   text-align: center;
-  width: 320px;
+  width: 90%;
+  max-width: 320px;
   animation: popupZoom 0.4s ease;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
 .popup-box h2 {
   color: #6a11cb;
-  margin-bottom: 10px;
 }
 
-.main-text {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.sub-text {
-  font-size: 14px;
-  color: gray;
-}
-
-/* 🎯 BUTTON GROUP */
+/* BUTTON GROUP */
 .btn-group {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .checkout-btn {
   background: linear-gradient(135deg, #6a11cb, #2575fc);
-  margin: 5px;
 }
 
 .close-btn {
   background: #ff4d4d;
-  margin: 5px;
-}
-
-/* 🎊 ANIMATIONS */
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes popupZoom {
-  from {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px);}
-  to { opacity: 1; transform: translateY(0);}
 }
 
 /* 🧾 GROUP CARD */
@@ -192,6 +158,32 @@ button:disabled {
   margin-bottom: 10px;
 }
 
-.group-card button {
-  margin-top: 10px;
+/* 🎊 ANIMATIONS */
+@keyframes popupZoom {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* 📱 MOBILE RESPONSIVE */
+@media(max-width:600px){
+
+  .top-bar{
+    flex-direction: column;
+    gap:10px;
+  }
+
+  .container,
+  .group-card{
+    width: 95%;
+  }
+
+  #timerText{
+    font-size: 22px;
+  }
+
 }

@@ -1,29 +1,38 @@
-/* ---------- GLOBAL ---------- */
-
-body{
+/* ---------- GLOBAL RESET ---------- */
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body{
+overflow-x:hidden;
+}
+
+/* ---------- LOGIN WRAPPER ---------- */
 .login-wrapper{
 position:relative;
-width:420px;
-margin:auto;
-margin-top:120px;
+width:100%;
+max-width:420px;
+margin:100px auto;
+padding:0 15px;
 }
 
-/* cartoon position */
-
+/* CARTOON */
 .cartoon-box{
 position:absolute;
-top:-130px;      /* login box mela varum */
-right:-40px;    /* konjam side la */
+top:-120px;
+right:0;
 text-align:center;
-z-index:5;      /* box pinnadi pogama irukum */
+z-index:5;
 }
 
-/* speech bubble */
+.cartoon{
+width:120px;
+}
 
+/* SPEECH */
 .speech{
 background:white;
 padding:5px 10px;
@@ -31,69 +40,48 @@ border-radius:10px;
 font-size:12px;
 margin-bottom:5px;
 animation:floatText 2s infinite;
-position:relative;
-top:-5px;
-
-}
-/* cartoon size */
-
-.cartoon{
-width:40%;
-margin-top:0;
 }
 
-/* waving arm animation */
-
-.wave-arm{
-transform-origin: center ;
-animation:wave 1s infinite;
-}
-
-@keyframes wave{
-0%{transform:rotate(0deg);}
-50%{transform:rotate(-40deg);}
-100%{transform:rotate(0deg);}
-}
-
-/* speech floating */
-
+/* ANIMATION */
 @keyframes floatText{
 0%{transform:translateY(0);}
 50%{transform:translateY(-5px);}
 100%{transform:translateY(0);}
 }
 
+.wave-arm{
+transform-origin:center;
+animation:wave 1s infinite;
+}
+
+@keyframes wave{
+0%{transform:rotate(0);}
+50%{transform:rotate(-30deg);}
+100%{transform:rotate(0);}
+}
 
 /* ---------- LOGIN PAGE ---------- */
-
 #firstbody{
-background-color: rgb(121, 147, 250);
-
-background-position:center;
+background:linear-gradient(135deg,#7993fa,#a5b4fc);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
 #loginForm{
-width:90%;
+width:100%;
 max-width:420px;
-margin:auto;
-margin-top:80px;
-padding:30px;
+padding:25px;
 border-radius:15px;
-font-size:20px;
-
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.3);
+background:rgba(255,255,255,0.2);
 backdrop-filter:blur(12px);
-
 box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
-
-
-/* INPUT FIELDS */
-
+/* INPUT */
 .lg,.sg{
-margin-bottom:18px;
+margin-bottom:15px;
 height:45px;
 width:100%;
 border-radius:25px;
@@ -101,149 +89,76 @@ border:1px solid rgba(255,255,255,0.6);
 padding-left:15px;
 font-size:16px;
 background:rgba(255,255,255,0.3);
-color:black;
 outline:none;
-box-sizing:border-box;
 transition:0.3s;
+}
 
-}
-.rope {
-    margin-top: 100px;
-}
 .lg:focus,.sg:focus{
-border:1px solid royalblue;
 background:white;
 box-shadow:0 0 6px rgba(65,105,225,0.4);
 }
-::placeholder{
-color:#444;
-}
 
 /* TEXT */
-
 .text1,.text2{
 text-align:center;
-font-size:30px;
+font-size:26px;
 font-weight:bold;
 color:white;
 margin-bottom:10px;
 }
 
-.text1a,.text2a{
-text-align:center;
-color:white;
-font-size: 30px;
-}
-
-/* BUTTONS */
-
+/* BUTTON */
 #log,#sign,#signup{
 height:45px;
 width:100%;
 border-radius:25px;
 border:none;
-
-background-color:royalblue;
-color:white;
+background:royalblue;
 color:white;
 font-size:16px;
 font-weight:bold;
-margin-top:20px;
+margin-top:15px;
 cursor:pointer;
 transition:0.3s;
 }
 
 #log:hover,#sign:hover,#signup:hover{
 transform:scale(1.05);
-background-color:rgb(30, 55, 131);
+background:#1e3a8a;
 }
 
-
-/* ---------- SIGNUP PAGE ---------- */
- .hanging-rope{
-position:absolute;
-top:0;
-width:3px;
-height:70px;
-background:royalblue;
-transform-origin:top;
-}
-
-.hanging-word{
-position:absolute;
-bottom:-30px;
-left:-40px;
-background:rgb(131,155,255);
-color:#000;
-padding:6px 14px;
-border-radius:8px;
-font-size:13px;
-font-weight:900;
-letter-spacing:1px;
-white-space:nowrap;
-box-shadow:0 4px 10px rgba(0,0,0,0.25);
-}
-
-@keyframes swing1{
-0%{transform:rotate(-8deg);}
-100%{transform:rotate(8deg);}
-}
-
-@keyframes swing2{
-0%{transform:rotate(6deg);}
-100%{transform:rotate(-6deg);}
-}
-
-@keyframes swing3{
-0%{transform:rotate(-5deg);}
-100%{transform:rotate(10deg);}
-}
-
-
+/* ---------- SIGNUP ---------- */
 #twobody{
-background-color:rgb(131,155,255);
-
-background-position:center;
-}
-
-#signupForm{
-width:90%;
-max-width:420px;
-margin:auto;
-margin-top:80px;
-padding:30px;
-border-radius:15px;
-font-size:20px;
-
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.3);
-backdrop-filter:blur(12px);
-}
-
-
-/* ---------- HOME PAGE ---------- */
-
-#threebody{
-background:linear-gradient(135deg,#6a85f1,#8fa7ff);
-height:100vh;
+background:linear-gradient(135deg,#8fa7ff,#c7d2fe);
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-overflow:hidden;
-font-family:Arial;
 }
 
-/* container */
-.homepagebody{
+#signupForm{
+width:100%;
+max-width:420px;
+padding:25px;
+border-radius:15px;
+background:rgba(255,255,255,0.2);
+backdrop-filter:blur(12px);
+}
+
+/* ---------- HOME ---------- */
+#threebody{
+background:linear-gradient(135deg,#6a85f1,#8fa7ff);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 text-align:center;
 color:white;
 }
 
-/* text animation */
 .text3b{
-font-size:26px;
+font-size:24px;
 opacity:0;
-transform:translateY(30px);
 animation:fadeUp 1s forwards;
 }
 
@@ -258,26 +173,24 @@ transform:translateY(0);
 }
 }
 
-/* button */
+/* BUTTON */
 #startbuybtn{
 margin-top:20px;
-padding:12px 40px;
-font-size:18px;
+padding:12px 30px;
+font-size:16px;
 border:none;
 border-radius:30px;
 background:#4a66d6;
 color:white;
 cursor:pointer;
-transition:all 0.3s;
+transition:0.3s;
 }
 
-/* hover animation */
 #startbuybtn:hover{
 transform:scale(1.1);
-box-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
-/* floating bubbles background */
+/* BUBBLES */
 .bubble-bg span{
 position:absolute;
 bottom:-100px;
@@ -288,174 +201,113 @@ border-radius:50%;
 animation:float 12s infinite;
 }
 
-.bubble-bg span:nth-child(1){left:10%;animation-duration:10s;}
-.bubble-bg span:nth-child(2){left:25%;animation-duration:14s;}
-.bubble-bg span:nth-child(3){left:40%;animation-duration:12s;}
-.bubble-bg span:nth-child(4){left:60%;animation-duration:16s;}
-.bubble-bg span:nth-child(5){left:75%;animation-duration:11s;}
-.bubble-bg span:nth-child(6){left:90%;animation-duration:15s;}
-
 @keyframes float{
-0%{
-transform:translateY(0);
-opacity:0;
-}
-50%{
-opacity:1;
-}
-100%{
-transform:translateY(-100vh);
-opacity:0;
-}
+0%{transform:translateY(0);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
 }
 
-/* ---------- PRODUCTS PAGE ---------- */
-
+/* ---------- HEADER (COMMON FIX) ---------- */
 .box4{
-position:fixed;
+position:sticky;
 top:0;
 display:flex;
-background-color:#e2dfdf;
-width:98%;
-padding:10px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
-}
-
-.box4 button{
-padding:10px 20px;
-margin-left:100px;
-background-color:royalblue;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-font-size:16px;
-height:50px;
-width:30%;
-transition:0.3s;
-}
-
-.box4 button:hover{
-background-color:#45a049;
+justify-content:space-between;
+align-items:center;
+background:#e2dfdf;
+padding:10px 15px;
+flex-wrap:wrap;
+gap:10px;
+z-index:100;
 }
 
 .text4a{
 color:royalblue;
-font-size:30px;
-margin-top:1px;
+font-size:24px;
 }
 
 #g{
-font-size:40px;
+font-size:28px;
 font-weight:bold;
-font-family:Arial, Helvetica, sans-serif;
 }
 
-.box4c{
-margin-top:100px;
-background-color:#e2dfdf;
-width:22%;
-padding:10px;
-border-radius:10px;
-font-size:20px;
-margin-left:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
-
+/* NAV LINKS */
 .box4d{
-position:absolute;
-top:15%;
-left:10px;
-padding:10px;
-background-color:#e2dfdf;
-border-radius:10px;
-width:100%;
 display:flex;
-gap:20px;
-align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+gap:15px;
+margin:10px 0;
 }
 
-.link1,.link2,.link3,.link4,.link5{
+.box4d a{
 text-decoration:none;
 color:royalblue;
-font-size:30px;
 font-weight:bold;
-margin-left:90px;
 }
 
-.box4e{
-background-color:white;
-height:400px;
-width:75%;
-margin-top:200px;
-position:absolute;
-margin-left:20px;
-font-size:30px;
-}
-
-.frock{
-margin-left:150px;
-}
-
-#details{
-display:inline-block;
-position:absolute;
-margin-left:100px;
-}
-
-
-/* ---------- CART / ORDER HEADER ---------- */
-
+/* ---------- CART HEADER ---------- */
 .box5{
-position:fixed;
+position:sticky;
 top:0;
 display:flex;
-background-color:#e2dfdf;
-height:70px;
-width:98%;
+align-items:center;
+background:#e2dfdf;
 padding:10px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
+font-size:22px;
 color:royalblue;
-font-size:30px;
 }
 
-.box5c{
-background-color:rgb(20,52,148);
-color:white;
-font-size:20px;
-padding:20px;
-margin-top:100px;
-}
-
+/* BUTTON */
 .backbtn{
 height:40px;
-width:20%;
-background-color:#e2dfdf;
+padding:0 15px;
+background:#e2dfdf;
 border-radius:20px;
-margin-left:100px;
-font-size:20px;
-font-weight:bold;
 border:2px solid royalblue;
+cursor:pointer;
 }
 
+/* SELECT */
 #district{
 height:45px;
 width:100%;
 border-radius:25px;
-border:1px solid rgba(255,255,255,0.6);
 padding-left:10px;
-font-size:16px;
-background:rgba(255,255,255,0.3);
-margin-bottom:18px;
-outline:none;
-}
-#district{
-transition:all 0.3s ease;
+margin-bottom:15px;
 }
 
-#district:focus{
-transform:scale(1.05);
-box-shadow:0 0 10px rgba(255,255,255,0.7);
+/* ---------- MOBILE ---------- */
+@media(max-width:600px){
+
+.login-wrapper{
+margin-top:80px;
+}
+
+.cartoon-box{
+position:static;
+margin-bottom:10px;
+}
+
+.cartoon{
+width:100px;
+}
+
+.text1,.text2{
+font-size:22px;
+}
+
+.box4{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.box4d{
+gap:10px;
+}
+
+.text3b{
+font-size:20px;
+}
+
 }
