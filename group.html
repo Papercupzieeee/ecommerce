@@ -28,6 +28,7 @@
         <div id="timerText">00:00:00</div>
     </div>
     <p id="originalPrice"></p>
+    <p id="discountPrice"></p>
     <p id="members">Members: 0</p>
 <button id="joinBtn">Join Group</button>
 </div>
@@ -91,6 +92,8 @@ async function loadGroup(){
         const group = data.group;
         document.getElementById("productName").innerText = group.product_name;
         document.getElementById("originalPrice").innerText = "Original: ₹"+group.product_price;
+        document.getElementById("discountPrice").innerText = 
+    "Offer: ₹" + Math.round(group.product_price * 0.7);
         document.getElementById("members").innerText = "Members: "+(group.members?group.members.length:0);
         const created = new Date(group.created_at).getTime();
         startMainTimer(created + 2*60*60*1000);
@@ -133,7 +136,7 @@ if(joinBtn){
     if(!groupId){ alert("Invalid group"); return; }
 
     try{
-      const res = await fetch("https://your-backend-url/join-group",{
+      const res = await fetch("https://ecommerce-backend-yx51.onrender.com/join-group",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({groupId, memberName, deviceId, userId})
