@@ -1,4 +1,4 @@
-/* ---------- GLOBAL RESET ---------- */
+/* ---------- GLOBAL ---------- */
 *{
 margin:0;
 padding:0;
@@ -6,33 +6,42 @@ box-sizing:border-box;
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body{
-overflow-x:hidden;
+/* ---------- BODY ---------- */
+#firstbody, #twobody{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#7993fa,#a5b4fc);
+padding:20px;
 }
 
-/* ---------- LOGIN WRAPPER ---------- */
+/* ---------- WRAPPER ---------- */
 .login-wrapper{
 position:relative;
 width:100%;
 max-width:420px;
-margin:100px auto;
-padding:0 15px;
+margin:auto;
 }
 
-/* CARTOON */
+/* ---------- CARTOON ---------- */
 .cartoon-box{
 position:absolute;
-top:-120px;
-right:0;
+top:-110px;
+right:-20px;
 text-align:center;
 z-index:5;
 }
 
-.cartoon{
-width:120px;
+/* MOBILE FIX */
+@media(max-width:768px){
+.cartoon-box{
+position:static;
+margin-bottom:10px;
+}
 }
 
-/* SPEECH */
+/* ---------- SPEECH ---------- */
 .speech{
 background:white;
 padding:5px 10px;
@@ -40,48 +49,48 @@ border-radius:10px;
 font-size:12px;
 margin-bottom:5px;
 animation:floatText 2s infinite;
+position:relative;
 }
 
-/* ANIMATION */
+/* KEEP ANIMATION */
 @keyframes floatText{
 0%{transform:translateY(0);}
 50%{transform:translateY(-5px);}
 100%{transform:translateY(0);}
 }
 
+/* ---------- CARTOON IMAGE ---------- */
+.cartoon{
+width:120px;
+}
+
+/* ARM ANIMATION (KEEP) */
 .wave-arm{
 transform-origin:center;
 animation:wave 1s infinite;
 }
 
 @keyframes wave{
-0%{transform:rotate(0);}
-50%{transform:rotate(-30deg);}
-100%{transform:rotate(0);}
+0%{transform:rotate(0deg);}
+50%{transform:rotate(-40deg);}
+100%{transform:rotate(0deg);}
 }
 
-/* ---------- LOGIN PAGE ---------- */
-#firstbody{
-background:linear-gradient(135deg,#7993fa,#a5b4fc);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-#loginForm{
+/* ---------- FORM ---------- */
+#loginForm, #signupForm{
 width:100%;
 max-width:420px;
 padding:25px;
 border-radius:15px;
 background:rgba(255,255,255,0.2);
+border:1px solid rgba(255,255,255,0.3);
 backdrop-filter:blur(12px);
 box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* INPUT */
+/* ---------- INPUT ---------- */
 .lg,.sg{
-margin-bottom:15px;
+margin-bottom:18px;
 height:45px;
 width:100%;
 border-radius:25px;
@@ -94,26 +103,27 @@ transition:0.3s;
 }
 
 .lg:focus,.sg:focus{
+border:1px solid royalblue;
 background:white;
 box-shadow:0 0 6px rgba(65,105,225,0.4);
 }
 
-/* TEXT */
+/* ---------- TEXT ---------- */
 .text1,.text2{
 text-align:center;
-font-size:26px;
+font-size:28px;
 font-weight:bold;
 color:white;
 margin-bottom:10px;
 }
 
-/* BUTTON */
+/* ---------- BUTTON ---------- */
 #log,#sign,#signup{
 height:45px;
 width:100%;
 border-radius:25px;
 border:none;
-background:royalblue;
+background-color:royalblue;
 color:white;
 font-size:16px;
 font-weight:bold;
@@ -122,192 +132,62 @@ cursor:pointer;
 transition:0.3s;
 }
 
+/* KEEP HOVER ANIMATION */
 #log:hover,#sign:hover,#signup:hover{
 transform:scale(1.05);
-background:#1e3a8a;
+background-color:rgb(30, 55, 131);
 }
 
-/* ---------- SIGNUP ---------- */
-#twobody{
-background:linear-gradient(135deg,#8fa7ff,#c7d2fe);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-}
+/* ---------- SIGNUP EXTRA (KEEP ROPE ANIMATION) ---------- */
 
-#signupForm{
-width:100%;
-max-width:420px;
-padding:25px;
-border-radius:15px;
-background:rgba(255,255,255,0.2);
-backdrop-filter:blur(12px);
-}
-
-/* ---------- HOME ---------- */
-#threebody{
-background:linear-gradient(135deg,#6a85f1,#8fa7ff);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-color:white;
-}
-
-.text3b{
-font-size:24px;
-opacity:0;
-animation:fadeUp 1s forwards;
-}
-
-.t1{animation-delay:0.3s;}
-.t2{animation-delay:0.8s;}
-.t3{animation-delay:1.3s;}
-
-@keyframes fadeUp{
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* BUTTON */
-#startbuybtn{
-margin-top:20px;
-padding:12px 30px;
-font-size:16px;
-border:none;
-border-radius:30px;
-background:#4a66d6;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
-
-#startbuybtn:hover{
-transform:scale(1.1);
-}
-
-/* BUBBLES */
-.bubble-bg span{
+.hanging-rope{
 position:absolute;
-bottom:-100px;
-width:20px;
-height:20px;
-background:rgba(255,255,255,0.2);
-border-radius:50%;
-animation:float 12s infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(0);opacity:0;}
-50%{opacity:1;}
-100%{transform:translateY(-100vh);opacity:0;}
-}
-
-/* ---------- HEADER (COMMON FIX) ---------- */
-.box4{
-position:sticky;
 top:0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#e2dfdf;
-padding:10px 15px;
-flex-wrap:wrap;
-gap:10px;
-z-index:100;
+width:3px;
+height:70px;
+background:royalblue;
+transform-origin:top;
 }
 
-.text4a{
-color:royalblue;
-font-size:24px;
+.hanging-word{
+position:absolute;
+bottom:-30px;
+left:-40px;
+background:rgb(131,155,255);
+padding:6px 14px;
+border-radius:8px;
+font-size:13px;
+font-weight:900;
+box-shadow:0 4px 10px rgba(0,0,0,0.25);
 }
 
-#g{
-font-size:28px;
-font-weight:bold;
+/* KEEP SWING ANIMATION */
+@keyframes swing1{
+0%{transform:rotate(-8deg);}
+100%{transform:rotate(8deg);}
+}
+@keyframes swing2{
+0%{transform:rotate(6deg);}
+100%{transform:rotate(-6deg);}
+}
+@keyframes swing3{
+0%{transform:rotate(-5deg);}
+100%{transform:rotate(10deg);}
 }
 
-/* NAV LINKS */
-.box4d{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:15px;
-margin:10px 0;
-}
-
-.box4d a{
-text-decoration:none;
-color:royalblue;
-font-weight:bold;
-}
-
-/* ---------- CART HEADER ---------- */
-.box5{
-position:sticky;
-top:0;
-display:flex;
-align-items:center;
-background:#e2dfdf;
-padding:10px;
-font-size:22px;
-color:royalblue;
-}
-
-/* BUTTON */
-.backbtn{
-height:40px;
-padding:0 15px;
-background:#e2dfdf;
-border-radius:20px;
-border:2px solid royalblue;
-cursor:pointer;
-}
-
-/* SELECT */
-#district{
-height:45px;
-width:100%;
-border-radius:25px;
-padding-left:10px;
-margin-bottom:15px;
-}
-
-/* ---------- MOBILE ---------- */
-@media(max-width:600px){
-
-.login-wrapper{
-margin-top:80px;
-}
-
-.cartoon-box{
-position:static;
-margin-bottom:10px;
-}
-
-.cartoon{
-width:100px;
-}
+/* ---------- MOBILE EXTRA ---------- */
+@media(max-width:480px){
 
 .text1,.text2{
 font-size:22px;
 }
 
-.box4{
-flex-direction:column;
-align-items:flex-start;
+.cartoon{
+width:90px;
 }
 
-.box4d{
-gap:10px;
-}
-
-.text3b{
-font-size:20px;
+#loginForm, #signupForm{
+padding:20px;
 }
 
 }
