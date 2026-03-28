@@ -97,11 +97,11 @@ async function goToGroupBuyByData(productId, productName, productPrice){
   if(!userId){ alert("Login first!"); btn.disabled=false; return; }
 
   try{
-    const res = await fetch("https://your-backend-url/create-group",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({productId, productName, productPrice, userId})
-    });
+    const res = await fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ productId, productName, productPrice, userId })
+});
     const data = await res.json();
     if(data.success){
       localStorage.setItem("group_" + userId, data.groupId);
