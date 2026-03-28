@@ -10,10 +10,8 @@
 <body>
 
 <!-- 🎉 SUCCESS POPUP -->
-<!-- 🎉 SUCCESS POPUP -->
 <div id="successPopup" class="popup-overlay">
   <div class="popup-box">
-
     <h2>🎉 Congrats!</h2>
     <p class="main-text">Your Group Buy is Activated!</p>
     <p class="sub-text">Grab your product at the best price 🛍️</p>
@@ -22,7 +20,6 @@
       <button class="checkout-btn" onclick="goToCheckout()">Checkout</button>
       <button class="close-btn" onclick="closePopup()">Later</button>
     </div>
-
   </div>
 </div>
 
@@ -56,9 +53,8 @@
 function goBack(){ window.history.back(); }
 function goToLogin(){ window.location.href="login.html"; }
 
-
-
-/* MAIN */
+/* GLOBAL */
+let currentGroup = null;
 const groupId = new URLSearchParams(window.location.search).get("groupId");
 
 /* LOAD ALL GROUPS */
@@ -130,6 +126,7 @@ async function loadGroup(){
         }
 
         const group = data.group;
+        currentGroup = group; // ⭐ IMPORTANT
 
         document.getElementById("productName").innerText = group.product_name;
         document.getElementById("originalPrice").innerText = "Original: ₹"+group.product_price;
@@ -139,7 +136,6 @@ async function loadGroup(){
         const memberCount = group.members ? group.members.length : 0;
         document.getElementById("members").innerText = "Members: " + memberCount;
 
-        // 🎉 already full → show popup
         if(memberCount >= 3){
             showSuccessPopup();
             document.getElementById("joinBtn").disabled = true;
@@ -207,15 +203,15 @@ if (joinBtn) {
       const data = await res.json();
 
       if (data.success) {
-  document.getElementById("members").innerText = "Members: " + data.members;
+        document.getElementById("members").innerText = "Members: " + data.members;
 
-  if (data.members >= 3) {
-    showSuccessPopup(); // 🎉 trigger popup
-    joinBtn.disabled = true;
-  } else {
-    alert(`Joined! Members now: ${data.members}`);
-  }
-}
+        if (data.members >= 3) {
+          showSuccessPopup();
+          joinBtn.disabled = true;
+        } else {
+          alert(`Joined! Members now: ${data.members}`);
+        }
+      }
 
     } catch (err) {
       console.error(err);
@@ -223,10 +219,11 @@ if (joinBtn) {
     }
   });
 }
+
+/* POPUP */
 function showSuccessPopup(){
   document.getElementById("successPopup").style.display = "flex";
 
-  // 🎊 Confetti blast
   confetti({
     particleCount: 120,
     spread: 80,
@@ -238,10 +235,58 @@ function closePopup(){
   document.getElementById("successPopup").style.display = "none";
 }
 
-function goToCheckout(){
-  window.location.href = "checkout.html";
+/* ✅ FINAL CHECKOUT (REAL DATA) */
+async function goToCheckout(){
+  const userId = localStorage.getItem("userId");
+
+  if(!userId){
+    alert("Please login first");
+    window.location.href = "login.html";
+    return;
+  }
+
+  if(!currentGroup){
+    alert("Product not loaded properly");
+    return;
+  }
+
+  try {
+    const cartItems = [
+      {
+        productId: currentGroup.product_id,
+        quantity: 1,
+        price: currentGroup.product_price
+      }
+    ];
+
+    const res = await fetch("https://ecommerce-backend-yx51.onrender.com/api/place-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId,
+        cartItems,
+        isGroupBuy: true
+      })
+    });
+
+    const data = await res.json();
+
+    if(data.success){
+      alert("🎉 Order placed successfully!");
+      window.location.href = "orders.html";
+    } else {
+      alert(data.message || "Order failed");
+    }
+
+  } catch(err){
+    console.error(err);
+    alert("Server error");
+  }
 }
+
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 </body>
 </html>
