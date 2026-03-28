@@ -28,8 +28,8 @@
         <div id="timerText">00:00:00</div>
     </div>
     <p id="originalPrice"></p>
-    <p id="members"></p>
-    <button id="joinBtn">Join Group</button>
+    <p id="members">Members: 0</p>
+<button id="joinBtn">Join Group</button>
 </div>
 
 <script>
@@ -66,6 +66,7 @@ async function loadAllGroups(){
         });
         if(container.innerHTML==="") container.innerHTML="<p>No active group buys 😢</p>";
     }catch(err){ console.error(err); }
+    
 }
 
 /* MINI TIMER */
@@ -114,6 +115,39 @@ if(groupId){
     loadGroup();
 } else {
     loadAllGroups();
+}
+/* ---------------- JOIN GROUP ---------------- */
+const joinBtn = document.getElementById("joinBtn");
+if(joinBtn){
+    joinBtn.addEventListener("click", async () => {
+        const userId = localStorage.getItem("userId");
+        if(!userId){ alert("Login first!"); return; }
+
+        const memberName = prompt("Enter your name for this group:");
+        if(!memberName) return;
+
+        const deviceId = localStorage.getItem("deviceId") || crypto.randomUUID();
+        localStorage.setItem("deviceId", deviceId);
+
+        try{
+            const res = await fetch("https://ecommerce-backend-yx51.onrender.com/join-group", {
+                method: "POST",
+                headers: { "Content-Type":"application/json" },
+                body: JSON.stringify({ groupId, memberName, deviceId, userId })
+            });
+            const data = await res.json();
+            if(data.success){
+                alert(`Joined! Members now: ${data.members}`);
+                document.getElementById("members").innerText = "Members: "+data.members;
+                if(data.members >= 3) joinBtn.disabled = true;
+            } else {
+                alert(data.message || "Failed to join group");
+            }
+        }catch(err){
+            console.error(err);
+            alert("Server error");
+        }
+    });
 }
 </script>
 
