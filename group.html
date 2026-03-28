@@ -167,7 +167,7 @@ groupCreatedTime = new Date(group.created_at).getTime();
 endTime = groupCreatedTime + (2 * 60 * 60 * 1000);
 
 startTimer();
-loadGroup();
+
 }
 /* =========================
    JOIN GROUP
@@ -375,6 +375,7 @@ function showPopup(){
 function closePopup(){
     document.getElementById("successPopup").style.display = "none";
 }
+loadGroup();
 
 
 </script>
