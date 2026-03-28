@@ -157,33 +157,7 @@ function goToGroupBuyByData(productId, productName){
         return;
     }
 
-    const existingGroup = localStorage.getItem("group_" + userId);
-
-if(existingGroup){
-
-    // 🔥 CHECK FROM SERVER
-    fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${existingGroup}`)
-    .then(res => res.json())
-    .then(data => {
-
-        if(data.success && data.group.status === "pending"){
-            if(confirm("You already have an active group. Go to it?")){
-                window.location.href = `group.html?groupId=${existingGroup}`;
-            }
-        } else {
-            // ✅ group இல்லை / expired → remove & create new
-            localStorage.removeItem("group_" + userId);
-            createNewGroup(productId, productName, finalPrice);
-        }
-
-    })
-    .catch(() => alert("Server error"));
-
-    return;
-}
-
-// 👉 if no existing group
-createNewGroup(productId, productName, finalPrice);
+    // ✅ GET PRICE FIRST (IMPORTANT)
     let priceElement = document.getElementById("price-" + productId);
 
     let originalPrice = Number(
@@ -196,30 +170,66 @@ createNewGroup(productId, productName, finalPrice);
         ? Number(finalText.replace("₹",""))
         : originalPrice;
 
-    fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            productId,
-            productName,
-            productPrice: finalPrice,
-            userId
+
+    const existingGroup = localStorage.getItem("group_" + userId);
+
+    // 🔥 CHECK EXISTING GROUP FROM SERVER
+    if(existingGroup){
+
+        fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${existingGroup}`)
+        .then(res => res.json())
+        .then(data => {
+
+            if(data.success && data.group.status === "pending"){
+
+                if(confirm("You already have an active group. Go to it?")){
+                    window.location.href = `group.html?groupId=${existingGroup}`;
+                }
+
+            } else {
+                // ✅ expired அல்லது success → allow new group
+                localStorage.removeItem("group_" + userId);
+                createGroup();
+            }
+
         })
-    })
-    .then(res => res.json())
-    .then(data => {
+        .catch(() => alert("Server error"));
 
-        if(data.success){
+        return;
+    }
 
-            localStorage.setItem("group_" + userId, data.groupId);
+    // 👉 NO existing group
+    createGroup();
 
-            window.location.href = `group.html?groupId=${data.groupId}`;
-        } else {
-            alert("Failed to create group");
-        }
-    })
-    .catch(() => alert("Server error"));
+
+    // ✅ CREATE GROUP FUNCTION
+    function createGroup(){
+
+        fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                productId,
+                productName,
+                productPrice: finalPrice,
+                userId
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if(data.success){
+                localStorage.setItem("group_" + userId, data.groupId);
+                window.location.href = `group.html?groupId=${data.groupId}`;
+            } else {
+                alert("Failed to create group");
+            }
+
+        })
+        .catch(() => alert("Server error"));
+    }
 }
+
 
 
 /* ---------------- ADD TO CART ---------------- */
