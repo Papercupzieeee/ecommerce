@@ -13,16 +13,10 @@
 <p class="text4a"><span id="g">G</span>roupcart</p>
 
 <div class="header-btns">
-        <button id="logoutbtn" onclick="logout()">Logout</button>
-
-        <button class="cart-btn" onclick="location.href='checkout.html'">
-            🛒 Cart
-        </button>
-
-        <button id="myGroupBtn" onclick="openMyGroup()">
-            👥 My Group
-        </button>
-    </div>
+    <button id="logoutbtn" onclick="logout()">Logout</button>
+    <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
+    <button id="myGroupBtn" onclick="openMyGroup()">👥 My Group</button>
+</div>
 </div>
 
 <div class="box4d">
@@ -37,127 +31,145 @@
 <!-- DELL -->
 <div class="product-card">
 <div class="discount-ribbon" id="offer-200"></div>
-
 <a href="laptop-detail.html?product=laptop">
 <img src="laptop1.jpg" class="product-img">
 </a>
-
 <p class="product-name">DELL Laptop</p>
-
 <p id="price-200">
-    <span class="original-price">₹59999</span>
-    <span class="final-price"></span>
+<span class="original-price">₹59999</span>
+<span class="final-price"></span>
 </p>
-
 <button class="cartbtn" onclick="addToCart(200,'DELL Laptop')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(200,'DELL Laptop',59999)">GroupBuy</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(200,'DELL Laptop')">GroupBuy</button>
 </div>
 
 <!-- SAMSUNG -->
 <div class="product-card">
 <div class="discount-ribbon" id="offer-216"></div>
-
 <a href="laptop-detail.html?product=samsung">
 <img src="el1.jpg" class="product-img">
 </a>
-
 <p class="product-name">Samsung A30s</p>
-
 <p id="price-216">
-    <span class="original-price">₹1999</span>
-    <span class="final-price"></span>
+<span class="original-price">₹1999</span>
+<span class="final-price"></span>
 </p>
-
 <button class="cartbtn" onclick="addToCart(216,'Samsung A30s')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(216,'Samsung A30s',1999)">GroupBuy</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(216,'Samsung A30s')">GroupBuy</button>
 </div>
 
 <!-- FAN -->
 <div class="product-card">
 <div class="discount-ribbon" id="offer-217"></div>
-
 <a href="laptop-detail.html?product=fan">
 <img src="fan1.jpg" class="product-img">
 </a>
-
 <p class="product-name">Usha Fan</p>
-
 <p id="price-217">
-    <span class="original-price">₹1499</span>
-    <span class="final-price"></span>
+<span class="original-price">₹1499</span>
+<span class="final-price"></span>
 </p>
-
 <button class="cartbtn" onclick="addToCart(217,'Usha Fan')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(217,'Usha Fan',1499)">GroupBuy</button>
+<button class="groupbuy" onclick="goToGroupBuyByData(217,'Usha Fan')">GroupBuy</button>
 </div>
 
 </div>
 
 <script>
 
-/* ---------------- LOGOUT ---------------- */
-
+/* LOGOUT */
 function logout(){
     const userId = localStorage.getItem("userId");
-
     localStorage.removeItem("group_" + userId);
     localStorage.removeItem("userId");
-
     window.location.href = "login.html";
 }
 
-
-/* ---------------- GROUP BUY ---------------- */
-
-function goToGroupBuyByData(productId, productName, productPrice){
+/* GROUP BUY (FINAL FIX) */
+function goToGroupBuyByData(productId, productName){
 
     const userId = localStorage.getItem("userId");
 
+    if(!userId){
+        alert("Login first");
+        window.location.href = "login.html";
+        return;
+    }
+
     let priceElement = document.getElementById("price-" + productId);
 
-    let finalSpan = priceElement.querySelector(".final-price");
+    let originalPrice = Number(
+        priceElement.querySelector(".original-price").innerText.replace("₹","")
+    );
 
-    let finalPrice = finalSpan.innerText
-        ? Number(finalSpan.innerText.replace("₹",""))
-        : productPrice;
+    let finalText = priceElement.querySelector(".final-price").innerText;
 
-    fetch("https://ecommerce-backend-yx51.onrender.com/api/create-group", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            productId,
-            productName,
-            productPrice: finalPrice
+    let finalPrice = finalText
+        ? Number(finalText.replace("₹",""))
+        : originalPrice;
+
+    const existingGroup = localStorage.getItem("group_" + userId);
+
+    if(existingGroup){
+
+        fetch(`https://ecommerce-backend-yx51.onrender.com/group-status/${existingGroup}`)
+        .then(res => res.json())
+        .then(data => {
+
+            if(!data.success || data.group.status !== "pending"){
+                localStorage.removeItem("group_" + userId);
+                createGroup();
+                return;
+            }
+
+            window.location.href = `group.html?groupId=${existingGroup}`;
+
         })
-    })
-    .then(res => res.json())
-    .then(data => {
+        .catch(() => {
+            localStorage.removeItem("group_" + userId);
+            createGroup();
+        });
 
-        if(data.success){
-            localStorage.setItem("group_" + userId, data.groupId);
-            window.location.href = `group.html?groupId=${data.groupId}`;
-        }
-        else{
-            alert("Group creation failed");
-        }
-    })
-    .catch(() => alert("Server error"));
+        return;
+    }
+
+    createGroup();
+
+    function createGroup(){
+
+        fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                productId,
+                productName,
+                productPrice: finalPrice,
+                userId
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if(data.success){
+                localStorage.setItem("group_" + userId, data.groupId);
+                window.location.href = `group.html?groupId=${data.groupId}`;
+            } else {
+                alert("Failed to create group");
+            }
+
+        })
+        .catch(() => alert("Server error"));
+    }
 }
 
-
-/* ---------------- ADD TO CART ---------------- */
-
+/* ADD TO CART */
 function addToCart(id, name){
 
     let priceElement = document.getElementById("price-" + id);
 
-    let originalSpan = priceElement.querySelector(".original-price");
-    let finalSpan = priceElement.querySelector(".final-price");
-
-    let originalPrice = Number(originalSpan.innerText.replace("₹",""));
-
-    let finalPrice = finalSpan.innerText
-        ? Number(finalSpan.innerText.replace("₹",""))
+    let originalPrice = Number(priceElement.querySelector(".original-price").innerText.replace("₹",""));
+    let finalPrice = priceElement.querySelector(".final-price").innerText
+        ? Number(priceElement.querySelector(".final-price").innerText.replace("₹",""))
         : originalPrice;
 
     let discount = originalPrice - finalPrice;
@@ -166,34 +178,21 @@ function addToCart(id, name){
 
     let existing = cart.find(item => item.productId === Number(id));
 
-    if(existing){
-        existing.quantity += 1;
-    } else {
-        cart.push({
-            productId: id,
-            name: name,
-            price: finalPrice,
-            originalPrice: originalPrice,
-            discount: discount,
-            quantity: 1
-        });
-    }
+    if(existing) existing.quantity += 1;
+    else cart.push({ productId:id, name, price:finalPrice, originalPrice, discount, quantity:1 });
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert(name + " added to cart");
+    alert(name + " added to cart 🛒");
 }
 
-
-/* ---------------- DISTRICT OFFER ---------------- */
-
-let userDistrict = localStorage.getItem("district");
-
+/* DISTRICT OFFER */
 let offers = {
-    "Chennai": { type: "percentage", value: 10 },
-    "Coimbatore": { type: "percentage", value: 30 },
-    "Madurai": { type: "cash", value: 100 }
+    "Chennai": {type:"percentage", value:10},
+    "Coimbatore": {type:"percentage", value:30},
+    "Madurai": {type:"cash", value:100}
 };
 
+let userDistrict = localStorage.getItem("district");
 let districtOffer = offers[userDistrict];
 
 [200,216,217].forEach(id => {
@@ -201,65 +200,37 @@ let districtOffer = offers[userDistrict];
     let priceElement = document.getElementById("price-" + id);
     let ribbon = document.getElementById("offer-" + id);
 
-    if(!priceElement) return;
-
-    let originalSpan = priceElement.querySelector(".original-price");
-    let finalSpan = priceElement.querySelector(".final-price");
-
-    let originalPrice = Number(originalSpan.innerText.replace("₹",""));
+    let originalPrice = Number(priceElement.querySelector(".original-price").innerText.replace("₹",""));
     let finalPrice = originalPrice;
 
     if(districtOffer){
-
-        if(districtOffer.type === "percentage"){
+        if(districtOffer.type==="percentage"){
             finalPrice = originalPrice - (originalPrice * districtOffer.value / 100);
             ribbon.innerText = districtOffer.value + "% OFF";
         }
-
-        if(districtOffer.type === "cash"){
+        if(districtOffer.type==="cash"){
             finalPrice = originalPrice - districtOffer.value;
             ribbon.innerText = "₹" + districtOffer.value + " OFF";
         }
-
-        ribbon.style.display = "block";
+        ribbon.style.display="block";
     }
 
-    finalSpan.innerText = "₹" + Math.round(finalPrice);
-
+    priceElement.querySelector(".final-price").innerText = "₹" + Math.round(finalPrice);
 });
 
-
-/* ---------------- MY GROUP ---------------- */
-
+/* MY GROUP */
 function openMyGroup(){
-
     const userId = localStorage.getItem("userId");
     const groupId = localStorage.getItem("group_" + userId);
-
-    if(!groupId){
-        alert("No active group");
-        return;
-    }
-
+    if(!groupId){ alert("No active group"); return; }
     window.location.href = `group.html?groupId=${groupId}`;
 }
 
-
-/* ---------------- SHOW/HIDE GROUP BUTTON ---------------- */
-
+/* SHOW BUTTON */
 window.addEventListener("load", ()=>{
-
     const userId = localStorage.getItem("userId");
     const groupId = localStorage.getItem("group_" + userId);
-
-    const btn = document.getElementById("myGroupBtn");
-
-    if(groupId){
-        btn.style.display = "block";
-    } else {
-        btn.style.display = "none";
-    }
-
+    document.getElementById("myGroupBtn").style.display = groupId ? "block":"none";
 });
 
 </script>
