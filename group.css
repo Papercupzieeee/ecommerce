@@ -1,8 +1,21 @@
-/* GENERAL */
+/* GOOGLE FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* BODY */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  background: linear-gradient(-45deg, #1e3c72, #2a5298, #4facfe, #00f2fe);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  color: white;
+}
+
+/* BACKGROUND ANIMATION */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* TOP BAR */
@@ -10,82 +23,87 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1e2a78;
-  color: white;
-  padding: 12px 20px;
+  padding: 15px 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.2);
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .top-bar button {
-  background: white;
-  color: #1e2a78;
+  background: rgba(255,255,255,0.2);
   border: none;
-  padding: 8px 12px;
-  margin-left: 8px;
-  border-radius: 6px;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .top-bar button:hover {
-  background: #ddd;
+  background: rgba(255,255,255,0.4);
 }
 
 /* CONTAINER */
 .container {
-  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
 }
 
-/* GROUP CARD */
-.group-card {
-  background: white;
-  padding: 15px;
-  margin: 10px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: 0.3s;
-}
-
-.group-card:hover {
-  transform: translateY(-5px);
-}
-
-/* BUTTON */
-button {
-  cursor: pointer;
-}
-
-/* JOIN BUTTON */
-#joinBtn {
-  background: #28a745;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  transition: 0.3s;
-}
-
-#joinBtn:hover {
-  background: #218838;
+/* PRODUCT TITLE */
+#productName {
+  font-size: 28px;
+  font-weight: 600;
 }
 
 /* TIMER CIRCLE */
 .circle {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  background: conic-gradient(#28a745 0deg, #ddd 0deg);
+  margin: 25px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 15px auto;
+  font-size: 20px;
   font-weight: bold;
-  font-size: 18px;
+  background: conic-gradient(#00ffcc 0%, #00ffcc 40%, rgba(255,255,255,0.1) 40%);
+  box-shadow: 0 0 20px #00ffcc, inset 0 0 15px rgba(0,255,204,0.5);
+  animation: pulse 2s infinite;
+}
+
+/* TIMER PULSE */
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 15px #00ffcc; }
+  50% { transform: scale(1.05); box-shadow: 0 0 25px #00ffcc; }
+  100% { transform: scale(1); box-shadow: 0 0 15px #00ffcc; }
+}
+
+/* PRICE TEXT */
+p {
+  font-size: 16px;
+  margin: 5px;
+}
+
+/* JOIN BUTTON */
+#joinBtn {
+  background: linear-gradient(45deg, #00ffcc, #00c3ff);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  color: black;
+  font-weight: bold;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#joinBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #00ffcc;
 }
 
 /* POPUP OVERLAY */
@@ -96,36 +114,38 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(8px);
 }
 
 /* POPUP BOX */
 .popup-box {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
   width: 320px;
-  animation: popupScale 0.4s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: popupBounce 0.5s ease;
+  box-shadow: 0 0 25px rgba(255,255,255,0.3);
 }
 
+/* POPUP TEXT */
 .popup-box h2 {
-  color: #28a745;
-  margin-bottom: 10px;
+  font-size: 26px;
+  color: #00ffcc;
 }
 
 .main-text {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 .sub-text {
   font-size: 14px;
-  color: #555;
+  opacity: 0.8;
 }
 
 /* BUTTON GROUP */
@@ -134,46 +154,36 @@ button {
 }
 
 .checkout-btn {
-  background: #007bff;
-  color: white;
+  background: linear-gradient(45deg, #00ffcc, #00c3ff);
   border: none;
   padding: 10px 15px;
   margin: 5px;
-  border-radius: 8px;
-  transition: 0.3s;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .checkout-btn:hover {
-  background: #0056b3;
+  transform: scale(1.1);
 }
 
 .close-btn {
-  background: #dc3545;
-  color: white;
+  background: linear-gradient(45deg, #ff4e50, #ff0000);
   border: none;
   padding: 10px 15px;
   margin: 5px;
-  border-radius: 8px;
-  transition: 0.3s;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
 }
 
 .close-btn:hover {
-  background: #a71d2a;
+  transform: scale(1.1);
 }
 
-/* ANIMATIONS */
-@keyframes popupScale {
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* POPUP ANIMATION */
+@keyframes popupBounce {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
 }
