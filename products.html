@@ -91,30 +91,26 @@ function logout(){
 
 /* ---------------- GROUP BUY ---------------- */
 async function goToGroupBuyByData(productId, productName, productPrice){
-    const btn = event.target;
-    btn.disabled = true; // disable temporarily
-    const userId = localStorage.getItem("userId");
-    if(!userId){ alert("Login first!"); btn.disabled=false; return; }
+  const btn = event.target;
+  btn.disabled=true;
+  const userId = localStorage.getItem("userId");
+  if(!userId){ alert("Login first!"); btn.disabled=false; return; }
 
-    try{
-        const res = await fetch("https://ecommerce-backend-yx51.onrender.com/create-group", {
-            method:"POST",
-            headers: { "Content-Type":"application/json" },
-            body: JSON.stringify({ productId, productName, productPrice, userId })
-        });
-        const data = await res.json();
-        if(data.success){
-            localStorage.setItem("group_" + userId, data.groupId);
-            window.location.href = `group.html?groupId=${data.groupId}`;
-        } else {
-            alert(data.message || "Failed to create group");
-            btn.disabled=false;
-        }
-    } catch(err){
-        console.error(err);
-        alert("Server error");
-        btn.disabled=false;
+  try{
+    const res = await fetch("https://your-backend-url/create-group",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({productId, productName, productPrice, userId})
+    });
+    const data = await res.json();
+    if(data.success){
+      localStorage.setItem("group_" + userId, data.groupId);
+      window.location.href=`group.html?groupId=${data.groupId}`;
+    }else{
+      alert(data.message || "Failed to create group");
+      btn.disabled=false;
     }
+  }catch(err){ console.error(err); alert("Server error"); btn.disabled=false;}
 }
 /* ---------------- ADD TO CART ---------------- */
 function addToCart(id, name){
