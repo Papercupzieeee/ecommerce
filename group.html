@@ -61,7 +61,21 @@ async function loadAllGroups(){
     try{
         const res = await fetch("https://ecommerce-backend-yx51.onrender.com/all-groups");
         const data = await res.json();
-        if(!data.success) return;
+
+if (data.success) {
+  document.getElementById("members").innerText = "Members: " + data.members;
+
+  // 🎉 3 members reached → show popup
+  if (data.members >= 3) {
+    showSuccessPopup();
+    joinBtn.disabled = true;
+  } else {
+    alert(`Joined! Members now: ${data.members}`);
+  }
+
+} else {
+  alert(data.message || "Failed to join");
+}
         const container = document.getElementById("groupList");
         container.innerHTML = "";
         data.groups.forEach(group => {
@@ -187,15 +201,7 @@ function showSuccessPopup(){
 function goToCheckout(){
   window.location.href = "checkout.html"; // change if needed
 }
-if (data.success) {
-  document.getElementById("members").innerText = "Members: " + data.members;
 
-  if (data.members >= 3) {
-    showSuccessPopup();
-  } else {
-    alert(`Joined! Members now: ${data.members}`);
-  }
-}
 </script>
 
 </body>
