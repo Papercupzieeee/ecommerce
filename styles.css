@@ -2,29 +2,37 @@
 
 body{
 margin:0;
-padding:20px;   /* 🔥 main fix */
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:30px;
 box-sizing:border-box;
+
+background:linear-gradient(135deg,#6a85f1,#8fa7ff);
+
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+overflow-x:hidden;
 }
+
+/* ---------- LOGIN WRAPPER ---------- */
 
 .login-wrapper{
 position:relative;
-width:420px;
+width:100%;
+max-width:420px;
 margin:auto;
-margin-top:120px;
 }
 
-/* cartoon position */
+/* ---------- CARTOON ---------- */
 
 .cartoon-box{
 position:absolute;
-top:-130px;      /* login box mela varum */
-right:-40px;    /* konjam side la */
+top:-120px;
+right:-30px;
 text-align:center;
-z-index:5;      /* box pinnadi pogama irukum */
+z-index:5;
 }
-
-/* speech bubble */
 
 .speech{
 background:white;
@@ -35,19 +43,14 @@ margin-bottom:5px;
 animation:floatText 2s infinite;
 position:relative;
 top:-5px;
-
 }
-/* cartoon size */
 
 .cartoon{
-width:40%;
-margin-top:0;
+width:100px;
 }
 
-/* waving arm animation */
-
 .wave-arm{
-transform-origin: center ;
+transform-origin:center;
 animation:wave 1s infinite;
 }
 
@@ -57,87 +60,68 @@ animation:wave 1s infinite;
 100%{transform:rotate(0deg);}
 }
 
-/* speech floating */
-
 @keyframes floatText{
 0%{transform:translateY(0);}
 50%{transform:translateY(-5px);}
 100%{transform:translateY(0);}
 }
 
+/* ---------- LOGIN & SIGNUP FORM ---------- */
 
-/* ---------- LOGIN PAGE ---------- */
-
-#firstbody{
-background-color: rgb(121, 147, 250);
-
-background-position:center;
-}
-
-#loginForm{
-width:90%;
-max-width:420px;
+#loginForm, #signupForm{
+width:100%;
+max-width:360px;
 margin:auto;
-margin-top:80px;
-padding:30px;
-border-radius:15px;
-font-size:20px;
+padding:25px;
 
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.3);
-backdrop-filter:blur(12px);
+border-radius:20px;
 
-box-shadow:0 8px 20px rgba(0,0,0,0.2);
+background:rgba(0,0,0,0.35);
+border:1px solid rgba(255,255,255,0.2);
+backdrop-filter:blur(15px);
+
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
-
-
-/* INPUT FIELDS */
+/* ---------- INPUT ---------- */
 
 .lg,.sg{
-margin-bottom:18px;
+margin-bottom:15px;
 height:45px;
 width:100%;
 border-radius:25px;
-border:1px solid rgba(255,255,255,0.6);
+border:none;
 padding-left:15px;
-font-size:16px;
-background:rgba(255,255,255,0.3);
+font-size:15px;
+
+background:rgba(255,255,255,0.9);
 color:black;
+
 outline:none;
 box-sizing:border-box;
 transition:0.3s;
+}
 
-}
-.rope {
-    margin-top: 100px;
-}
 .lg:focus,.sg:focus{
-border:1px solid royalblue;
-background:white;
-box-shadow:0 0 6px rgba(65,105,225,0.4);
+box-shadow:0 0 8px rgba(65,105,225,0.5);
 }
+
 ::placeholder{
-color:#444;
+color:#555;
 }
 
-/* TEXT */
+/* ---------- TEXT ---------- */
 
-.text1,.text2{
+.text1,.text2,.text1a,.text2a{
 text-align:center;
-font-size:30px;
+font-size:24px;
 font-weight:bold;
 color:white;
 margin-bottom:10px;
+text-shadow:0 2px 8px rgba(0,0,0,0.6);
 }
 
-.text1a,.text2a{
-text-align:center;
-color:white;
-font-size: 30px;
-}
-
-/* BUTTONS */
+/* ---------- BUTTON ---------- */
 
 #log,#sign,#signup{
 height:45px;
@@ -145,83 +129,20 @@ width:100%;
 border-radius:25px;
 border:none;
 
-background-color:royalblue;
+background:#5a7cf0;
 color:white;
-color:white;
+
 font-size:16px;
 font-weight:bold;
-margin-top:20px;
+margin-top:15px;
 cursor:pointer;
 transition:0.3s;
 }
 
 #log:hover,#sign:hover,#signup:hover{
 transform:scale(1.05);
-background-color:rgb(30, 55, 131);
+background:#2f4bbd;
 }
-
-
-/* ---------- SIGNUP PAGE ---------- */
- .hanging-rope{
-position:absolute;
-top:0;
-width:3px;
-height:70px;
-background:royalblue;
-transform-origin:top;
-}
-
-.hanging-word{
-position:absolute;
-bottom:-30px;
-left:-40px;
-background:rgb(131,155,255);
-color:#000;
-padding:6px 14px;
-border-radius:8px;
-font-size:13px;
-font-weight:900;
-letter-spacing:1px;
-white-space:nowrap;
-box-shadow:0 4px 10px rgba(0,0,0,0.25);
-}
-
-@keyframes swing1{
-0%{transform:rotate(-8deg);}
-100%{transform:rotate(8deg);}
-}
-
-@keyframes swing2{
-0%{transform:rotate(6deg);}
-100%{transform:rotate(-6deg);}
-}
-
-@keyframes swing3{
-0%{transform:rotate(-5deg);}
-100%{transform:rotate(10deg);}
-}
-
-
-#twobody{
-background-color:rgb(131,155,255);
-
-background-position:center;
-}
-
-#signupForm{
-width:90%;
-max-width:420px;
-margin:auto;
-margin-top:80px;
-padding:30px;
-border-radius:15px;
-font-size:20px;
-
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.3);
-backdrop-filter:blur(12px);
-}
-
 
 /* ---------- HOME PAGE ---------- */
 
@@ -232,18 +153,15 @@ display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
-font-family:Arial;
 }
 
-/* container */
 .homepagebody{
 text-align:center;
 color:white;
 }
 
-/* text animation */
 .text3b{
-font-size:26px;
+font-size:24px;
 opacity:0;
 transform:translateY(30px);
 animation:fadeUp 1s forwards;
@@ -260,390 +178,124 @@ transform:translateY(0);
 }
 }
 
-/* button */
 #startbuybtn{
 margin-top:20px;
-padding:12px 40px;
-font-size:18px;
+padding:12px 30px;
+font-size:16px;
 border:none;
 border-radius:30px;
 background:#4a66d6;
 color:white;
 cursor:pointer;
-transition:all 0.3s;
+transition:0.3s;
 }
 
-/* hover animation */
 #startbuybtn:hover{
 transform:scale(1.1);
 box-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
-/* floating bubbles background */
-.bubble-bg span{
-position:absolute;
-bottom:-100px;
-width:20px;
-height:20px;
-background:rgba(255,255,255,0.2);
-border-radius:50%;
-animation:float 12s infinite;
-}
-
-.bubble-bg span:nth-child(1){left:10%;animation-duration:10s;}
-.bubble-bg span:nth-child(2){left:25%;animation-duration:14s;}
-.bubble-bg span:nth-child(3){left:40%;animation-duration:12s;}
-.bubble-bg span:nth-child(4){left:60%;animation-duration:16s;}
-.bubble-bg span:nth-child(5){left:75%;animation-duration:11s;}
-.bubble-bg span:nth-child(6){left:90%;animation-duration:15s;}
-
-@keyframes float{
-0%{
-transform:translateY(0);
-opacity:0;
-}
-50%{
-opacity:1;
-}
-100%{
-transform:translateY(-100vh);
-opacity:0;
-}
-}
-
-/* ---------- PRODUCTS PAGE ---------- */
+/* ---------- PRODUCTS HEADER ---------- */
 
 .box4{
 position:fixed;
-top:0;
+top:20px;
+left:20px;
+right:20px;
+
 display:flex;
-background-color:#e2dfdf;
-width:98%;
+justify-content:space-around;
+align-items:center;
+
+background:#e2dfdf;
 padding:10px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
 .box4 button{
-padding:10px 20px;
-margin-left:100px;
-background-color:royalblue;
+padding:10px;
+background:royalblue;
 color:white;
 border:none;
 border-radius:5px;
 cursor:pointer;
-font-size:16px;
-height:50px;
-width:30%;
-transition:0.3s;
 }
 
-.box4 button:hover{
-background-color:#45a049;
-}
-
-.text4a{
-color:royalblue;
-font-size:30px;
-margin-top:1px;
-}
-
-#g{
-font-size:40px;
-font-weight:bold;
-font-family:Arial, Helvetica, sans-serif;
-}
+/* ---------- PRODUCT AREA ---------- */
 
 .box4c{
-margin-top:100px;
-background-color:#e2dfdf;
-width:22%;
+margin-top:120px;
+width:25%;
+background:#e2dfdf;
 padding:10px;
 border-radius:10px;
-font-size:20px;
-margin-left:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
-
-.box4d{
-position:absolute;
-top:15%;
-left:10px;
-padding:10px;
-background-color:#e2dfdf;
-border-radius:10px;
-width:100%;
-display:flex;
-gap:20px;
-align-items:center;
-}
-
-.link1,.link2,.link3,.link4,.link5{
-text-decoration:none;
-color:royalblue;
-font-size:30px;
-font-weight:bold;
-margin-left:90px;
 }
 
 .box4e{
-background-color:white;
-height:400px;
-width:75%;
-margin-top:200px;
-position:absolute;
-margin-left:20px;
-font-size:30px;
+margin-top:120px;
+width:70%;
+background:white;
+padding:20px;
+border-radius:10px;
 }
 
-.frock{
-margin-left:150px;
-}
-
-#details{
-display:inline-block;
-position:absolute;
-margin-left:100px;
-}
-
-
-/* ---------- CART / ORDER HEADER ---------- */
+/* ---------- CART HEADER ---------- */
 
 .box5{
 position:fixed;
-top:0;
+top:20px;
+left:20px;
+right:20px;
+
 display:flex;
-background-color:#e2dfdf;
-height:70px;
-width:98%;
-padding:10px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
-color:royalblue;
-font-size:30px;
-}
-
-.box5c{
-background-color:rgb(20,52,148);
-color:white;
-font-size:20px;
-padding:20px;
-margin-top:100px;
-}
-
-.backbtn{
-height:40px;
-width:20%;
-background-color:#e2dfdf;
-border-radius:20px;
-margin-left:100px;
-font-size:20px;
-font-weight:bold;
-border:2px solid royalblue;
-}
-
-#district{
-height:45px;
-width:100%;
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.6);
-padding-left:10px;
-font-size:16px;
-background:rgba(255,255,255,0.3);
-margin-bottom:18px;
-outline:none;
-}
-#district{
-transition:all 0.3s ease;
-}
-
-#district:focus{
-transform:scale(1.05);
-box-shadow:0 0 10px rgba(255,255,255,0.7);
-}
-/* ===============================
-   RESPONSIVE DESIGN (ALL DEVICES)
-=============================== */
-
-/* Tablets */
-@media (max-width: 1024px){
-
-.login-wrapper{
-width:90%;
-margin-top:100px;
-}
-
-.cartoon-box{
-right:-20px;
-top:-110px;
-}
-
-#loginForm, #signupForm{
-padding:25px;
-}
-
-.box4 button{
-width:40%;
-margin-left:20px;
-}
-
-.box4c{
-width:40%;
-}
-
-.box4e{
-width:90%;
-margin-left:10px;
-}
-
-}
-
-/* Mobile Devices */
-@media (max-width: 768px){
-
-/* LOGIN / SIGNUP */
-.login-wrapper{
-width:95%;
-margin-top:80px;
-}
-
-.cartoon-box{
-position:relative;
-top:0;
-right:0;
-margin-bottom:10px;
-text-align:center;
-}
-
-.cartoon{
-width:80px;
-}
-
-#loginForm, #signupForm{
-width:95%;
-padding:20px;
-font-size:16px;
-}
-
-.text1, .text2{
-font-size:24px;
-}
-
-/* HOME */
-.text3b{
-font-size:20px;
-}
-
-#startbuybtn{
-width:80%;
-}
-
-/* PRODUCTS HEADER */
-.box4{
-flex-direction:column;
+justify-content:space-between;
 align-items:center;
 
-top:20px;   /* gap from top */
-left:20px;
-right:20px;
-width:auto;  /* instead of 98% */
-}
+background:#e2dfdf;
+padding:10px;
+border-radius:10px;
 
-.box4 button{
-width:80%;
-margin:10px 0;
-}
-
-/* CATEGORY LINKS */
-.box4d{
-flex-direction:column;
-position:relative;
-top:0;
-}
-
-.link1,.link2,.link3,.link4,.link5{
-margin-left:0;
-font-size:20px;
-}
-
-/* SIDEBAR */
-.box4c{
-width:90%;
-margin:auto;
-margin-top:20px;
-}
-
-/* PRODUCT AREA */
-.box4e{
-position:relative;
-width:95%;
-margin:20px auto;
-height:auto;
-}
-
-/* CART PAGE */
-.box5{
-flex-direction:column;
-height:auto;
-font-size:22px;
-text-align:center;
-top:20px;   /* gap from top */
-left:20px;
-right:20px;
-width:auto;  /* instead of 98% */
+box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
 .backbtn{
-width:80%;
-margin:10px auto;
+padding:10px 20px;
+border-radius:20px;
+border:2px solid royalblue;
+background:white;
+cursor:pointer;
 }
 
-}
+/* ---------- RESPONSIVE ---------- */
 
-/* Small Mobile (Extra) */
-@media (max-width: 480px){
-
-.text1, .text2{
-font-size:20px;
-}
-
-.text1a, .text2a{
-font-size:22px;
-}
-
-.lg,.sg{
-height:40px;
-font-size:14px;
-}
-
-#log,#sign,#signup{
-height:40px;
-font-size:14px;
-}
-
-}
-/* Default (desktop) */
-body{
-padding:30px;
-}
-
-/* Tablet */
-@media (max-width:1024px){
-body{
-padding:20px;
-}
-}
-
-/* Mobile */
 @media (max-width:768px){
+
 body{
 padding:15px;
 }
+
+/* cartoon */
+.cartoon-box{
+position:static;
+margin-bottom:10px;
 }
 
-/* Small mobile */
-@media (max-width:480px){
-body{
-padding:10px;
+/* form */
+#loginForm,#signupForm{
+max-width:100%;
 }
+
+/* header */
+.box4,.box5{
+flex-direction:column;
+gap:10px;
+}
+
+/* product layout */
+.box4c,.box4e{
+width:100%;
+}
+
 }
