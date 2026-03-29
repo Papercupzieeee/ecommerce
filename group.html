@@ -126,7 +126,7 @@ async function loadGroup(){
         }
 
         const group = data.group;
-        currentGroup = group; // ⭐ IMPORTANT
+        currentGroup = group;
 
         document.getElementById("productName").innerText = group.product_name;
         document.getElementById("originalPrice").innerText = "Original: ₹"+group.product_price;
