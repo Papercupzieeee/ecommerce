@@ -1,648 +1,511 @@
-
-body{
-margin:0;
-padding:20px;   /* 🔥 main fix */
-box-sizing:border-box;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.login-wrapper{
-position:relative;
-width:420px;
-margin:auto;
-margin-top:120px;
-}
-
-/* cartoon position */
-
-.cartoon-box{
-position:absolute;
-top:-130px;      /* login box mela varum */
-right:-40px;    /* konjam side la */
-text-align:center;
-z-index:5;      /* box pinnadi pogama irukum */
-}
-
-/* speech bubble */
-
-.speech{
-background:white;
-padding:5px 10px;
-border-radius:10px;
-font-size:12px;
-margin-bottom:5px;
-animation:floatText 2s infinite;
-position:relative;
-top:-5px;
-
-}
-/* cartoon size */
-
-.cartoon{
-width:40%;
-margin-top:0;
-}
-
-/* waving arm animation */
-
-.wave-arm{
-transform-origin: center ;
-animation:wave 1s infinite;
-}
-
-@keyframes wave{
-0%{transform:rotate(0deg);}
-50%{transform:rotate(-40deg);}
-100%{transform:rotate(0deg);}
-}
-
-/* speech floating */
-
-@keyframes floatText{
-0%{transform:translateY(0);}
-50%{transform:translateY(-5px);}
-100%{transform:translateY(0);}
-}
-
-
-/* ---------- LOGIN PAGE ---------- */
-
-#firstbody{
-background-color: rgb(121, 147, 250);
-
-background-position:center;
-}
-
-#loginForm{
-width:90%;
-max-width:420px;
-margin:auto;
-margin-top:80px;
-padding:30px;
-border-radius:15px;
-font-size:20px;
-
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.3);
-backdrop-filter:blur(12px);
-
-box-shadow:0 8px 20px rgba(0,0,0,0.2);
-}
-
-
-
-/* INPUT FIELDS */
-
-.lg,.sg{
-margin-bottom:18px;
-height:45px;
-width:100%;
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.6);
-padding-left:15px;
-font-size:16px;
-background:rgba(255,255,255,0.3);
-color:black;
-outline:none;
-box-sizing:border-box;
-transition:0.3s;
-
-}
-.rope {
-    margin-top: 100px;
-}
-.lg:focus,.sg:focus{
-border:1px solid royalblue;
-background:white;
-box-shadow:0 0 6px rgba(65,105,225,0.4);
-}
-::placeholder{
-color:#444;
-}
-
-/* TEXT */
-
-.text1,.text2{
-text-align:center;
-font-size:30px;
-font-weight:bold;
-color:white;
-margin-bottom:10px;
-}
-
-.text1a,.text2a{
-text-align:center;
-color:white;
-font-size: 30px;
-}
-
-/* BUTTONS */
-
-#log,#sign,#signup{
-height:45px;
-width:100%;
-border-radius:25px;
-border:none;
-
-background-color:royalblue;
-color:white;
-color:white;
-font-size:16px;
-font-weight:bold;
-margin-top:20px;
-cursor:pointer;
-transition:0.3s;
-}
-
-#log:hover,#sign:hover,#signup:hover{
-transform:scale(1.05);
-background-color:rgb(30, 55, 131);
-}
-
-
-/* ---------- SIGNUP PAGE ---------- */
- .hanging-rope{
-position:absolute;
-top:0;
-width:3px;
-height:70px;
-background:royalblue;
-transform-origin:top;
-}
-
-.hanging-word{
-position:absolute;
-bottom:-30px;
-left:-40px;
-background:rgb(131,155,255);
-color:#000;
-padding:6px 14px;
-border-radius:8px;
-font-size:13px;
-font-weight:900;
-letter-spacing:1px;
-white-space:nowrap;
-box-shadow:0 4px 10px rgba(0,0,0,0.25);
-}
-
-@keyframes swing1{
-0%{transform:rotate(-8deg);}
-100%{transform:rotate(8deg);}
-}
-
-@keyframes swing2{
-0%{transform:rotate(6deg);}
-100%{transform:rotate(-6deg);}
-}
-
-@keyframes swing3{
-0%{transform:rotate(-5deg);}
-100%{transform:rotate(10deg);}
-}
-
-
-#twobody{
-background-color:rgb(131,155,255);
-
-background-position:center;
-}
-
-#signupForm{
-width:90%;
-max-width:420px;
-margin:auto;
-margin-top:80px;
-padding:30px;
-border-radius:15px;
-font-size:20px;
-
-background:rgba(255,255,255,0.15);
-border:1px solid rgba(255,255,255,0.3);
-backdrop-filter:blur(12px);
-}
-
-
-/* ---------- HOME PAGE ---------- */
-
-#threebody{
-background:linear-gradient(135deg,#6a85f1,#8fa7ff);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
-font-family:Arial;
-}
-
-/* container */
-.homepagebody{
-text-align:center;
-color:white;
-}
-
-/* text animation */
-.text3b{
-font-size:26px;
-opacity:0;
-transform:translateY(30px);
-animation:fadeUp 1s forwards;
-}
-
-.t1{animation-delay:0.3s;}
-.t2{animation-delay:0.8s;}
-.t3{animation-delay:1.3s;}
-
-@keyframes fadeUp{
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* button */
-#startbuybtn{
-margin-top:20px;
-padding:12px 40px;
-font-size:18px;
-border:none;
-border-radius:30px;
-background:#4a66d6;
-color:white;
-cursor:pointer;
-transition:all 0.3s;
-}
-
-/* hover animation */
-#startbuybtn:hover{
-transform:scale(1.1);
-box-shadow:0 0 20px rgba(255,255,255,0.6);
-}
-
-/* floating bubbles background */
-.bubble-bg span{
-position:absolute;
-bottom:-100px;
-width:20px;
-height:20px;
-background:rgba(255,255,255,0.2);
-border-radius:50%;
-animation:float 12s infinite;
-}
-
-.bubble-bg span:nth-child(1){left:10%;animation-duration:10s;}
-.bubble-bg span:nth-child(2){left:25%;animation-duration:14s;}
-.bubble-bg span:nth-child(3){left:40%;animation-duration:12s;}
-.bubble-bg span:nth-child(4){left:60%;animation-duration:16s;}
-.bubble-bg span:nth-child(5){left:75%;animation-duration:11s;}
-.bubble-bg span:nth-child(6){left:90%;animation-duration:15s;}
-
-@keyframes float{
-0%{
-transform:translateY(0);
-opacity:0;
-}
-50%{
-opacity:1;
-}
-100%{
-transform:translateY(-100vh);
-opacity:0;
-}
-}
-
-/* ---------- PRODUCTS PAGE ---------- */
-
-.box4{
-position:fixed;
-top:0;
-display:flex;
-background-color:#e2dfdf;
-width:98%;
-padding:10px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
-}
-
-.box4 button{
-padding:10px 20px;
-margin-left:100px;
-background-color:royalblue;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-font-size:16px;
-height:50px;
-width:30%;
-transition:0.3s;
-}
-
-.box4 button:hover{
-background-color:#45a049;
-}
-
-.text4a{
-color:royalblue;
-font-size:30px;
-margin-top:1px;
-}
-
-#g{
-font-size:40px;
-font-weight:bold;
-font-family:Arial, Helvetica, sans-serif;
-}
-
-.box4c{
-margin-top:100px;
-background-color:#e2dfdf;
-width:22%;
-padding:10px;
-border-radius:10px;
-font-size:20px;
-margin-left:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
-
-.box4d{
-position:absolute;
-top:15%;
-left:10px;
-padding:10px;
-background-color:#e2dfdf;
-border-radius:10px;
-width:100%;
-display:flex;
-gap:20px;
-align-items:center;
-}
-
-.link1,.link2,.link3,.link4,.link5{
-text-decoration:none;
-color:royalblue;
-font-size:30px;
-font-weight:bold;
-margin-left:90px;
-}
-
-.box4e{
-background-color:white;
-height:400px;
-width:75%;
-margin-top:200px;
-position:absolute;
-margin-left:20px;
-font-size:30px;
-}
-
-.frock{
-margin-left:150px;
-}
-
-#details{
-display:inline-block;
-position:absolute;
-margin-left:100px;
-}
-
-
-/* ---------- CART / ORDER HEADER ---------- */
-
-.box5{
-position:fixed;
-top:0;
-display:flex;
-background-color:#e2dfdf;
-height:70px;
-width:98%;
-padding:10px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
-color:royalblue;
-font-size:30px;
-}
-
-.box5c{
-background-color:rgb(20,52,148);
-color:white;
-font-size:20px;
-padding:20px;
-margin-top:100px;
-}
-
-.backbtn{
-height:40px;
-width:20%;
-background-color:#e2dfdf;
-border-radius:20px;
-margin-left:100px;
-font-size:20px;
-font-weight:bold;
-border:2px solid royalblue;
-}
-
-#district{
-height:45px;
-width:100%;
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.6);
-padding-left:10px;
-font-size:16px;
-background:rgba(255,255,255,0.3);
-margin-bottom:18px;
-outline:none;
-}
-#district{
-transition:all 0.3s ease;
-}
-
-#district:focus{
-transform:scale(1.05);
-box-shadow:0 0 10px rgba(255,255,255,0.7);
-}
-/* ===============================
-   RESPONSIVE DESIGN (ALL DEVICES)
-=============================== */
-
-/* Tablets */
-@media (max-width: 1024px){
-
-.login-wrapper{
-width:90%;
-margin-top:100px;
-}
-
-.cartoon-box{
-right:-20px;
-top:-110px;
-}
-
-#loginForm, #signupForm{
-padding:25px;
-}
-
-.box4 button{
-width:40%;
-margin-left:20px;
-}
-
-.box4c{
-width:40%;
-}
-
-.box4e{
-width:90%;
-margin-left:10px;
-}
-
-}
-
-/* Mobile Devices */
-@media (max-width: 768px){
-
-/* LOGIN / SIGNUP */
-.login-wrapper{
-width:95%;
-margin-top:80px;
-}
-
-.cartoon-box{
-position:relative;
-top:0;
-right:0;
-margin-bottom:10px;
-text-align:center;
-}
-
-.cartoon{
-width:80px;
-}
-
-#loginForm, #signupForm{
-width:95%;
-padding:20px;
-font-size:16px;
-}
-
-.text1, .text2{
-font-size:24px;
-}
-
-/* HOME */
-.text3b{
-font-size:20px;
-}
-
-#startbuybtn{
-width:80%;
-}
-
-/* PRODUCTS HEADER */
-.box4{
-flex-direction:column;
-align-items:center;
-
-top:20px;   /* gap from top */
-left:20px;
-right:20px;
-width:auto;  /* instead of 98% */
-}
-
-.box4 button{
-width:80%;
-margin:10px 0;
-}
-
-/* CATEGORY LINKS */
-.box4d{
-flex-direction:column;
-position:relative;
-top:0;
-}
-
-.link1,.link2,.link3,.link4,.link5{
-margin-left:0;
-font-size:20px;
-}
-
-/* SIDEBAR */
-.box4c{
-width:90%;
-margin:auto;
-margin-top:20px;
-}
-
-/* PRODUCT AREA */
-.box4e{
-position:relative;
-width:95%;
-margin:20px auto;
-height:auto;
-}
-
-/* CART PAGE */
-.box5{
-flex-direction:column;
-height:auto;
-font-size:22px;
-text-align:center;
-top:20px;   /* gap from top */
-left:20px;
-right:20px;
-width:auto;  /* instead of 98% */
-}
-
-.backbtn{
-width:80%;
-margin:10px auto;
-}
-
-}
-
-/* Small Mobile (Extra) */
-@media (max-width: 480px){
-
-.text1, .text2{
-font-size:20px;
-}
-
-.text1a, .text2a{
-font-size:22px;
-}
-
-.lg,.sg{
-height:40px;
-font-size:14px;
-}
-
-#log,#sign,#signup{
-height:40px;
-font-size:14px;
-}
-
-}
-/* Default (desktop) */
-body{
-padding:30px;
-}
-
-/* Tablet */
-@media (max-width:1024px){
-body{
-padding:20px;
-}
-}
-
-/* Mobile */
-@media (max-width:768px){
-body{
-padding:15px;
-}
-}
-
-/* Small mobile */
-@media (max-width:480px){
-body{
-padding:10px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --accent: #22d3ee;
+    --glow: rgba(79, 70, 229, 0.4);
+    --bg: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    
+    /* --- Micro Grid Background (15px size) --- */
+    background-image: 
+        linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+    background-size: 15px 15px; /* Size further reduced to 15px */
+    animation: gridMove 25s linear infinite;
+}
+
+@keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 15px 15px; } /* Matches new micro size */
+}
+
+/* --- Floating Kinetic Orbs --- */
+.orb {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--glow), transparent 70%);
+    z-index: -1;
+    filter: blur(100px);
+    animation: orbFloat 15s infinite alternate;
+}
+
+@keyframes orbFloat {
+    0% { transform: translate(-15%, -15%) scale(1); }
+    100% { transform: translate(15%, 15%) scale(1.2); }
+}
+
+/* --- The Main Container --- */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    animation: zoomEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomEntrance {
+    0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+.login-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 60px 45px;
+    border-radius: 40px;
+    width: 440px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Refraction Line Animation */
+.login-panel::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+    100% { left: 100%; }
+}
+
+/* --- Content Reveal Animation --- */
+.main-title, .sub-title, .input-group, #log, .form-footer {
+    opacity: 0;
+    animation: slideRight 0.6s ease-out forwards;
+}
+
+.main-title { 
+    animation-delay: 0.2s; 
+    font-size: 3rem; 
+    color: #ffffff; 
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.sub-title { 
+    animation-delay: 0.3s; 
+    color: var(--accent); 
+    text-align: center; 
+    margin-bottom: 35px; 
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.input-group:nth-child(2) { animation-delay: 0.4s; }
+.input-group:nth-child(3) { animation-delay: 0.5s; }
+#log { animation-delay: 0.6s; }
+.form-footer { animation-delay: 0.7s; }
+
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Inputs --- */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+}
+
+/* --- Buttons --- */
+/* --- Updated Button Section --- */
+
+.btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    position: relative; /* Essential for glow effects */
+    overflow: hidden;   /* Clips the shimmer animation */
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Primary Button: Liquid Shimmer Effect --- */
+.btn-primary {
+    background: #ffffff;
+    color: #0f172a;
+    margin-top: 15px;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(34, 211, 238, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.btn-primary:hover {
+    background: #ffffff;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.3);
+    letter-spacing: 2.5px; /* Slight text expansion */
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+    transition: 0.6s ease-in-out;
+}
+
+/* --- Secondary Button: Neon Border Trace --- */
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 15px rgba(34, 211, 238, 0.2), 
+                0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Active Click Effect for both */
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* --- Optional: Adding an icon-like pulse to text --- */
+.btn span {
+    position: relative;
+    z-index: 1;
+}
+.form-footer p {
+    color: #64748b;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --accent: #22d3ee;
+    --glow: rgba(79, 70, 229, 0.4);
+    --bg: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body#twobody {
+    background-color: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+    
+    /* --- Micro Grid Background (15px) --- */
+    background-image: 
+        linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+    background-size: 15px 15px;
+    animation: gridMove 25s linear infinite;
+}
+
+@keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 15px 15px; }
+}
+
+/* --- Welcome Text Style --- */
+.text2 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 500px;
+    opacity: 0.9;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Form Container (Glassmorphism) --- */
+.form-container {
+    background: var(--panel-bg);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 40px;
+    width: 440px;
+    position: relative;
+    overflow: visible !important; 
+    
+    /* Padding-top ai 160px ah increase panniduvom, apo thaan inputs keela move aagum */
+    padding: 160px 45px 60px 45px; 
+    
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    animation: zoomEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes zoomEntrance {
+    0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* --- Inputs & Select Box --- */
+.sg, #district {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: 0.3s ease;
+    outline: none;
+}
+
+
+/* Select option colors */
+#district option {
+    background: #1e293b;
+    color: white;
+}
+
+.sg:focus, #district:focus {
+    border-color: var(--accent);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+    transform: translateY(-2px);
+}
+
+/* --- Buttons Base --- */
+button {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Signup Button (Primary) --- */
+#signup {
+    background: #ffffff;
+    color: #0f172a;
+    margin-top: 10px;
+}
+
+#signup::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.2), transparent);
+    transition: 0.5s;
+}
+
+#signup:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.3);
+}
+
+#signup:hover::before {
+    left: 100%;
+}
+
+/* --- Login Button (Secondary) --- */
+#log {
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 10px;
+}
+
+#log:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* --- Helper Text --- */
+.text2b {
+    color: #94a3b8;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustment */
+@media (max-width: 480px) {
+    .form-container { padding: 30px 20px; }
+    .text2 { font-size: 0.95rem; }
+}
+/* --- Professional Swinging Logic --- */
+
+.hanging-rope {
+    position: absolute;
+    top: 0; 
+    width: 2px;
+    height: 70px; /* Length reduced to fit panel better */
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    z-index: 5;
+    
+    /* Mukkiyamaana step: Swing top-la irunthu start aaganum */
+    transform-origin: top center; 
+}
+
+/* 3 Different Swing Styles (Natural randomness) */
+@keyframes swing1 {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
+}
+
+@keyframes swing2 {
+    0% { transform: rotate(-12deg); }
+    100% { transform: rotate(12deg); }
+}
+
+@keyframes swing3 {
+    0% { transform: rotate(-6deg); }
+    100% { transform: rotate(6deg); }
+}
+
+/* --- Boards refinement for Smoothness --- */
+.hanging-rope {
+    position: absolute;
+    top: 0; 
+    width: 2px;
+    height: 90px; /* Rope length ah konjam increase pannalam neat ah thongum */
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    z-index: 5;
+    transform-origin: top center;
+    
+    display: block; /* Make sure ropes are active */
+    transform-origin: top center; /* Ropes should swing from the top nail/hook */
+    animation: swingNormal 3s ease-in-out infinite alternate;
+
+}
+
+/* Boards positioning */
+.hanging-word {
+    position: absolute;
+    bottom: -30px; /* Position board at the end of the rope */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(34, 211, 238, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--accent); /* Thin neon cyan border */
+    color: var(--accent);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    white-space: nowrap;
+    text-shadow: 0 0 10px var(--accent); /* Neon glow effect on text */
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.2); /* Soft neon glow around board */
+    letter-spacing: 1px;
+}
+
+/* Hover panna board innum fast-ah aada */
+.hanging-rope:hover {
+    animation-duration: 0.5s !important; /* Fast swinging on hover */
+    cursor: pointer;
+}
+.hanging-word::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
 }

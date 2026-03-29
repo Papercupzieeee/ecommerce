@@ -1,62 +1,50 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupcart - Digital Purchasing World</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <head>
-        <title>Groupcart</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body id="firstbody">
-        
-        
-        <p class="text1">Welcome to Groupcart</p>
-        <p class="text1">Go to your Purchasing World of Groupcart</p> <br>
+</head>
+<body class="dynamic-landing">
 
-         <div class="login-wrapper">
-
-    <!-- Cartoon character -->
-    <div class="cartoon-box">
-        <div class="speech">Hey buddy, Welcome to Groupcart </div>
-
-        <svg class="cartoon" viewBox="0 0 120 120">
-
-            <!-- head -->
-            <circle cx="60" cy="35" r="18" fill="#ffd6a5"/>
-
-            <!-- eyes -->
-            <circle cx="54" cy="32" r="2"/>
-            <circle cx="66" cy="32" r="2"/>
-
-            <!-- smile -->
-            <path d="M54 40 Q60 45 66 40" stroke="black" fill="none"/>
-
-            <!-- body -->
-            <rect x="50" y="52" width="20" height="28" rx="6" fill="#4cc9f0"/>
-
-            <!-- left arm -->
-            <rect x="38" y="55" width="12" height="6" rx="3" fill="#ffd6a5"/>
-
-            <!-- waving arm -->
-            <rect class="wave-arm" x="70" y="55" width="14" height="6" rx="3" fill="#ffd6a5"/>
-
-            <!-- legs -->
-            <rect x="50" y="80" width="8" height="15" fill="#333"/>
-            <rect x="62" y="80" width="8" height="15" fill="#333"/>
-
-        </svg>
+    <div class="animation-container">
+        <div class="glow-orb" id="orb1"></div>
+        <div class="glow-orb" id="orb2"></div>
     </div>
 
+    <div class="quantum-wrapper">
+        <div class="header-section">
+            <h1 class="main-title">Groupcart</h1>
+            <p class="sub-title">Enter Your Purchasing World</p>
+        </div>
 
-        
-        <form id="loginForm">
-            
-            
-            <p class="text1a">Login Here</p> <br>
-            <input class="lg" type="text" id="email" placeholder="Enter Your Email" required="required"> 
-            
-            <input class="lg" type="text" id="password" placeholder="Enter Password" required="required"> <br>
-            <button id="log"  type="submit" value="login">Click to Login</button> <br>
-            <p class="text1b">Don't have an account? Create one</p> <br>
-            <button id="sign" type="button" value="signup" onclick="location.href='signup.html'">Signup here</button>
-        </form>
-        <script src="script.js"></script>
-    </body>
+        <div class="login-panel neon-glow-effect">
+            <div class="card-inner">
+                <form id="loginForm">
+                    
+                    
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="you@quantum.com" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="log">Login to Groupcart</button>
+                    
+                    
+
+                    
+                    <button type="button" class="btn btn-secondary" id="sign" onclick="location.href='signup.html'">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
