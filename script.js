@@ -104,6 +104,8 @@
     }
 
 });
+
+
 const words=[
 "WELCOME",
 "TO",
