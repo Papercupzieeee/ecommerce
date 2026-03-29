@@ -1,10 +1,9 @@
-/* 1. Global Setup & Fonts */
+/* 1. Global Setup */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
 
 :root {
     --primary: #4f46e5;
     --accent: #22d3ee;
-    --glow: rgba(79, 70, 229, 0.4);
     --bg-dark: #0f172a;
     --panel-bg: rgba(30, 41, 59, 0.7);
     --glass-border: rgba(255, 255, 255, 0.15);
@@ -17,7 +16,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* 2. Unified Body Background (Grid & Animation) */
+/* 2. Unified Responsive Body */
 body {
     background-color: var(--bg-dark);
     min-height: 100vh;
@@ -27,6 +26,7 @@ body {
     align-items: center;
     overflow-x: hidden;
     position: relative;
+    padding: 20px; /* Mobile safe-zone */
     background-image: 
         linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
@@ -39,23 +39,7 @@ body {
     to { background-position: 20px 20px; }
 }
 
-/* 3. Common Animations */
-@keyframes zoomEntrance {
-    0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
-    100% { opacity: 1; transform: scale(1); filter: blur(0); }
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes swingNormal {
-    0% { transform: rotate(-6deg); }
-    100% { transform: rotate(6deg); }
-}
-
-/* 4. Responsive Containers */
+/* 3. Responsive Containers (Login, Signup, Home) */
 .login-panel, .form-container, .homepagebody {
     position: relative;
     z-index: 10;
@@ -64,19 +48,24 @@ body {
     border: 1px solid var(--glass-border);
     border-radius: 40px;
     width: 440px;
-    max-width: 92%; /* Essential for mobile */
-    padding: 60px 45px;
+    max-width: 100%; /* Adapts to screen width */
+    padding: 50px 40px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
     animation: zoomEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Signup specific padding to avoid hanging words overlap */
+/* Specific Fix for Signup Hanging Words */
 .form-container {
-    padding-top: 160px; 
+    padding-top: 170px; 
     overflow: visible !important;
 }
 
-/* 5. Hanging Words & Ropes (Signup Page) */
+@keyframes zoomEntrance {
+    0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* 4. Ropes Swing Animation */
 .hanging-rope {
     position: absolute;
     top: 0;
@@ -85,7 +74,12 @@ body {
     background: linear-gradient(to bottom, var(--accent), transparent);
     z-index: 5;
     transform-origin: top center;
-    animation: swingNormal 3s ease-in-out infinite alternate;
+    animation: swingAction 3s ease-in-out infinite alternate;
+}
+
+@keyframes swingAction {
+    0% { transform: rotate(-7deg); }
+    100% { transform: rotate(7deg); }
 }
 
 .hanging-word {
@@ -93,29 +87,32 @@ body {
     bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(34, 211, 238, 0.1);
+    background: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(10px);
     border: 1px solid var(--accent);
     color: var(--accent);
     padding: 6px 14px;
     border-radius: 8px;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 800;
-    text-shadow: 0 0 10px var(--accent);
+    white-space: nowrap;
     box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
 }
 
-.hanging-word::before {
-    content: '';
-    position: absolute;
-    top: -5px; left: 50%;
-    transform: translateX(-50%);
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
+/* 5. Inputs & Forms (Fully Responsive) */
+.input-group {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* 6. Inputs & Selects */
+.input-group label {
+    display: block;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
 .form-input, .sg, #district {
     width: 100%;
     padding: 14px 18px;
@@ -124,102 +121,84 @@ body {
     border-radius: 14px;
     color: #ffffff;
     font-size: 1rem;
-    margin-bottom: 20px;
     transition: 0.3s ease;
     outline: none;
 }
 
 .form-input:focus, .sg:focus, #district:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
 }
 
-/* 7. Buttons (Unified Style) */
-.btn, #startbuybtn, button {
+/* 6. Unified Elite Buttons */
+button, .btn, #startbuybtn, #signup, #log {
     width: 100%;
     padding: 16px;
-    border-radius: 50px;
+    border-radius: 15px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     cursor: pointer;
     transition: all 0.4s ease;
     border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
+    font-size: 0.9rem;
 }
 
-/* Primary style (White) */
-.btn-primary, #signup, #startbuybtn {
+/* Primary style (White/Cyan) */
+#signup, #startbuybtn, .btn-primary {
     background: #ffffff;
     color: #0f172a;
-    margin-top: 10px;
 }
 
-.btn-primary:hover, #signup:hover, #startbuybtn:hover {
-    transform: translateY(-3px);
+#signup:hover, #startbuybtn:hover, .btn-primary:hover {
     background: var(--accent);
-    box-shadow: 0 15px 30px rgba(34, 211, 238, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(34, 211, 238, 0.3);
 }
 
-/* Secondary style (Ghost) */
-.btn-secondary, #log {
+/* Secondary style (Transparent/Glass) */
+#log, .btn-secondary {
     background: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
-/* 8. Home Page Specifics */
-.homepagebody {
-    max-width: 800px;
-    width: auto;
-    text-align: center;
+#log:hover, .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
 }
 
-.t1 { font-size: 3rem; font-weight: 800; color: #fff; margin-bottom: 15px; }
-.t2, .t3 { color: #cbd5e1; margin-bottom: 20px; }
+/* 7. Typography (Login/Home) */
+.main-title { font-size: 2.5rem; color: #fff; text-align: center; font-weight: 800; margin-bottom: 5px; }
+.sub-title { color: var(--accent); text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
+.t1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; }
 
-/* 9. MOBILE RESPONSIVENESS (The Fix) */
+/* 8. MOBILE FIXES (The Critical Part) */
 @media (max-width: 480px) {
+    body { padding: 15px; }
+
     .login-panel, .form-container, .homepagebody {
-        padding: 40px 20px;
+        padding: 35px 25px; /* Compact padding for small screens */
         border-radius: 30px;
     }
 
-    /* Extra top space for signup boards on mobile */
     .form-container {
-        padding-top: 180px; 
+        padding-top: 180px; /* More space for ropes in mobile */
     }
 
     .hanging-rope {
-        height: 65px; /* Shorter ropes for smaller screens */
+        height: 70px; /* Slightly shorter ropes for mobile height */
     }
 
     .hanging-word {
-        font-size: 0.55rem;
-        padding: 4px 8px;
+        font-size: 0.6rem;
+        padding: 5px 10px;
     }
 
-    .t1 { font-size: 2rem; }
-    .main-title { font-size: 2.2rem; }
-}
-
-/* 10. Background Bubbles (Home Page) */
-.bubble-bg span {
-    position: absolute;
-    bottom: -100px;
-    background: radial-gradient(circle, var(--accent), transparent 70%);
-    border-radius: 50%;
-    opacity: 0.1;
-    filter: blur(40px);
-    animation: floatUp 20s infinite linear;
-    z-index: 1;
-}
-
-@keyframes floatUp {
-    from { transform: translateY(0); }
-    to { transform: translateY(-120vh); }
+    .main-title { font-size: 1.8rem; }
+    .t1 { font-size: 2.2rem; }
+    
+    button, .btn { padding: 14px; font-size: 0.8rem; }
 }
