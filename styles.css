@@ -2,14 +2,8 @@
 
 body{
 margin:0;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-
-background:linear-gradient(135deg,#6a85f1,#8fa7ff);
-
+padding:20px;   /* 🔥 main fix */
+box-sizing:border-box;
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
