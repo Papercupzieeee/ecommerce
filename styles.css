@@ -32,6 +32,7 @@ body {
         linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
     animation: gridMove 25s linear infinite;
+    min-height: 100dvh;
 }
 
 @keyframes gridMove {
@@ -201,4 +202,59 @@ button, .btn, #startbuybtn, #signup, #log {
     .t1 { font-size: 2.2rem; }
     
     button, .btn { padding: 14px; font-size: 0.8rem; }
+}
+/* 🔥 PERFECT MOBILE FIX */
+@media (max-width: 480px) {
+
+    body {
+        padding: 10px;
+        justify-content: flex-start; /* 🔥 top align */
+    }
+
+    .quantum-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .login-panel {
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 20px; /* 🔥 reduce padding */
+        border-radius: 25px;
+        margin-top: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .form-input {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    button, .btn {
+        padding: 12px;
+        font-size: 0.8rem;
+    }
+
+    .main-title {
+        font-size: 1.6rem;
+    }
+
+    .sub-title {
+        font-size: 0.8rem;
+    }
+
+    /* 🔥 IMPORTANT: disable ropes in mobile */
+    .hanging-rope {
+        display: none;
+    }
 }
