@@ -208,43 +208,33 @@ button, .btn, #startbuybtn, #signup, #log {
 
     body {
         padding: 10px;
-        justify-content: flex-start; /* 🔥 top align */
+        justify-content: flex-start;
     }
 
-    .quantum-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .header-section {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .login-panel {
+    .form-container {
         width: 100%;
         max-width: 100%;
-        padding: 25px 20px; /* 🔥 reduce padding */
+        padding: 30px 20px;
+        padding-top: 140px; /* 🔥 adjust rope space */
         border-radius: 25px;
-        margin-top: 20px;
     }
 
-    .input-group {
-        margin-bottom: 15px;
+    /* 🔥 Rope optimization (NOT REMOVED) */
+    .hanging-rope {
+        height: 60px; /* shorter rope */
     }
 
-    .form-input {
-        padding: 12px;
-        font-size: 0.9rem;
+    .hanging-word {
+        font-size: 0.55rem;
+        padding: 4px 8px;
     }
 
-    button, .btn {
-        padding: 12px;
-        font-size: 0.8rem;
+    /* 🔥 Reduce number of ropes (optional but clean) */
+    .hanging-rope:nth-child(n+4) {
+        display: none;
     }
 
+    /* Text adjust */
     .main-title {
         font-size: 1.6rem;
     }
@@ -253,8 +243,12 @@ button, .btn, #startbuybtn, #signup, #log {
         font-size: 0.8rem;
     }
 
-    /* 🔥 IMPORTANT: disable ropes in mobile */
+    button, .btn {
+        padding: 12px;
+        font-size: 0.8rem;
+    }
+    
     .hanging-rope {
-        display: none;
+        animation-duration: 5s; /* slow swing */
     }
 }
