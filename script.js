@@ -106,13 +106,7 @@
 });
 
 
-const words=[
-"WELCOME",
-"TO",
-"GROUPCART",
-"BEST",
-"DEALS"
-];
+
 
 const container = document.querySelector(".form-container");
 
