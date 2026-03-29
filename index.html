@@ -7,36 +7,56 @@
     <body id="firstbody">
         
         
+        <p class="text1">Welcome to Groupcart</p>
+        <p class="text1">Go to your Purchasing World of Groupcart</p> <br>
+
+         <div class="login-wrapper">
+
+    <!-- Cartoon character -->
+    <div class="cartoon-box">
+        <div class="speech">Hey buddy, Welcome to Groupcart </div>
+
+        <svg class="cartoon" viewBox="0 0 120 120">
+
+            <!-- head -->
+            <circle cx="60" cy="35" r="18" fill="#ffd6a5"/>
+
+            <!-- eyes -->
+            <circle cx="54" cy="32" r="2"/>
+            <circle cx="66" cy="32" r="2"/>
+
+            <!-- smile -->
+            <path d="M54 40 Q60 45 66 40" stroke="black" fill="none"/>
+
+            <!-- body -->
+            <rect x="50" y="52" width="20" height="28" rx="6" fill="#4cc9f0"/>
+
+            <!-- left arm -->
+            <rect x="38" y="55" width="12" height="6" rx="3" fill="#ffd6a5"/>
+
+            <!-- waving arm -->
+            <rect class="wave-arm" x="70" y="55" width="14" height="6" rx="3" fill="#ffd6a5"/>
+
+            <!-- legs -->
+            <rect x="50" y="80" width="8" height="15" fill="#333"/>
+            <rect x="62" y="80" width="8" height="15" fill="#333"/>
+
+        </svg>
+    </div>
+
+
         
-         
-        
-        <body>
-<!-- FLOATING PARTICLES -->
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-
-<!-- FORM CARD -->
-<div class="login-wrapper">
-  <div class="text1">Welcome Back!</div>
-
-  <div class="input-group">
-    <input type="text" placeholder=" " required>
-    <label>Email / Mobile</label>
-  </div>
-
-  <div class="input-group">
-    <input type="password" placeholder=" " required>
-    <label>Password</label>
-  </div>
-
-  <button id="log">Login</button>
-
-  <div class="switch-text">
-    New here? <a href="signup.html">Create Account</a>
-  </div>
-</div>
-</body>
+        <form id="loginForm">
+            
+            
+            <p class="text1a">Login Here</p> <br>
+            <input class="lg" type="text" id="email" placeholder="Enter Your Email" required="required"> 
+            
+            <input class="lg" type="text" id="password" placeholder="Enter Password" required="required"> <br>
+            <button id="log"  type="submit" value="login">Click to Login</button> <br>
+            <p class="text1b">Don't have an account? Create one</p> <br>
+            <button id="sign" type="button" value="signup" onclick="location.href='signup.html'">Signup here</button>
+        </form>
         <script src="script.js"></script>
     </body>
 </html>
