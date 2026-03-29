@@ -509,3 +509,162 @@ button {
     background: var(--accent);
     border-radius: 50%;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --accent: #22d3ee;
+    --bg-dark: #0f172a;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body#threebody {
+    background-color: var(--bg-dark);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    
+    /* Subtle Micro Grid background to match other pages */
+    background-image: 
+        linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* --- Animated Floating Bubbles --- */
+.bubble-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bubble-bg span {
+    position: absolute;
+    bottom: -100px;
+    background: radial-gradient(circle, var(--accent), transparent 70%);
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(40px);
+    animation: floatUp infinite linear;
+}
+
+/* Creating different sizes and speeds for spans */
+.bubble-bg span:nth-child(1) { width: 300px; height: 300px; left: 10%; animation-duration: 15s; }
+.bubble-bg span:nth-child(2) { width: 150px; height: 150px; left: 40%; animation-duration: 20s; animation-delay: 2s; }
+.bubble-bg span:nth-child(3) { width: 400px; height: 400px; left: 70%; animation-duration: 25s; animation-delay: 5s; }
+.bubble-bg span:nth-child(4) { width: 200px; height: 200px; left: 85%; animation-duration: 18s; }
+.bubble-bg span:nth-child(5) { width: 250px; height: 250px; left: 25%; animation-duration: 22s; animation-delay: 3s; }
+.bubble-bg span:nth-child(6) { width: 350px; height: 350px; left: 55%; animation-duration: 30s; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+    50% { opacity: 0.2; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- Homepage Content Box --- */
+.homepagebody {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 800px;
+    padding: 60px 40px;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    animation: revealIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealIn {
+    from { opacity: 0; transform: scale(0.9) translateY(30px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Text Animations --- */
+.text3b {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.t1 { 
+    font-size: 3.5rem; 
+    font-weight: 800; 
+    letter-spacing: -2px; 
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 50%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation-delay: 0.3s;
+}
+
+.t2 { 
+    font-size: 1.2rem; 
+    color: #cbd5e1; 
+    margin-bottom: 10px;
+    animation-delay: 0.5s;
+}
+
+.t3 { 
+    font-size: 1.1rem; 
+    color: var(--accent); 
+    font-weight: 500;
+    margin-bottom: 40px;
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Start Buy Button (Elite Style) --- */
+#startbuybtn {
+    padding: 18px 45px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    background: #ffffff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 1s forwards;
+    text-decoration: none;
+}
+
+#startbuybtn:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: var(--accent);
+    box-shadow: 0 20px 40px rgba(34, 211, 238, 0.4);
+}
+
+#startbuybtn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .t1 { font-size: 2.2rem; }
+    .t2, .t3 { font-size: 1rem; }
+    .homepagebody { padding: 40px 20px; width: 90%; }
+}
