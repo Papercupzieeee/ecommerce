@@ -1,189 +1,175 @@
-/* 🌈 BACKGROUND */
+/* --- Flipkart Style Group Buy --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --fk-blue: #2874f0;
+    --fk-orange: #fb641b;
+    --fk-green: #388e3c;
+    --fk-bg: #f1f3f6;
+    --fk-text: #212121;
+}
+
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #1a1f71, #6a11cb, #2575fc);
-  color: white;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--fk-bg);
+    color: var(--fk-text);
 }
 
 /* 🔝 TOP BAR */
 .top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(10px);
-  flex-wrap: wrap;
+    background-color: var(--fk-blue);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
+.logo { font-size: 18px; font-weight: 700; font-style: italic; }
 
-/* BUTTONS */
 .top-bar button {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.top-bar button:hover {
-  background: rgba(255,255,255,0.3);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 2px;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 /* 📦 CONTAINER */
 .container {
-  text-align: center;
-  margin-top: 30px;
-  padding: 0 15px;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 10px;
 }
 
-/* 🧊 GLASS CARD */
-.container,
+h2 { font-size: 16px; color: #666; text-transform: uppercase; margin-bottom: 10px; }
+
+/* 🧾 GROUP CARD (List View) */
 .group-card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  padding: 20px;
-  margin: 20px auto;
-  width: 100%;
-  max-width: 350px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  animation: fadeIn 0.5s ease;
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
 }
 
-/* ⏱️ TIMER BOX (PROFESSIONAL STYLE) */
-.timer-box {
-  margin: 20px auto;
-  width: 100%;
+.group-card h3 { font-size: 16px; margin: 0 0 8px 0; color: var(--fk-text); }
+.group-card p { margin: 4px 0; font-size: 14px; }
+
+/* ⏱️ MAIN SECTION (Single View) */
+#singleSection {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* TIMER TEXT */
+#productName { font-size: 20px; color: var(--fk-text); margin-bottom: 15px; }
+
+/* 🕒 TIMER DESIGN */
+.circle {
+    background: #fff9e6;
+    border: 2px dashed #ff9f00;
+    padding: 15px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
 #timerText {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff9f00;
 }
 
-/* PROGRESS BAR */
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 10px;
-  overflow: hidden;
+/* PRICE TAGS */
+#originalPrice { 
+    color: #878787; 
+    text-decoration: line-through; 
+    font-size: 16px; 
+    margin-bottom: 5px; 
 }
 
-.progress-fill {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, #ff7eb3, #ff758c);
-  transition: width 1s linear;
+#discountPrice { 
+    color: var(--fk-green); 
+    font-size: 24px; 
+    font-weight: 700; 
+    margin-bottom: 10px; 
 }
 
-/* 🛒 BUTTON */
-button {
-  background: linear-gradient(135deg, #ff7eb3, #ff758c);
-  border: none;
-  padding: 10px 18px;
-  border-radius: 25px;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: bold;
-  margin-top: 10px;
+#members {
+    background: #e8f5e9;
+    color: var(--fk-green);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(255, 118, 140, 0.6);
+/* 🛒 JOIN BUTTON */
+#joinBtn {
+    background: var(--fk-orange);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-button:disabled {
-  background: gray;
-  cursor: not-allowed;
-}
+#joinBtn:disabled { background: #ccc; cursor: not-allowed; }
 
-/* 🎉 POPUP */
+/* 🎉 POPUP (Flipkart Style) */
 .popup-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center; align-items: center;
+    z-index: 2000;
 }
 
-/* ✨ POPUP BOX */
 .popup-box {
-  background: white;
-  color: #333;
-  padding: 25px;
-  border-radius: 18px;
-  text-align: center;
-  width: 90%;
-  max-width: 320px;
-  animation: popupZoom 0.4s ease;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    width: 85%;
+    max-width: 350px;
 }
 
-.popup-box h2 {
-  color: #6a11cb;
-}
-
-/* BUTTON GROUP */
-.btn-group {
-  margin-top: 15px;
-}
+.popup-box h2 { color: var(--fk-green); font-size: 22px; text-transform: none; }
+.popup-box .sub-text { color: #666; margin-bottom: 20px; }
 
 .checkout-btn {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: var(--fk-orange);
+    color: white; border: none;
+    padding: 12px 25px; border-radius: 2px;
+    font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 10px;
 }
 
 .close-btn {
-  background: #ff4d4d;
-}
-
-/* 🧾 GROUP CARD */
-.group-card h3 {
-  margin-bottom: 10px;
-}
-
-/* 🎊 ANIMATIONS */
-@keyframes popupZoom {
-  from { transform: scale(0.7); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px);}
-  to { opacity: 1; transform: translateY(0);}
+    background: none; border: none; color: #878787;
+    font-weight: 500; cursor: pointer;
 }
 
 /* 📱 MOBILE RESPONSIVE */
 @media(max-width:600px){
-
-  .top-bar{
-    flex-direction: column;
-    gap:10px;
-  }
-
-  .container,
-  .group-card{
-    width: 95%;
-  }
-
-  #timerText{
-    font-size: 22px;
-  }
-
+    .container { width: 95%; }
+    #timerText { font-size: 26px; }
 }

@@ -14,7 +14,7 @@
   <div class="popup-box">
     <h2>Congrats!</h2>
     <p class="main-text">Your Group Buy is Activated!</p>
-    <p class="sub-text">Grab your product at the best price 🛍️</p>
+    <p class="sub-text">Grab your product at the best price </p>
 
     <div class="btn-group">
       <button class="checkout-btn" onclick="goToCheckout()">Checkout</button>
@@ -38,12 +38,24 @@
 <!-- SINGLE GROUP -->
 <div class="container" id="singleSection" style="display:none;">
     <h2 id="productName"></h2>
+    
     <div class="circle">
+        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Hurry! Offer ends in</div>
         <div id="timerText">00:00:00</div>
     </div>
-    <p id="originalPrice"></p>
-    <p id="discountPrice"></p>
+
+    <div class="price-container">
+        <p id="originalPrice"></p>
+        <p id="discountPrice"></p>
+        <p style="color: var(--fk-green); font-size: 14px; font-weight: bold;">(Save 30% with Group Buy!)</p>
+    </div>
+
     <p id="members">Members: 0</p>
+    
+    <div style="font-size: 13px; color: #666; margin-bottom: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+        💡 <b>Note:</b> You need 3 members to unlock this special price.
+    </div>
+
     <button id="joinBtn">Join Group</button>
 </div>
 

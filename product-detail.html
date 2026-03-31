@@ -11,15 +11,18 @@
 
 <!-- HEADER -->
 <div class="box4">
-    <p class="text4a"><span id="g">G</span>roupcart</p>
-    <button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
-    <button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+    <a href="homepage.html" class="text4a">
+        Groupcart <span>Plus ✦</span>
+    </a>
+    <div class="header-btns">
+        <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
+        <button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+    </div>
 </div>
 
-<!-- BACK BUTTON -->
 <div class="back-container">
-    <button class="back-btn" onclick="window.location.href='products.html'">
-        ← Back to Products
+    <button class="back-btn" onclick="history.back()">
+        ← Back
     </button>
 </div>
 

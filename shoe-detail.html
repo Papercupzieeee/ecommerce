@@ -13,16 +13,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body id="fourbody">
 
 <div class="box4">
-<p class="text4a"><span id="g">G</span>roupcart</p>
-<button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
-<button class="cart-btn" onclick="location.href='checkout.html'">Cart</button>
+    <a href="homepage.html" class="text4a">
+        Groupcart <span>Plus ✦</span>
+    </a>
+    <div class="header-btns">
+        <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
+        <button id="logoutbtn" onclick="location.href='login.html'">Logout</button>
+    </div>
 </div>
 
 <div class="back-container">
-<button class="back-btn"
-onclick="window.location.href='shoes.html'">
-← Back to Shoes
-</button>
+    <button class="back-btn" onclick="history.back()">
+        ← Back
+    </button>
 </div>
 
 <div class="detail-container">

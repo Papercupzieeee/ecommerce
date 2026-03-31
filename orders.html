@@ -8,13 +8,24 @@
 <body>
     
 
-<div class="topbar">
-    <h2>Your Orders</h2>
-    <button onclick="location.href='checkout.html'">Go to Cart</button>
+
+
+
+
+<div class="header">
+    <div class="header-content">
+        <a href="products.html" class="logo">Groupcart <span>Plus ✦</span></a>
+        <button class="cart-btn" onclick="location.href='checkout.html'">Go to Cart</button>
+    </div>
 </div>
 
-<div id="ordersContainer"></div>
+<div class="filter-bar">
+    <span>Showing all orders</span>
+    <button onclick="location.reload()">Refresh</button>
+</div>
 
+<div class="container" id="ordersContainer">
+    </div>
 <script>
 const userId = localStorage.getItem("userId");
 const ordersContainer = document.getElementById("ordersContainer");
