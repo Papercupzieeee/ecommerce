@@ -8,13 +8,18 @@
     --fk-green: #388e3c;
 }
 
-body {
+* {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--fk-bg);
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ================= HEADER ================= */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--fk-bg);
+    overflow-x: hidden;
+}
+
 .header {
     background: var(--fk-blue);
     display: flex;
@@ -28,93 +33,293 @@ body {
 }
 
 .logo {
-    color: white; font-weight: 700; font-style: italic; font-size: 18px; text-decoration: none;
-    display: flex; flex-direction: column;
+    color: white; 
+    font-weight: 700; 
+    font-style: italic; 
+    font-size: 18px; 
+    text-decoration: none;
+    display: flex; 
+    flex-direction: column;
 }
-.logo span { color: #ffe500; font-size: 10px; font-weight: 800; margin-top: -3px; }
+
+.logo span { 
+    color: #ffe500; 
+    font-size: 10px; 
+    font-weight: 800; 
+    margin-top: -3px; 
+}
 
 .header-buttons button {
-    background: white; border: none; color: var(--fk-blue);
-    font-weight: 700; font-size: 12px; padding: 5px 12px;
-    border-radius: 2px; cursor: pointer; margin-left: 8px;
+    background: white; 
+    border: none; 
+    color: var(--fk-blue);
+    font-weight: 700; 
+    font-size: 12px; 
+    padding: 5px 12px;
+    border-radius: 2px; 
+    cursor: pointer; 
+    margin-left: 8px;
 }
 
-#logout-btn { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); }
+#logout-btn { 
+    background: transparent; 
+    color: white; 
+    border: 1px solid rgba(255,255,255,0.3); 
+}
 
-/* ================= CONTAINER ================= */
 .container {
+    width: 95%;
     max-width: 800px;
     margin: 10px auto;
 }
 
 .cart-header {
-    background: white; padding: 15px; margin-bottom: 8px;
+    background: white; 
+    padding: 15px; 
+    margin-bottom: 8px;
     border-bottom: 1px solid #e0e0e0;
 }
-.cart-header h2 { margin: 0; font-size: 16px; font-weight: 500; }
 
-/* ================= CART CARD ================= */
-.cart-card {
-    background: white; padding: 20px; margin-bottom: 8px;
-    display: grid;
-    grid-template-columns: 40px 1fr 100px;
-    align-items: start;
-    position: relative;
+.cart-header h2 { 
+    margin: 0; 
+    font-size: 16px; 
+    font-weight: 500; 
 }
 
-.select-item { transform: scale(1.3); cursor: pointer; }
+.cart-card {
+    background: white; 
+    padding: 15px; 
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 10px;
+    align-items: start;
+}
 
-.cart-info b { font-size: 16px; display: block; margin-bottom: 5px; }
+.select-item { 
+    transform: scale(1.2); 
+    cursor: pointer; 
+    margin-top: 5px;
+}
+
+.cart-info b { 
+    font-size: 16px; 
+    display: block; 
+    margin-bottom: 5px; 
+    color: #212121;
+}
 
 .price-box { margin: 8px 0; }
-.current-price { font-size: 18px; font-weight: 700; }
-.old-price { color: #878787; text-decoration: line-through; margin-left: 8px; font-size: 14px; }
-.offer-tag { color: var(--fk-green); font-weight: 700; font-size: 12px; margin-left: 8px; }
+
+.current-price { 
+    font-size: 18px; 
+    font-weight: 700; 
+}
+
+.old-price { 
+    color: #878787; 
+    text-decoration: line-through; 
+    margin-left: 8px; 
+    font-size: 14px; 
+}
+
+.offer-tag { 
+    color: var(--fk-green); 
+    font-weight: 700; 
+    font-size: 12px; 
+    margin-left: 8px; 
+}
 
 .qty {
-    display: flex; align-items: center; gap: 10px; margin-top: 15px;
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-top: 15px;
+    flex-wrap: wrap;
 }
+
 .qty button {
-    width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e0e0e0;
-    background: white; cursor: pointer; font-size: 18px; line-height: 1;
+    width: 28px; 
+    height: 28px; 
+    border-radius: 50%; 
+    border: 1px solid #e0e0e0;
+    background: white; 
+    cursor: pointer; 
+    font-size: 18px;
 }
-.qty span { border: 1px solid #e0e0e0; padding: 2px 15px; font-size: 14px; }
+
+.qty span { 
+    border: 1px solid #e0e0e0; 
+    padding: 2px 12px; 
+    font-size: 14px; 
+}
 
 .remove {
-    background: none; border: none; color: #212121; font-weight: 700;
-    cursor: pointer; text-transform: uppercase; font-size: 14px;
-    margin-top: 15px;
+    background: none; 
+    border: none; 
+    color: #212121; 
+    font-weight: 700;
+    cursor: pointer; 
+    text-transform: uppercase; 
+    font-size: 14px;
 }
-.remove:hover { color: var(--fk-blue); }
 
-/* ================= SUMMARY ================= */
-.summary-card { background: white; padding: 15px; margin-top: 15px; }
-.price-row { display: flex; justify-content: space-between; margin: 10px 0; color: #212121; }
-.price-row.total-row { font-size: 18px; font-weight: 700; border-top: 1px dashed #e0e0e0; padding-top: 15px; }
-.savings-text { color: var(--fk-green); font-weight: 500; font-size: 14px; margin: 10px 0 0 0; }
+.summary-card { 
+    background: white; 
+    padding: 15px; 
+    margin-top: 15px; 
+}
 
-/* ================= ACTIONS ================= */
+.price-row { 
+    display: flex; 
+    justify-content: space-between; 
+    margin: 10px 0; 
+}
+
+.price-row.total-row { 
+    font-size: 18px; 
+    font-weight: 700; 
+    border-top: 1px dashed #e0e0e0; 
+    padding-top: 15px; 
+}
+
+.savings-text { 
+    color: var(--fk-green); 
+    font-weight: 500; 
+    font-size: 14px; 
+}
+
 .actions {
-    position: sticky; bottom: 0; background: white;
-    padding: 12px 15px; display: flex; gap: 10px;
+    position: sticky; 
+    bottom: 0; 
+    background: white;
+    padding: 12px; 
+    display: flex; 
+    gap: 10px;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
 }
 
-.place-all-btn {
-    flex: 1; background: var(--fk-orange); color: white;
-    border: none; padding: 15px; font-weight: 700; cursor: pointer; border-radius: 2px;
+.place-all-btn, .select-order-btn {
+    flex: 1; 
+    color: white;
+    border: none; 
+    padding: 15px 5px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    border-radius: 2px;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
-.select-order-btn {
-    flex: 1; background: var(--fk-yellow); color: white;
-    border: none; padding: 15px; font-weight: 700; cursor: pointer; border-radius: 2px;
-}
+.place-all-btn { background: var(--fk-orange); }
+.select-order-btn { background: var(--fk-yellow); }
 
-.footer-action { text-align: center; margin: 20px 0 100px 0; }
-.orders-link { background: none; border: none; color: var(--fk-blue); font-weight: 700; cursor: pointer; }
-
-/* Mobile */
 @media (max-width: 600px) {
-    .cart-card { grid-template-columns: 30px 1fr; }
-    .qty-container { grid-column: 2; }
+    .container { width: 100%; padding: 0; }
+    .cart-card { padding: 12px; }
+    .actions { padding: 10px; gap: 5px; }
+    .place-all-btn, .select-order-btn { font-size: 12px; padding: 12px 2px; }
+    .qty { gap: 10px; }
+    .remove { font-size: 12px; }
+}
+/* ================= VIEW ORDERS LINK & PAGE ================= */
+
+/* 1. Checkout பக்கத்தில் உள்ள "View Your Orders" லிங்க்-ஐ பட்டனாக மாற்ற */
+.view-orders-container {
+    text-align: center;
+    margin: 20px 0 100px 0;
+    padding: 0 15px;
+}
+
+a[href="orders.html"], .orders-link {
+    display: inline-block;
+    text-decoration: none;
+    background: white;
+    color: var(--fk-blue);
+    padding: 12px 25px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid var(--fk-border);
+    transition: 0.2s;
+}
+
+a[href="orders.html"]:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* 2. Orders Page - ஆர்டர் செய்யப்பட்ட பொருட்கள் பட்டியல் */
+.order-card {
+    background: white;
+    border: 1px solid var(--fk-border);
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.order-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.order-details {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-title {
+    font-size: 14px;
+    color: #212121;
+}
+
+.order-price {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.order-status-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dot-green {
+    width: 10px;
+    height: 10px;
+    background: var(--fk-green);
+    border-radius: 50%;
+}
+
+/* 3. Orders Mobile Responsive */
+@media (max-width: 600px) {
+    .order-card {
+        flex-direction: row;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .order-details {
+        grid-template-columns: 1fr; /* மொபைலில் ஒன்றன் கீழ் ஒன்றாக வரும் */
+        gap: 5px;
+    }
+
+    .order-card img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .order-title {
+        font-size: 13px;
+    }
 }
