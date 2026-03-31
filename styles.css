@@ -319,3 +319,61 @@ body#threebody {
         transform: translateY(0);
     }
 }
+/* ================= FORM BACKGROUND ANIMATION ================= */
+
+/* 1. Body Background - Gradient Movement (ஸ்மூத் கலர் மாற்றம்) */
+body {
+    background: linear-gradient(-45deg, #f1f3f6, #e2e5e9, #ffffff, #f1f3f6);
+    background-size: 400% 400%; /* கிரேடியன்ட் பெரியதாக இருக்க */
+    animation: gradientBG 15s ease infinite; /* 15 நொடிக்கு ஒருமுறை மெதுவாக மாறும் */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* அனிமேஷன் வெளியே போகாமல் இருக்க */
+    position: relative;
+}
+
+/* 2. Floating Orbs - மிதக்கும் வட்டங்கள் (கார்டுக்கு பின்னால்) */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.5; 
+    z-index: -1;
+    filter: blur(50px); 
+}
+
+
+body::before {
+    width: 300px;
+    height: 300px;
+    background: rgba(40, 116, 240, 0.2); /* var(--fk-blue) 20% opacity */
+    top: -50px;
+    left: -50px;
+    animation: floatOrbs 10s ease-in-out infinite alternate;
+}
+
+
+body::after {
+    width: 250px;
+    height: 250px;
+    background: rgba(251, 100, 27, 0.15); /* var(--fk-orange) 15% opacity */
+    bottom: -50px;
+    right: -50px;
+    animation: floatOrbs 12s ease-in-out infinite alternate-reverse;
+}
+
+/* Container Hover Effect - கார்டு லேசாக மிதக்க */
+.quantum-wrapper, .form-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quantum-wrapper:hover, .form-container:hover {
+    transform: translateY(-5px); /* லேசான மிதக்கும் எபெக்ட் */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* ஷேடோவை அதிகரிக்க */
+}
+
+
+
