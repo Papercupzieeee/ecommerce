@@ -1,4 +1,4 @@
-/* Flipkart Style Global Setup */
+/* --- 1. GLOBAL SETUP --- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
@@ -8,28 +8,38 @@
     --fk-border: #e0e0e0;
 }
 
-body {
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* இதுதான் மிக முக்கியம் - பேடிங் கொடுத்தாலும் பாக்ஸ் அளவு மாறாது */
+}
+
+body {
     font-family: 'Roboto', sans-serif;
     background-color: #f1f3f6;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 20px 15px; /* எல்லா டிவைஸிலும் ஓரங்களில் கேப் வர */
 }
 
-/* Main Container */
-.quantum-wrapper, .form-container, .homepagebody, .container {
-    width: 90%;            
-    max-width: 1000px;     
-    margin: 20px auto;     
-    padding: 20px;         
-    box-sizing: border-box; 
+/* --- 2. MAIN CONTAINER --- */
+.quantum-wrapper, .form-container {
+    display: flex;
+    width: 100%;
+    max-width: 750px; /* டெஸ்க்டாப் அகலம் */
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: visible; /* லோகோ வெளியே தெரிய */
+    margin-top: 50px; /* லோகோவுக்கு இடம் கொடுக்க */
+    min-height: 520px;
 }
-/* Left Blue Section */
-.header-section, .left-info {
+
+/* --- 3. LEFT BLUE SECTION --- */
+.left-info, .header-section {
     width: 40%;
     background-color: var(--fk-blue);
     padding: 40px 33px;
@@ -38,53 +48,30 @@ body {
     flex-direction: column;
 }
 
-.main-title {
-    font-size: 28px;
-    font-weight: 500;
-    margin-bottom: 15px;
-}
+.main-title { font-size: 28px; font-weight: 500; margin-bottom: 15px; }
+.sub-title { font-size: 18px; line-height: 1.5; color: #dbdbdb; }
 
-.sub-title {
-    font-size: 18px;
-    line-height: 150%;
-    color: #dbdbdb;
-}
-
-/* Right Side Form Section */
-.login-panel, .card-inner, #signupForm {
+/* --- 4. RIGHT FORM SECTION --- */
+.login-panel, #signupForm {
     width: 60%;
     padding: 40px 35px;
     display: flex;
     flex-direction: column;
 }
 
-/* Input Styles */
-.input-group {
-    margin-bottom: 20px;
-}
-
-label {
-    font-size: 12px;
-    color: var(--fk-text-grey);
-}
-
-.form-input, .sg, #district {
+.form-input {
     width: 100%;
     padding: 12px 0;
     border: none;
     border-bottom: 1px solid var(--fk-border);
     font-size: 16px;
     outline: none;
-    background: transparent;
-    transition: border-color 0.2s;
+    margin-bottom: 25px;
 }
 
-.form-input:focus, .sg:focus {
-    border-bottom-color: var(--fk-blue);
-}
+.form-input:focus { border-bottom: 2px solid var(--fk-blue); }
 
-/* Buttons */
-.btn-primary, #signup {
+.btn-primary {
     background: var(--fk-orange);
     color: white;
     border: none;
@@ -93,198 +80,13 @@ label {
     font-weight: 500;
     font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    margin-top: 30px;
 }
 
-.btn-secondary, #log {
-    background: white;
-    color: var(--fk-blue);
-    border: none;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-}
-
-/* Removing animation extras for clean look */
-.animation-container, .glow-orb { display: none; }
-
-@media (max-width: 600px) {
-    .quantum-wrapper, .homepagebody, .container {
-        width: 92%;        
-        margin: 15px auto;
-        padding: 15px;
-    }
-    .header-section, .left-info { width: 100%; height: 150px; }
-    .login-panel, #signupForm { width: 100%; }
-}
-
-/* --- அனிமேஷன் செக்ஷன் --- */
-
-/* 1. பேஜ் லோட் ஆகும்போது மெதுவாக உள்ளே வர (Fade In Up) */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.quantum-wrapper, .form-container {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-/* 2. லெஃப்ட் சைடு ப்ளூ பேனல் டெக்ஸ்ட் அனிமேஷன் */
-.main-title, .sub-title {
-    animation: fadeInUp 0.8s ease-out both;
-    animation-delay: 0.2s;
-}
-
-/* 3. இன்புட் ஃபீல்டு போக்கஸ் ஆகும்போது ஒரு சின்ன எபெக்ட் */
-.form-input:focus, .sg:focus {
-    border-bottom: 2px solid var(--fk-blue);
-    transition: all 0.3s ease;
-}
-
-/* 4. பட்டன் ஹோவர் (Hover) அனிமேஷன் */
-.btn-primary:hover, #signup:hover {
-    background: #fb641b; /* கொஞ்சம் டார்க் ஆரஞ்சு */
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-}
-
-.btn-secondary:hover, #log:hover {
-    background: #f9f9f9;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-}
-
-/* 5. ஷேக் அனிமேஷன் (தவறான பாஸ்வேர்ட் போட்டால் பயன்படுத்தலாம்) */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-.error-shake {
-    animation: shake 0.3s ease-in-out;
-}
-
-
-.input-group:focus-within label {
-    color: var(--fk-blue);
-    font-weight: 500;
-    transition: 0.3s;
-}
-/* Flipkart Style Logo */
-/* Logo Styling - Corrected Position */
+/* --- 5. BRAND LOGO --- */
 .brand-logo {
     position: absolute;
-    top: -45px; /* கார்டுக்கு மேலே தூக்கி வைக்க */
+    top: -50px;
     left: 0;
-    font-size: 26px;
-    font-weight: 700;
-    font-style: italic;
-    color: var(--fk-blue); /* லோகோ கலர் ப்ளூ */
-    text-decoration: none;
-    display: flex;
-    flex-direction: column; /* Text and Plus vertical-ah vara */
-    line-height: 1;
-}
-
-.brand-logo span {
-    color: #ffe500; /* Plus-க்கு மஞ்சள் நிறம் */
-    font-size: 14px;
-    font-style: italic;
-    font-weight: 800;
-    margin-top: -2px;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-}
-
-/* Container-ல் இந்த மாற்றம் முக்கியம் */
-.quantum-wrapper, .form-container {
-    position: relative; /* லோகோ இதைப் பொறுத்துதான் அமையும் */
-    overflow: visible;  /* இது 'visible' ஆக இருந்தால்தான் மேலே இருக்கும் லோகோ தெரியும் */
-    display: flex;
-    width: 100%;
-    max-width: 750px;
-    height: 520px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    margin-top: 50px; /* லோகோ இடிக்காமல் இருக்க ஒரு கேப் */
-}
-/* Background Animation */
-body {
-    background: linear-gradient(-45deg, #f1f3f6, #e2e5e9, #ffffff);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-
-
-.quantum-wrapper:hover {
-    transform: translateY(-5px); /* லேசான மிதக்கும் எபெக்ட் */
-}
-
-@keyframes slideIn {
-    0% { transform: scale(0.9) translateY(30px); opacity: 0; }
-    100% { transform: scale(1) translateY(0); opacity: 1; }
-}
-
-/* Form Inputs - Smooth Focus */
-.form-input:focus, .sg:focus, #district:focus {
-    border-bottom: 2px solid var(--fk-blue);
-    background: rgba(40, 116, 240, 0.02);
-    transition: 0.3s ease;
-}
-
-/* Button Pulse Animation */
-.btn-primary, #signup {
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-primary:active {
-    transform: scale(0.95);
-}
-
-/* Text Fade-in */
-.main-title, .sub-title {
-    animation: fadeInRight 1s ease-out 0.2s both;
-}
-
-@keyframes fadeInRight {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
-/* லோகோ கார்டுக்கு வெளியே தெரிய இது மிக முக்கியம் */
-.form-container, .quantum-wrapper {
-    position: relative;
-    overflow: visible !important; 
-    margin-top: 60px; /* லோகோ வர மேல இடம் கொடுக்கும் */
-}
-
-/* லோகோ ஸ்டைல் */
-.brand-logo {
-    position: absolute;
-    top: -50px; 
-    left: 0;
-    z-index: 100;
     font-size: 24px;
     font-weight: 700;
     font-style: italic;
@@ -294,36 +96,70 @@ body {
     flex-direction: column;
     line-height: 1;
 }
+.brand-logo span { color: #ffe500; font-size: 12px; margin-top: 2px; }
 
-.brand-logo span {
-    color: #ffe500;
-    font-size: 12px;
-    font-weight: 800;
-    margin-top: -2px;
+/* --- 6. 📱 MOBILE RESPONSIVE FIX (மிக முக்கியம்) --- */
+
+@media (max-width: 650px) {
+    body {
+        align-items: flex-start; /* மொபைலில் கார்டு மேலிருந்து ஆரம்பிக்க */
+        padding-top: 60px;
+    }
+
+    .quantum-wrapper, .form-container {
+        flex-direction: column; /* ப்ளூ பகுதி மேலே, ஃபார்ம் கீழே வரும் */
+        height: auto; 
+        min-height: auto;
+        width: 100%; /* ஓரங்களில் கேப் 'body padding' மூலம் கிடைக்கும் */
+    }
+
+    .left-info, .header-section {
+        width: 100%;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .login-panel, #signupForm {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .main-title { font-size: 22px; }
+    .sub-title { font-size: 14px; }
+    
+    .brand-logo {
+        left: 5px;
+        top: -45px;
+    }
 }
-/* Flipkart Style Global Setup */
+
+/* --- 1. GLOBAL SETUP --- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
     --fk-blue: #2874f0;
     --fk-orange: #fb641b;
     --fk-text-grey: #878787;
-    --fk-border: #e0e0e0;
+    --fk-dark: #212121;
 }
 
-body {
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f1f3f6; /* Flipkart-ன் அதே பேக்கிரவுண்ட் */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    box-sizing: border-box; /* இதுதான் மிக முக்கியம் - வித் மாறாமல் தடுக்கும் */
 }
 
-/* 1. New Navbar (Header) */
+body#threebody {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f1f3f6; /* Flipkart-ன் அதே பேக்கிரவுண்ட் */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden; /* மொபைலில் சைடு ஸ்க்ரோலிங் வராது */
+}
+
+/* --- 2. FLIPKART STYLE NAVBAR --- */
 .fk-header {
     background-color: var(--fk-blue);
     position: fixed;
@@ -335,6 +171,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 15px; /* ஓரங்களில் ஒட்டாமல் இருக்க */
 }
 
 .fk-logo {
@@ -345,32 +182,33 @@ body {
     font-weight: 700;
     font-size: 20px;
     text-decoration: none;
+    line-height: 1;
 }
 
 .fk-logo span {
     font-size: 11px;
     color: #ffe500;
     font-weight: 800;
-    margin-top: -3px;
-    margin-left: 2px;
+    margin-top: 2px;
 }
 
-/* 2. Homepage Content Container */
+/* --- 3. HOMEPAGE CONTENT CONTAINER --- */
 .homepagebody {
     background: #fff;
     padding: 60px 40px;
     border-radius: 4px;
-    width: 100%;
+    width: 90%; /* எல்லா டிவைஸிலும் 90% வித் எடுக்கும், மீதி 10% கேப் கிடைக்கும் */
     max-width: 900px;
-    margin-top: 80px; /* Navbar-க்கு கீழே இடம் கொடுக்க */
+    margin: 100px auto 40px; /* மேலிருந்து 100px தள்ளி, ஆட்டோமேட்டிக்கா சென்டர் ஆகும் */
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    animation: fadeInUp 0.8s ease-out;
+    animation: fadeInUp 0.8s ease-out; /* மெதுவாக உள்ளே வர */
 }
 
+/* --- 4. TEXT STYLES --- */
 .text3b {
     margin-bottom: 20px;
 }
@@ -378,22 +216,22 @@ body {
 .t1 {
     font-size: 36px;
     font-weight: 500;
-    color: #212121;
+    color: var(--fk-dark);
 }
 
 .t2, .t3 {
     font-size: 18px;
     color: var(--fk-text-grey);
     line-height: 1.5;
-    max-width: 600px;
+    max-width: 650px;
 }
 
-/* 3. Flipkart Style Button */
+/* --- 5. START BUY BUTTON --- */
 #startbuybtn {
     background-color: var(--fk-orange);
     color: #fff;
     border: none;
-    padding: 16px 40px;
+    padding: 16px 50px;
     font-size: 16px;
     font-weight: 500;
     border-radius: 2px;
@@ -401,15 +239,44 @@ body {
     box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
     text-transform: uppercase;
     transition: all 0.2s ease;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 #startbuybtn:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    background-color: #f15d16; /* கொஞ்சம் டார்க் ஆரஞ்சு */
+    background-color: #f15d16;
+    transform: translateY(-1px);
 }
 
-/* Smooth Entrance Animation */
+#startbuybtn:active {
+    transform: translateY(0);
+}
+
+/* --- 6. 📱 MOBILE RESPONSIVE FIX --- */
+@media (max-width: 768px) {
+    .homepagebody {
+        padding: 40px 20px; /* மொபைலில் உள்ளே இருக்கும் கேப் குறையும் */
+        width: 92%; /* ஓரங்களில் இன்னும் கொஞ்சம் கேப் கிடைக்கும் */
+        margin-top: 80px;
+    }
+
+    .t1 {
+        font-size: 26px; /* தலைப்பு மொபைலில் சிறிதாகும் */
+    }
+
+    .t2, .t3 {
+        font-size: 15px;
+        padding: 0 5px;
+    }
+
+    #startbuybtn {
+        width: 100%; /* மொபைலில் பட்டன் முழு அகலம் வரும் */
+        max-width: 300px;
+        padding: 14px 20px;
+    }
+}
+
+/* --- 7. ANIMATION --- */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -419,13 +286,4 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Bubble animation removed for clean look */
-.bubble-bg { display: none; }
-
-@media (max-width: 768px) {
-    .homepagebody { padding: 40px 20px; width: 95%; margin-top: 70px; }
-    .t1 { font-size: 28px; }
-    .t2, .t3 { font-size: 16px; }
 }
