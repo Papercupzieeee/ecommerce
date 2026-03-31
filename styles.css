@@ -59,19 +59,34 @@ body {
     flex-direction: column;
 }
 
-.form-input {
-    width: 100%;
+/* இன்புட் மற்றும் செலக்ட் பாக்ஸ்கள் அலைன்மென்ட் */
+.form-input, #signupForm input, #signupForm select {
+    width: 100%; /* முழு அகலமும் எடுக்கும் */
     padding: 12px 0;
     border: none;
     border-bottom: 1px solid var(--fk-border);
     font-size: 16px;
     outline: none;
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* ஒவ்வொரு இன்புட்டுக்கும் நடுவுல கேப் */
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
 }
 
-.form-input:focus { border-bottom: 2px solid var(--fk-blue); }
+/* செலக்ட் பாக்ஸ் (Select District) மட்டும் கொஞ்சம் ஸ்பெஷல் ஸ்டைல் */
+#signupForm select {
+    padding: 10px 5px;
+    color: var(--fk-text-grey);
+    cursor: pointer;
+}
 
-.btn-primary {
+/* போக்கஸ் பண்ணும்போது ப்ளூ கலர் கோடு வரும் */
+.form-input:focus, #signupForm input:focus, #signupForm select:focus {
+    border-bottom: 2px solid var(--fk-blue);
+    transition: 0.2s ease;
+}
+
+/* பட்டன் ஸ்டைல் - அலைன்மென்ட் சரி செய்யப்பட்டது */
+.btn-primary, #signupForm button, .login-panel button {
     background: var(--fk-orange);
     color: white;
     border: none;
@@ -80,8 +95,25 @@ body {
     font-weight: 500;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    width: 100%; /* பட்டன் முழு அகலமும் வரும் */
+    margin-top: 10px;
+    text-transform: uppercase;
 }
 
+/* லிங்க் ஸ்டைல் (Existing User? Login) */
+.btn-secondary, #signupForm a, .login-panel a {
+    text-align: center;
+    text-decoration: none;
+    color: var(--fk-blue);
+    font-weight: 500;
+    margin-top: 20px;
+    font-size: 14px;
+    display: block; /* சென்டர் ஆக இது உதவும் */
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: #fff;
+}
 /* --- 5. BRAND LOGO --- */
 .brand-logo {
     position: absolute;
