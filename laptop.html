@@ -1,77 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Laptops</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="products.css">
+    <meta charset="UTF-8">
+    <title>Laptops - Groupcart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products.css">
 </head>
 
 <body id="fourbody">
 
 <div class="box4">
-<p class="text4a"><span id="g">G</span>roupcart</p>
-
-<div class="header-btns">
-    <button id="logoutbtn" onclick="logout()">Logout</button>
-    <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
-    <button id="myGroupBtn" onclick="openMyGroup()">👥 My Group</button>
-</div>
+    <a href="homepage.html" class="text4a">
+        Groupcart <span>Plus ✦</span>
+    </a>
+    <div class="header-btns">
+        <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
+        <button id="myGroupBtn" onclick="openMyGroup()" style="display:none;">👥 Groups</button>
+        <button id="logoutbtn" onclick="logout()">Logout</button>
+    </div>
 </div>
 
 <div class="box4d">
-<a class="link1" href="products.html">Women's wear</a>
-<a class="link2" href="toy.html">Toys</a>
-<a class="link3" href="shoes.html">Shoes</a>
-<a class="link4" href="laptop.html">Laptops</a>
+    <a href="products.html">Women</a>
+    <a href="toy.html">Toys</a>
+    <a href="shoes.html">Shoes</a>
+    <a href="laptop.html" style="color: #2874f0; border-bottom: 2px solid #2874f0;">Laptops</a>
 </div>
 
 <div class="products-container">
 
-<!-- DELL -->
-<div class="product-card">
-<div class="discount-ribbon" id="offer-200"></div>
-<a href="laptop-detail.html?product=laptop">
-<img src="laptop1.jpg" class="product-img">
-</a>
-<p class="product-name">DELL Laptop</p>
-<p id="price-200">
-<span class="original-price">₹59999</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(200,'DELL Laptop')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(200,'DELL Laptop')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <a href="laptop-detail.html?product=laptop">
+            <img src="laptop1.jpg" class="product-img">
+        </a>
+        <p class="product-name">DELL Inspiron Intel Core i5</p>
+        <div class="price-section">
+            <p id="price-200">
+                <span class="final-price"></span>
+                <span class="original-price">₹59999</span>
+            </p>
+            <div class="discount-ribbon" id="offer-200"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(200,'DELL Laptop')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(200,'DELL Laptop')">Group Buy</button>
+    </div>
 
-<!-- SAMSUNG -->
-<div class="product-card">
-<div class="discount-ribbon" id="offer-216"></div>
-<a href="laptop-detail.html?product=samsung">
-<img src="el1.jpg" class="product-img">
-</a>
-<p class="product-name">Samsung A30s</p>
-<p id="price-216">
-<span class="original-price">₹1999</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(216,'Samsung A30s')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(216,'Samsung A30s')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <a href="laptop-detail.html?product=samsung">
+            <img src="el1.jpg" class="product-img">
+        </a>
+        <p class="product-name">Samsung Galaxy A30s (Prism)</p>
+        <div class="price-section">
+            <p id="price-216">
+                <span class="final-price"></span>
+                <span class="original-price">₹19999</span>
+            </p>
+            <div class="discount-ribbon" id="offer-216"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(216,'Samsung A30s')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(216,'Samsung A30s')">Group Buy</button>
+    </div>
 
-<!-- FAN -->
-<div class="product-card">
-<div class="discount-ribbon" id="offer-217"></div>
-<a href="laptop-detail.html?product=fan">
-<img src="fan1.jpg" class="product-img">
-</a>
-<p class="product-name">Usha Fan</p>
-<p id="price-217">
-<span class="original-price">₹1499</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(217,'Usha Fan')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(217,'Usha Fan')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <a href="laptop-detail.html?product=fan">
+            <img src="fan1.jpg" class="product-img">
+        </a>
+        <p class="product-name">Usha High Speed Tower Fan</p>
+        <div class="price-section">
+            <p id="price-217">
+                <span class="final-price"></span>
+                <span class="original-price">₹1499</span>
+            </p>
+            <div class="discount-ribbon" id="offer-217"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(217,'Usha Fan')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(217,'Usha Fan')">Group Buy</button>
+    </div>
 
 </div>
 

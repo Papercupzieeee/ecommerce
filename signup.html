@@ -1,52 +1,59 @@
-<html>
-<link rel="stylesheet" href="styles.css">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Signup</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupcart - Signup</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body id="twobody">
 
+    <div class="form-container">
+        <div class="brand-logo">
+            Groupcart <span>Plus ✦</span>
+        </div>
+        <div class="left-info">
+            <h1 class="main-title">Looks like you're new here!</h1>
+            <p class="sub-title">Sign up with your details to get started</p>
+        </div>
 
- 
-<form id="signupForm" class="form-container">
+        <form id="signupForm">
+            <div class="input-group">
+                <input class="sg" type="email" id="email" placeholder="Enter your Email" required>
+            </div>
 
+            <div class="input-group">
+                <input class="sg" type="password" id="password" placeholder="Enter your Password" required>
+            </div>
 
+            <div class="input-group">
+                <select id="district" required>
+                    <option value="">Select District</option>
+                    <option value="Coimbatore">Coimbatore</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Madurai">Madurai</option>
+                    <option value="Salem">Salem</option>
+                    <option value="Tiruchirappalli">Tiruchirappalli</option>
+                    <option value="Tirunelveli">Tirunelveli</option>
+                    <option value="Erode">Erode</option>
+                    <option value="Vellore">Vellore</option>
+                    <option value="Thoothukudi">Thoothukudi</option>
+                    <option value="Dindigul">Dindigul</option>
+                    <option value="Karur">Karur</option>
+                    <option value="Ramanathapuram">Ramanathapuram</option>
+                    <option value="Virudhunagar">Virudhunagar</option>
+                </select>
+            </div>
 
-<input class="sg" type="email" id="email" placeholder="Enter your Email" required> <br>
-</div>
-<input class="sg" type="password" id="password" placeholder="Enter your Password" required> <br>
+            <button id="signup" type="submit">Continue</button>
+            
+            <button id="log" type="button" onclick="location.href='index.html'">
+                Existing User? Log in
+            </button>
+        </form>
+    </div>
 
-<select id="district" required>
-<option value="">Select District</option>
-<option value="Coimbatore">Coimbatore</option>
-<option value="Chennai">Chennai</option>
-<option value="Madurai">Madurai</option>
-<option value="Salem">Salem</option>
-<option value="Tiruchirappalli">Tiruchirappalli</option>
-<option value="Tirunelveli">Tirunelveli</option>
-<option value="Erode">Erode</option>
-<option value="Vellore">Vellore</option>
-<option value="Thoothukudi">Thoothukudi</option>
-<option value="Dindigul">Dindigul</option>
-<option value="Karur">Karur</option>
-<option value="Ramanathapuram">Ramanathapuram</option>
-<option value="Virudhunagar">Virudhunagar</option>
-</select>
-
-</div>
-
-<button id="signup" type="submit">Signup</button>
-
-
-<button id="log" type="button" onclick="location.href='index.html'">
-Login here
-</button>
-
-</form>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>

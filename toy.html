@@ -1,127 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Toys</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="products.css">
+    <meta charset="UTF-8">
+    <title>Toys - Groupcart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products.css">
 </head>
 
 <body id="fourbody">
 
 <div class="box4">
-    <p class="text4a"><span id="g">G</span>roupcart</p>
-
+    <a href="homepage.html" class="text4a">
+        Groupcart <span>Plus ✦</span>
+    </a>
     <div class="header-btns">
-        <button id="logoutbtn" onclick="logout()">Logout</button>
         <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
-        <button id="myGroupBtn" onclick="openMyGroup()">👥 My Group</button>
+        <button id="myGroupBtn" onclick="openMyGroup()" style="display:none;">👥 Groups</button>
+        <button id="logoutbtn" onclick="logout()">Logout</button>
     </div>
 </div>
 
 <div class="box4d">
-    <a class="link1" href="products.html">Women's wear</a>
-    <a class="link2" href="toy.html">Toys</a>
-    <a class="link3" href="shoes.html">Shoes</a>
-    <a class="link4" href="laptop.html">Laptops</a>
+    <a href="products.html">Women</a>
+    <a href="toy.html" style="color: #2874f0; border-bottom: 2px solid #2874f0;">Toys</a>
+    <a href="shoes.html">Shoes</a>
+    <a href="laptop.html">Laptops</a>
 </div>
 
 <div class="products-container">
 
-<!-- TRAIN -->
-<div class="product-card">
-    <div class="discount-ribbon" id="offer-205"></div>
+    <div class="product-card">
+        <a href="toy-detail.html?product=train">
+            <img src="train1.jpg" class="product-img">
+        </a>
+        <p class="product-name">Remote Control High Speed Train</p>
+        
+        <div class="price-section">
+            <p id="price-205">
+                <span class="final-price"></span>
+                <span class="original-price">₹899</span>
+            </p>
+            <div class="discount-ribbon" id="offer-205"></div>
+        </div>
 
-    <a href="toy-detail.html?product=train">
-        <img src="train1.jpg" class="product-img">
-    </a>
+        <button class="cartbtn" onclick="addToCart(205,'Remote Train')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(205,'Remote Train')">Group Buy</button>
+    </div>
 
-    <p class="product-name">Remote Train</p>
+    <div class="product-card">
+        <a href="toy-detail.html?product=water">
+            <img src="watergun1.jpg" class="product-img">
+        </a>
+        <p class="product-name">Water Gun Super Soaker</p>
+        
+        <div class="price-section">
+            <p id="price-206">
+                <span class="final-price"></span>
+                <span class="original-price">₹499</span>
+            </p>
+            <div class="discount-ribbon" id="offer-206"></div>
+        </div>
 
-    <p id="price-205">
-        <span class="original-price">₹899</span>
-        <span class="final-price"></span>
-    </p>
+        <button class="cartbtn" onclick="addToCart(206,'Water Gun')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(206,'Water Gun')">Group Buy</button>
+    </div>
 
-    <button class="cartbtn" onclick="addToCart(205,'Remote Train')">Add to Cart</button>
-    <button class="groupbuy" onclick="goToGroupBuyByData(205,'Remote Train')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <a href="toy-detail.html?product=pine">
+            <img src="pine1.jpg" class="product-img">
+        </a>
+        <p class="product-name">Pine Sponge Soft Toy</p>
+        
+        <div class="price-section">
+            <p id="price-207">
+                <span class="final-price"></span>
+                <span class="original-price">₹99</span>
+            </p>
+            <div class="discount-ribbon" id="offer-207"></div>
+        </div>
 
-<!-- WATER GUN -->
-<div class="product-card">
-    <div class="discount-ribbon" id="offer-206"></div>
+        <button class="cartbtn" onclick="addToCart(207,'Pine Sponge')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(207,'Pine Sponge')">Group Buy</button>
+    </div>
 
-    <a href="toy-detail.html?product=water">
-        <img src="watergun1.jpg" class="product-img">
-    </a>
+    <div class="product-card">
+        <a href="toy-detail.html?product=iron">
+            <img src="iron1.jpg" class="product-img">
+        </a>
+        <p class="product-name">Ironman Action Figure</p>
+        
+        <div class="price-section">
+            <p id="price-208">
+                <span class="final-price"></span>
+                <span class="original-price">₹199</span>
+            </p>
+            <div class="discount-ribbon" id="offer-208"></div>
+        </div>
 
-    <p class="product-name">Water Gun</p>
-
-    <p id="price-206">
-        <span class="original-price">₹499</span>
-        <span class="final-price"></span>
-    </p>
-
-    <button class="cartbtn" onclick="addToCart(206,'Water Gun')">Add to Cart</button>
-    <button class="groupbuy" onclick="goToGroupBuyByData(206,'Water Gun')">GroupBuy</button>
-</div>
-
-<!-- PINE SPONGE -->
-<div class="product-card">
-    <div class="discount-ribbon" id="offer-207"></div>
-
-    <a href="toy-detail.html?product=pine">
-        <img src="pine1.jpg" class="product-img">
-    </a>
-
-    <p class="product-name">Pine Sponge</p>
-
-    <p id="price-207">
-        <span class="original-price">₹99</span>
-        <span class="final-price"></span>
-    </p>
-
-    <button class="cartbtn" onclick="addToCart(207,'Pine Sponge')">Add to Cart</button>
-    <button class="groupbuy" onclick="goToGroupBuyByData(207,'Pine Sponge')">GroupBuy</button>
-</div>
-
-<!-- IRONMAN -->
-<div class="product-card">
-    <div class="discount-ribbon" id="offer-208"></div>
-
-    <a href="toy-detail.html?product=iron">
-        <img src="iron1.jpg" class="product-img">
-    </a>
-
-    <p class="product-name">Ironman Toy</p>
-
-    <p id="price-208">
-        <span class="original-price">₹199</span>
-        <span class="final-price"></span>
-    </p>
-
-    <button class="cartbtn" onclick="addToCart(208,'Ironman Toy')">Add to Cart</button>
-    <button class="groupbuy" onclick="goToGroupBuyByData(208,'Ironman Toy')">GroupBuy</button>
-</div>
-
-<!-- TEDDY -->
-<div class="product-card">
-    <div class="discount-ribbon" id="offer-209"></div>
-
-    <a href="toy-detail.html?product=teddy">
-        <img src="teddy1.jpg" class="product-img">
-    </a>
-
-    <p class="product-name">Teddy</p>
-
-    <p id="price-209">
-        <span class="original-price">₹199</span>
-        <span class="final-price"></span>
-    </p>
-
-    <button class="cartbtn" onclick="addToCart(209,'Teddy')">Add to Cart</button>
-    <button class="groupbuy" onclick="goToGroupBuyByData(209,'Teddy')">GroupBuy</button>
-</div>
+        <button class="cartbtn" onclick="addToCart(208,'Ironman Toy')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(208,'Ironman Toy')">Group Buy</button>
+    </div>
 
 </div>
 

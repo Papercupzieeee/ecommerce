@@ -75,25 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ---------- ANIMATION FIX ----------
-    const words = ["WELCOME", "TO", "GROUPCART", "BEST", "DEALS"];
-    const container = document.querySelector(".form-container");
-
-    if (container) {
-        words.forEach((word, i) => {
-            let rope = document.createElement("div");
-            rope.className = "hanging-rope";
-
-            let board = document.createElement("div");
-            board.className = "hanging-word";
-            board.innerText = word;
-
-            rope.appendChild(board);
-            rope.style.left = (20 + (i * 15)) + "%";
-            rope.style.animation = `swing${(i % 3) + 1} ${3 + i * 0.5}s ease-in-out infinite alternate`;
-
-            container.appendChild(rope);
-        });
-    }
+    
 
 });

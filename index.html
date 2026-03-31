@@ -3,49 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupcart - Digital Purchasing World</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Groupcart - Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dynamic-landing">
 
-    <div class="animation-container">
-        <div class="glow-orb" id="orb1"></div>
-        <div class="glow-orb" id="orb2"></div>
-    </div>
+<body>
+
+    
 
     <div class="quantum-wrapper">
+        <div class="brand-logo">
+            Groupcart <span>Plus ✦</span>
+        </div>
         <div class="header-section">
-            <h1 class="main-title">Groupcart</h1>
-            <p class="sub-title">Enter Your Purchasing World</p>
+            <h1 class="main-title">Login</h1>
+            <p class="sub-title">Get access to your Orders, Wishlist and Recommendations</p>
         </div>
 
-        <div class="login-panel neon-glow-effect">
-            <div class="card-inner">
-                <form id="loginForm">
-                    
-                    
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-input" placeholder="you@quantum.com" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" id="log">Login to Groupcart</button>
-                    
-                    
-
-                    
-                    <button type="button" class="btn btn-secondary" id="sign" onclick="location.href='signup.html'">Create Account</button>
-                </form>
-            </div>
+        <div class="login-panel">
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter Email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="log">Login</button>
+                
+                <p style="text-align:center; color:#878787; font-size:14px; margin-top:20px;">OR</p>
+                
+                <button type="button" class="btn btn-secondary" id="sign" onclick="location.href='signup.html'">New to Groupcart? Create Account</button>
+            </form>
         </div>
     </div>
-<script src="script.js"></script>
-</body>
 
+    <script src="script.js"></script>
+</body>
 </html>

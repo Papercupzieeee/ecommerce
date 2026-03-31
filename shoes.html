@@ -1,105 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Shoes</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="products.css">
+    <meta charset="UTF-8">
+    <title>Shoes - Groupcart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products.css">
 </head>
 
 <body id="fourbody">
 
 <div class="box4">
-<p class="text4a"><span id="g">G</span>roupcart</p>
-
-<div class="header-btns">
-    <button id="logoutbtn" onclick="logout()">Logout</button>
-    <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
-    <button id="myGroupBtn" onclick="openMyGroup()">👥 My Group</button>
-</div>
+    <a href="homepage.html" class="text4a">
+        Groupcart <span>Plus ✦</span>
+    </a>
+    <div class="header-btns">
+        <button class="cart-btn" onclick="location.href='checkout.html'">🛒 Cart</button>
+        <button id="myGroupBtn" onclick="openMyGroup()" style="display:none;">👥 Groups</button>
+        <button id="logoutbtn" onclick="logout()">Logout</button>
+    </div>
 </div>
 
 <div class="box4d">
-<a class="link1" href="products.html">Women's wear</a>
-<a class="link2" href="toy.html">Toys</a>
-<a class="link3" href="shoes.html">Shoes</a>
-<a class="link4" href="laptop.html">Laptops</a>
+    <a href="products.html">Women</a>
+    <a href="toy.html">Toys</a>
+    <a href="shoes.html" style="color: #2874f0; border-bottom: 2px solid #2874f0;">Shoes</a>
+    <a href="laptop.html">Laptops</a>
 </div>
 
 <div class="products-container">
 
-<!-- SHOES -->
-<div class="product-card">
-<div class="discount-ribbon" id="offer-210"></div>
-<img src="bshoe1.jpg" class="product-img">
-<p class="product-name">Nike Running Shoes</p>
-<p id="price-210">
-<span class="original-price">₹2999</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(210,'Nike Running Shoes')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(210,'Nike Running Shoes')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <img src="bshoe1.jpg" class="product-img">
+        <p class="product-name">Nike Running Shoes - Men</p>
+        <div class="price-section">
+            <p id="price-210">
+                <span class="final-price"></span>
+                <span class="original-price">₹2999</span>
+            </p>
+            <div class="discount-ribbon" id="offer-210"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(210,'Nike Running Shoes')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(210,'Nike Running Shoes')">Group Buy</button>
+    </div>
 
-<div class="product-card">
-<div class="discount-ribbon" id="offer-211"></div>
-<img src="shoe1.jpg" class="product-img">
-<p class="product-name">Princess Shoes</p>
-<p id="price-211">
-<span class="original-price">₹799</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(211,'Princess Shoes')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(211,'Princess Shoes')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <img src="shoe1.jpg" class="product-img">
+        <p class="product-name">Princess Fancy Shoes</p>
+        <div class="price-section">
+            <p id="price-211">
+                <span class="final-price"></span>
+                <span class="original-price">₹799</span>
+            </p>
+            <div class="discount-ribbon" id="offer-211"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(211,'Princess Shoes')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(211,'Princess Shoes')">Group Buy</button>
+    </div>
 
-<div class="product-card">
-<div class="discount-ribbon" id="offer-212"></div>
-<img src="arito1.jpg" class="product-img">
-<p class="product-name">Arito baby boy shoe</p>
-<p id="price-212">
-<span class="original-price">₹500</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(212,'Arito baby boy shoe')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(212,'Arito baby boy shoe')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <img src="arito1.jpg" class="product-img">
+        <p class="product-name">Arito Baby Boy Shoe</p>
+        <div class="price-section">
+            <p id="price-212">
+                <span class="final-price"></span>
+                <span class="original-price">₹500</span>
+            </p>
+            <div class="discount-ribbon" id="offer-212"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(212,'Arito baby boy shoe')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(212,'Arito baby boy shoe')">Group Buy</button>
+    </div>
 
-<div class="product-card">
-<div class="discount-ribbon" id="offer-213"></div>
-<img src="drun1.jpg" class="product-img">
-<p class="product-name">Drunky Shoes for Baby</p>
-<p id="price-213">
-<span class="original-price">₹300</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(213,'Drunky Shoes')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(213,'Drunky Shoes')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <img src="drun1.jpg" class="product-img">
+        <p class="product-name">Drunky Shoes for Baby</p>
+        <div class="price-section">
+            <p id="price-213">
+                <span class="final-price"></span>
+                <span class="original-price">₹300</span>
+            </p>
+            <div class="discount-ribbon" id="offer-213"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(213,'Drunky Shoes')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(213,'Drunky Shoes')">Group Buy</button>
+    </div>
 
-<div class="product-card">
-<div class="discount-ribbon" id="offer-214"></div>
-<img src="esito1.jpg" class="product-img">
-<p class="product-name">Esito Baby Shoes</p>
-<p id="price-214">
-<span class="original-price">₹300</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(214,'Esito slippers')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(214,'Esito slippers')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <img src="esito1.jpg" class="product-img">
+        <p class="product-name">Esito Comfort Shoes</p>
+        <div class="price-section">
+            <p id="price-214">
+                <span class="final-price"></span>
+                <span class="original-price">₹300</span>
+            </p>
+            <div class="discount-ribbon" id="offer-214"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(214,'Esito slippers')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(214,'Esito slippers')">Group Buy</button>
+    </div>
 
-<div class="product-card">
-<div class="discount-ribbon" id="offer-215"></div>
-<img src="formal1.jpg" class="product-img">
-<p class="product-name">Formal girls Shoes</p>
-<p id="price-215">
-<span class="original-price">₹900</span>
-<span class="final-price"></span>
-</p>
-<button class="cartbtn" onclick="addToCart(215,'Formal shoes')">Add to Cart</button>
-<button class="groupbuy" onclick="goToGroupBuyByData(215,'Formal shoes')">GroupBuy</button>
-</div>
+    <div class="product-card">
+        <img src="formal1.jpg" class="product-img">
+        <p class="product-name">Formal Girls Party Wear</p>
+        <div class="price-section">
+            <p id="price-215">
+                <span class="final-price"></span>
+                <span class="original-price">₹900</span>
+            </p>
+            <div class="discount-ribbon" id="offer-215"></div>
+        </div>
+        <button class="cartbtn" onclick="addToCart(215,'Formal shoes')">Add to Cart</button>
+        <button class="groupbuy" onclick="goToGroupBuyByData(215,'Formal shoes')">Group Buy</button>
+    </div>
 
 </div>
 
